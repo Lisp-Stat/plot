@@ -10,5 +10,5 @@
 	  ("DATA;**;*.*.*"     ,(merge-pathnames "plot/**/*.*" (uiop:xdg-data-home)))
 	  ("CONFIG;**;*.*.*"   ,(merge-pathnames "plot/**/*.*" (uiop:xdg-config-home))))))
 
-;; Normalise features across implementations
-#+(and (not windows) (or win32 mswindows))(pushnew :windows *features*)
+;; Normalise *features* across implementations
+#+(and (not windows) (or win32 mswindows)) (pushnew :windows *features*)

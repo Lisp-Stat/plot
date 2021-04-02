@@ -4,7 +4,7 @@
 (asdf:defsystem :plot
   :version     (:read-file-form "version.sexp")
   :description "Plots for Common Lisp"
-  :long-description "A plotting system for Common Lisp Statistics"
+  :long-description "A plotting system for Common Lisp"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
   :depends-on (#:lass

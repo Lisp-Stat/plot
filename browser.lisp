@@ -32,7 +32,7 @@
 (defparameter *default-browser-options* nil)
 
 (defun %print-alist (stream data &rest args)
-  (declare (ignore args) 
+  (declare (ignore args)
 	   (special arg-format))
   (destructuring-bind (head . tail) data
     (format stream arg-format head (if (consp tail) (first tail) tail))))
