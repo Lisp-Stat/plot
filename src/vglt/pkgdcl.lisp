@@ -19,6 +19,7 @@
    ;; Convenience wrappers for commonly used plots
    #:bar-chart
    #:pie-chart
+   #:scatter-plot
    ))
 
 

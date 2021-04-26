@@ -32,12 +32,6 @@
     (reverse spec)))
 
 
-
-;; See:
-;; https://vega.github.io/vega-lite/examples/arc_pie.html
-;; https://vega.github.io/vega/examples/pie-chart/
-;; https://vega.github.io/vega-lite/examples/layer_arc_label.html
-
 (defun pie-chart (data category count &key (title nil) (description nil))
   "Return a Vega-Lite JSON specification for a pie chart"
   (let ((spec '(("$schema" . "https://vega.github.io/schema/vega-lite/v5.json"))))
@@ -52,6 +46,23 @@
 		      spec))
     (setf spec (acons "view" `(("stroke" "")) spec))
     (reverse spec)))
+
+
+(defun scatter-plot (data x y &key (title nil) (description nil))
+  "Return a Vega-Lite JSON specification for a scatter plot"
+  (let ((spec '(("$schema" . "https://vega.github.io/schema/vega-lite/v5.json"))))
+    (when title (setf spec (acons "title" title spec)))
+    (when description (setf spec (acons "description" description spec)))
+    (if (typep data 'df:data-frame)
+	(setf spec (acons "data" `(("values" . ,(df-to-alist data))) spec))
+	(setf spec (acons "data" data spec)))
+    (setf spec (acons "mark" "point" spec))
+    (setf spec (acons "encoding" `(("x" ("field" . ,x) ("type" . "quantitative"))
+				   ("y" ("field" . ,y) ("type" . "quantitative")))
+		      spec))
+    (reverse spec)))
+
+
 
 #+nil
 (defun publish (spec)
