@@ -30,7 +30,7 @@ including submissions by project members, require review. We use
 GitHub pull requests for this purpose. Consult [GitHub
 Help](https://help.github.com/articles/about-pull-requests/) for more
 information on using pull requests, and the [contributing
-code](www.lisp-stat.dev/docs/contributing/code/) page for more
+code](https://lisp-stat.dev/docs/contributing/code/) page for more
 details.
 
 ## Community Guidelines

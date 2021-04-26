@@ -13,8 +13,9 @@
   (pushnew (cons key value) spec))
 
 
-
+;;;
 ;;; Convenience wrappers for common specifications
+;;;
 
 (defun bar-chart (data x y &key (title nil) (description nil))
   "Return a Vega-Lite JSON specification for a bar chart"
@@ -30,13 +31,27 @@
 		      spec))
     (reverse spec)))
 
-(defun pie-chart (data &key (title nil) (description nil))
-  "Return a Vega-Lite JSON specification for a bar chart"
-  nil)
+
+
+;; See:
 ;; https://vega.github.io/vega-lite/examples/arc_pie.html
 ;; https://vega.github.io/vega/examples/pie-chart/
 ;; https://vega.github.io/vega-lite/examples/layer_arc_label.html
 
+(defun pie-chart (data category count &key (title nil) (description nil))
+  "Return a Vega-Lite JSON specification for a pie chart"
+  (let ((spec '(("$schema" . "https://vega.github.io/schema/vega-lite/v5.json"))))
+    (when title (setf spec (acons "title" title spec)))
+    (when description (setf spec (acons "description" description spec)))
+    (if (typep data 'df:data-frame)
+	(setf spec (acons "data" `(("values" . ,(df-to-alist data))) spec))
+	(setf spec (acons "data" data spec)))
+    (setf spec (acons "mark" "arc" spec))
+    (setf spec (acons "encoding" `(("theta" ("field" . ,count) ("type" . "quantitative"))
+				   ("color" ("field" . ,category) ("type" . "nominal")))
+		      spec))
+    (setf spec (acons "view" `(("stroke" "")) spec))
+    (reverse spec)))
 
 #+nil
 (defun publish (spec)

@@ -66,13 +66,14 @@
 <!-- ABOUT THE PROJECT -->
 ## About the Project
 
-  Plot provides a way to visualise data. It includes functions for
-  text-based plotting that work in the REPL, and JavaScript
-  visualisations that are rendered in a browser.  It is designed as a
-  front end 'grammar', modeled after that _Grammar of Graphics_ and
-  implemented with various back ends.  Currently only Vega-Lite is
-  complete as a backend. It also has an integration with
-  [data-frame](https://github.com/Lisp-Stat/data-frame).
+  The Plot system provides a way to visualise data.  It includes
+  functions for text-based plotting that work in the REPL, and
+  JavaScript visualisations that are rendered in a browser.  It is
+  designed as a front end 'grammar', modeled after that _Grammar of
+  Graphics_ and implemented with various back ends.  Currently only
+  Vega-Lite is complete as a backend.  It is integrated with
+  [data-frame](https://github.com/Lisp-Stat/data-frame), but can also
+  be used independently.
 
 
 ### Built With
@@ -136,7 +137,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the MS-PL License. See [LICENSE](LICENSE) for more infoqrmation.
+Distributed under the MS-PL License. See [LICENSE](LICENSE) for more information.
 
 
 
