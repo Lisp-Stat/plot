@@ -45,6 +45,7 @@
 	       (:file "plots")))
   ;; :in-order-to ((test-op (test-op "plot/tests/vega")))) ;; TODO: Add tests for Vega/JSON functions
 
+#+nil
 (asdf:defsystem :plot/tests
   :description "Unit tests for PLOT."
   :author      "Steve Nunez <steve@symbolics.tech>"
