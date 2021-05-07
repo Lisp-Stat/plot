@@ -1,16 +1,18 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VGLT -*-
 ;;; Copyright (c) 2021 Symbolics Pte. Ltd. All rights reserved.
-(in-package :vglt)
+(in-package #:vglt)
 
-(defun save-plot (spec &key (embed-spec nil) (filespec nil)) ; TODO add filename
+(defun save-plot (spec &key (embed-spec nil) (filespec nil))
   "Saves SPEC as JavaScript and HTML suitable for viewing with a browser into file specified by FILESPEC
 SPEC is a SYMBOL who's value is the lisp specification for the plot. If FILESPEC is not given, SYMBOL-NAME is used for the HTML filename and it is written to the PLOT:CACHE; directory. EMBED-SPEC indicates whether or not to embed the specification into the JavaScript, currently this option is not honored; it will be used when the websockets REPL is implemented.
 Returns the pathname to the file."
 
-  (check-type spec (and symbol (not null)) "a name (SYMBOL) for a Vega-Lite specification")
+  (assert (or (and spec (symbolp spec))
+	      (consp spec)))
   (let ((plot-pathname (make-pathname :host "plot"
 				      :directory "cache"
-				      :name (symbol-name spec)
+				      :name (cond ((symbolp spec) (symbol-name spec))
+						  ((consp spec) (symbol-name (gensym))))
 				      :type "html"))
 	(style (lass:compile-and-write '(html :height 100%
 					 (body :height 100%
@@ -36,11 +38,14 @@ Returns the pathname to the file."
 	  (:div :id "vis")
 	  (:script
 	   "const spec = "
-	   (when embed-spec (yason:encode (symbol-value spec) f))
+	   (when embed-spec
+	     (etypecase spec
+	       (symbol (yason:encode (symbol-value spec) f))
+	       (cons (yason:encode spec f))))
 	   "; vegaEmbed(\"#vis\", spec).then(result => console.log(result)).catch(console.warn);")))))
     plot-pathname))
 
-#+nil
 (defun plot (spec)
-  "Open an interactive plot from the REPL."
-  nil)
+  "Render a Vega-Lite specification, SPEC, after saving it to a file"
+  (plot:plot-from-file (save-plot spec)))
+
