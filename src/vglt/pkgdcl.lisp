@@ -9,17 +9,22 @@
 	  #:dfio.data-column)
   (:export
    #:spec
+   #:add
    #:json-to-data-frame			; Read vega-lite data into df
    #:data-frame-to-json			; Write df data into vega-lite array
    #:df-to-alist                        ; Write df data to alist for further encoding via JSON library
 
    #:plot
    #:save-plot
+   #:vl-to-df
+   #:df-to-vl
 
    ;; Convenience wrappers for commonly used plots
    #:bar-chart
    #:pie-chart
    #:scatter-plot
+   #:histogram
+   #:box-plot
    ))
 
 

@@ -1,10 +1,10 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VGLT -*-
 ;;; Copyright (c) 2021 Symbolics Pte. Ltd. All rights reserved.
-(in-package :vglt)
+(in-package #:vglt)
 
 ;;; Functions for working with Vega-Lite plot specifications
 
-(defun spec (schema) ; currently hard-coded to v5
+(defun spec (&optional schema) ; currently hard-coded to v5
   "Returns an empty Vega-Lite spec with the given schema version"
   `(("$schema" . "https://vega.github.io/schema/vega-lite/v5.json")))
 
@@ -62,7 +62,52 @@
 		      spec))
     (reverse spec)))
 
+;;; This was written as part of the basic tutorial to illustrate
+;;; plotting data from a lisp sequence.  In hindsight, this is not a
+;;; good pattern because if any other layers are added, the data isn't
+;;; present.  By passing the entire data frame to the plotting
+;;; function, we can build up layers as we like.  The original
+;;; function signature is below, commented out.  The final form of the
+;;; function is intended to be used with data frames.  The original
+;;; code is left as an example.
+;;(defun histogram (data &key (column nil) (title nil) (description nil))
+(defun histogram (data column &key (title nil) (description nil))
+  "Return a Vega-Lite JSON specification for a histogram plot"
+  (assert (or (and (typep data 'df:data-frame) column)
+	      (typep data 'sequence))
+	  ()
+	  "If using a DATA-FRAME, a column must be given")
+  (let ((spec '(("$schema" . "https://vega.github.io/schema/vega-lite/v5.json"))))
+    (when title (setf spec (acons "title" title spec)))
+    (when description (setf spec (acons "description" description spec)))
+    (typecase data
+      (df:data-frame (setf spec (acons "data" `(("values" . ,(df-to-alist data))) spec)))
+      (sequence   (setf spec (acons "data" `(("values" . ,(sequence-to-alist data))) spec)))
+      (t (setf spec (acons "data" data spec))))
+    (setf spec (acons "mark" "bar" spec))
+    (etypecase data
+      (df:data-frame (setf spec (acons "encoding" `(("x" ("field" . ,column) ("bin" . t))
+						    ("y" ("aggregate" . "count")))
+				       spec)))
+      (sequence (setf spec (acons "encoding" `(("x" ("field" . "X") ("bin" . t))
+					       ("y" ("aggregate" . "count")))
+				       spec))))
+    (reverse spec)))
 
+(defun box-plot (data x y &key (title nil) (description nil))
+  "Return a Vega-Lite JSON specification for a box plot using min-max extent"
+  (let ((spec '(("$schema" . "https://vega.github.io/schema/vega-lite/v5.json"))))
+    (when title (setf spec (acons "title" title spec)))
+    (when description (setf spec (acons "description" description spec)))
+    (if (typep data 'df:data-frame)
+	(setf spec (acons "data" `(("values" . ,(df-to-alist data))) spec))
+	(setf spec (acons "data" data spec))) ;data is a URL
+    (setf spec (acons "mark" `(("type" . "boxplot") ("extent" . "min-max")) spec))
+    (setf spec (acons "encoding" `(("x" ("field" . ,x) ("type" . "nominal"))
+				   ("color" ("field" . ,x) ("type" . "nominal") ("legend" . nil))
+				   ("y" ("field" . ,y) ("type" . "quantitative") ("scale" ("zero" . yason:false))))
+		      spec))
+    (reverse spec)))
 
 #+nil
 (defun publish (spec)

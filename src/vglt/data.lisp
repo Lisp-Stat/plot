@@ -1,6 +1,6 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VGLT -*-
 ;;; Copyright (c) 2021 Symbolics Pte. Ltd. All rights reserved.
-(in-package :vglt)
+(in-package #:vglt)
 
 ;;; JSON/Vega data manipulation
 
@@ -16,8 +16,8 @@
 	  do (mapc #'data-column-add
 		   data-columns
 		   (mapcar #'princ-to-string
-			   (alexandria:hash-table-values row)))) ; Sigh JSON->number->string to reuse data-column-add
-    (values data-columns (map 'list #'string-to-keyword column-keys))))
+			   (alexandria:hash-table-values row)))) ;Sigh JSON->number->string to reuse data-column-add
+    (values data-columns (map 'list #'string-to-symbol column-keys))))
 
 (defun vl-to-df (stream-or-string)
   "Read a stream of Vega-Lite data into DATA-FRAME
@@ -41,7 +41,6 @@ Used to write Vega-Lite data to disk or network locations.  This is usually done
 	(loop for i below (aops:nrow df)
 	      do (yason:encode-plist (nu:as-plist (select:select df i t))))))))
 
-
 (defun df-to-alist (df)
   "Convert data frame data as Vega style alist matrix
 This is useful when working with a JSON encoder that will take a lisp alist and output a Vega-Lite plot specification."
@@ -51,3 +50,14 @@ This is useful when working with a JSON encoder that will take a lisp alist and 
 		 collecting (cons (symbol-name k) (select:select df i k)) into row
 		 finally (push row lst))
 	finally (return (coerce lst 'vector))))
+
+(defun sequence-to-alist (seq &optional (x "X"))
+  "Convert SEQ to an alist for further conversion by a JSON encoder to Vega-Lite format
+X is the name given to the field in the alist. Defaults to X"
+  (map 'vector
+       #'(lambda (elmt)
+	   (list (cons x elmt)))
+       seq))
+
+
+
