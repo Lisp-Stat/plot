@@ -25,6 +25,8 @@
 
 (in-package :plot/text)
 
+;;; This is very old code. Expect warnings.
+
 ;;; Uses a bunch of specials for communication.
 
 (proclaim '(special *hist-lower-limit*
