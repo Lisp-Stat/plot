@@ -58,7 +58,7 @@
   ;; See note at top of file about proper way to set window attributesc
   (let ((chrome-options (push (cons "user-data-dir"
 				      (merge-pathnames (format nil "chrome-data-~A" (princ-to-string (gensym)))
-						       (translate-logical-pathname #P"PLOT:CACHE;")))
+						       (translate-logical-pathname #P"PLOT:TEMP;")))
 			     options)))
     (encode-application-options chrome-options "--~A=~A")))
 

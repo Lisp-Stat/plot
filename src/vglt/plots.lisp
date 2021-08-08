@@ -10,7 +10,7 @@ Returns the pathname to the file."
   (assert (or (and spec (symbolp spec))
 	      (consp spec)))
   (let ((plot-pathname (make-pathname :host "plot"
-				      :directory "cache"
+				      :directory "temp"
 				      :name (cond ((symbolp spec) (symbol-name spec))
 						  ((consp spec) (symbol-name (gensym))))
 				      :type "html"))

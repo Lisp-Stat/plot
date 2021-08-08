@@ -8,6 +8,7 @@
   (setf (logical-pathname-translations "plot")
 	`(("CACHE;**;*.*.*"    ,(merge-pathnames "plot/**/*.*" (uiop:xdg-cache-home)))
 	  ("DATA;**;*.*.*"     ,(merge-pathnames "plot/**/*.*" (uiop:xdg-data-home)))
+	  ("TEMP;**;*.*.*"     ,(merge-pathnames "plot/**/*.*" (uiop:default-temporary-directory)))
 	  ("CONFIG;**;*.*.*"   ,(merge-pathnames "plot/**/*.*" (uiop:xdg-config-home))))))
 
 ;; Normalise *features* across implementations
