@@ -40,7 +40,7 @@
     (format stream arg-format head (if (consp tail) (first tail) tail))))
 
 (defun encode-application-options (options arg-format)
-  "Turns OPTIONS, an alist, into a command line argument list according to ARG-FORMAT"
+  "Turns OPTIONS, an alist, into a command line argument string according to ARG-FORMAT"
   ;; Chrome arg-format: "--~A=~A"
   ;; Firefox: "-~A ~A"
   (declare (special arg-format))
