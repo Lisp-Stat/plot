@@ -1,30 +1,24 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
 ;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
 
-(uiop:define-package :vglt
+(uiop:define-package #:vglt
     (:use #:cl
 	  #:dfio
 	  #:select
-	  #:let-plus
-	  #:dfio.data-column)
+	  #:let-plus)
+  (:import-from #:dfio #:df-to-alist)
   (:export
    #:spec
    #:add
-   #:json-to-data-frame			; Read vega-lite data into df
-   #:data-frame-to-json			; Write df data into vega-lite array
-   #:df-to-alist                        ; Write df data to alist for further encoding via JSON library
 
    #:plot
    #:save-plot
-   #:vl-to-df
-   #:df-to-vl
 
    ;; Convenience wrappers for commonly used plots
    #:bar-chart
    #:pie-chart
    #:scatter-plot
    #:histogram
-   #:box-plot
-   ))
+   #:box-plot))
 
 

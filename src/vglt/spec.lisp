@@ -4,9 +4,9 @@
 
 ;;; Functions for working with Vega-Lite plot specifications
 
-(defun spec (&optional schema) ; currently hard-coded to v5
+(defun spec (&optional (schema "https://vega.github.io/schema/vega-lite/v5.json"))
   "Returns an empty Vega-Lite spec with the given schema version"
-  `(("$schema" . "https://vega.github.io/schema/vega-lite/v5.json")))
+  `(("$schema" . ,schema)))
 
 (defun add (spec key value)
   "Adds the given KEY / VALUE pair to the Vega-Lite specification"
