@@ -43,6 +43,7 @@
   :serial t
   :pathname    "src/vglt/"
   :components ((:file "pkgdcl")
+	       (:file "vega-data")
 	       (:file "data")
 	       (:file "spec")
 	       (:file "plots")))
