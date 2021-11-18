@@ -21,10 +21,10 @@
 ;;;
 (defparameter *browser-commands*
   (list (cons :chrome #+windows "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-		      #+macos "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+		      #+(or macos darwin) "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 		      #+linux "chrome")	;See https://unix.stackexchange.com/questions/436835/universal-path-for-chrome-on-nix-systems
 	(cons :firefox #+windows "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
-		       #+macos "/Applications/Firefox.app/Contents/MacOS/firefox"
+		       #+(or macos darwin) "/Applications/Firefox.app/Contents/MacOS/firefox"
 		       #+linux "firefox")
 	(cons :default #+windows "explorer"
 		       #+(or macos darwin) "open"
