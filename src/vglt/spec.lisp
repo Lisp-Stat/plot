@@ -73,7 +73,8 @@
 ;;(defun histogram (data &key (column nil) (title nil) (description nil))
 (defun histogram (data column &key (title nil) (description nil))
   "Return a Vega-Lite JSON specification for a histogram plot"
-  (assert (or (and (typep data 'df:data-frame) column)
+  (assert (or (and (typep data 'df:data-frame) (or (typep column 'symbol)
+						   (typep column 'string)))
 	      (typep data 'sequence))
 	  ()
 	  "If using a DATA-FRAME, a column must be given")
@@ -86,7 +87,10 @@
       (t (setf spec (acons "data" data spec))))
     (setf spec (acons "mark" "bar" spec))
     (etypecase data
-      (df:data-frame (setf spec (acons "encoding" `(("x" ("field" . ,column) ("bin" . t))
+      (df:data-frame (setf spec (acons "encoding" `(("x" ("field" . ,(if (typep column 'string)
+									 (string-upcase column)
+									 (symbol-name column)))
+							 ("bin" . t))
 						    ("y" ("aggregate" . "count")))
 				       spec)))
       (sequence (setf spec (acons "encoding" `(("x" ("field" . "X") ("bin" . t))

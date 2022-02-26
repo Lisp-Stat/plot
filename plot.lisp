@@ -6,11 +6,12 @@
   "Open plot specification FILESPEC"
   (let ((plot-file (namestring (truename filespec))))
     #+windows (setf plot-file (concatenate 'string "file:///" plot-file))
-    (uiop:launch-program `(,(alexandria:assoc-value plot:*browser-commands* browser)
-			   ,(case browser
-			     (:chrome (if (assoc "app" browser-options :test 'string=)
-					  (setf (cdr (assoc "app" browser-options :test 'string=)) plot-file))
-			      (encode-chrome-options browser-options))
-			     (:default plot-file)))
+    #+(or macos darwin linux) (setf plot-file (concatenate 'string "file://" plot-file))
+    (uiop:launch-program  (append (list (alexandria:assoc-value plot:*browser-commands* browser))
+				  (cl-ppcre:split "\\s+" (case browser
+							   (:chrome (if (assoc "app" browser-options :test 'string=)
+									(setf (cdr (assoc "app" browser-options :test 'string=)) plot-file))
+							    (encode-chrome-options browser-options))
+							   (:default plot-file))))
 			 :ignore-error-status t)))
 
