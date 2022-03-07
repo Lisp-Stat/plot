@@ -9,6 +9,7 @@
   :licence     :MS-PL
   :depends-on ("lass"
 	       "cl-who"
+	       "cl-ppcre"		;browser command line option parsing
 	       "alexandria")
   :serial t
   :components ((:file "pkgdcl")
