@@ -19,7 +19,8 @@ Returns the pathname to the file."
 					       :display flex
 					       :justify-content center
 					   :align-items center))))
-	(yason:*list-encoder* 'yason:encode-alist))
+	(yason:*list-encoder* 'yason:encode-alist)
+	(yason:*symbol-encoder*     'yason:encode-symbol-as-lowercase))
 
     (setf embed-spec t)			; temporary see docstring
     (if filespec			; probably not worth importing when/if-let
