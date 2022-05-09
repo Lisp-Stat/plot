@@ -1,17 +1,17 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: PLOT -*-
 ;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
-(in-package :plot)
+(in-package #:plot)
 
 ;;; Helper functions to launch browers
 
 ;;; Note: This experiment has shown that there is too much variability
 ;;; in browser behaviour to use the command line switches to control
-;;; behaviour. The best solution is to control as much of the browser
+;;; behaviour.  The best solution is to control as much of the browser
 ;;; behaviour in JavaScript, where the behaviour should be the same
 ;;; across platforms.
 
 ;;; Some things, like launching in app mode, must be done at the
-;;; command line and for that you can use what's in this file. It is
+;;; command line and for that you can use what's in this file.  It is
 ;;; for the above reasons that there is an argument encoding function
 ;;; specific to each browser that is selected in the arguments to
 ;;; uiop:launch-program.
@@ -20,15 +20,15 @@
 ;;; Functions and data for all browsers
 ;;;
 (defparameter *browser-commands*
-  (list (cons :chrome #+windows "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+  (list (cons :chrome #+win32 "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
 		      #+(or macos darwin) "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 		      #+linux "chrome")	;See https://unix.stackexchange.com/questions/436835/universal-path-for-chrome-on-nix-systems
-	(cons :firefox #+windows "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
+	(cons :firefox #+win32 "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
 		       #+(or macos darwin) "/Applications/Firefox.app/Contents/MacOS/firefox"
 		       #+linux "firefox")
-	(cons :default #+windows "explorer"
+	(cons :default #+win32 "explorer"
 		       #+(or macos darwin) "open"
-		       #-(or macos darwin windows) "xdg-open")
+		       #-(or macos darwin win32) "xdg-open")
   "Maps browser names to system paths"))
 
 (defparameter *default-browser-options* nil)

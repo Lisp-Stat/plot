@@ -1,23 +1,34 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
-;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (uiop:define-package #:vglt
     (:use #:cl
 	  #:dfio
+	  #:plot
 	  #:select
-	  #:let-plus)
+	  #:let-plus
+	  #:alexandria
+	  #:alexandria+)
   (:import-from #:dfio #:df-to-alist)
+  (:nicknames #:vl)
   (:export
    #:spec
    #:add
 
    #:plot
+   #:defplot
+   #:aesthetics
    #:save-plot
+   #:show-plots
+   #:write-html
+   #:write-spec
+   #:plot-to-device
 
    ;; Convenience wrappers for commonly used plots
    #:bar-chart
    #:pie-chart
    #:scatter-plot
+   #:line-plot
    #:histogram
    #:box-plot
 
