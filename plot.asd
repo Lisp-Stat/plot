@@ -12,6 +12,7 @@
 	       "cl-ppcre"		;browser command line option parsing
 	       "alexandria")
   :serial t
+  :pathname "src/plot/"
   :components ((:file "pkgdcl")
 	       (:file "init")
 	       (:file "browser")
@@ -39,8 +40,8 @@
   :depends-on ("plot"
 	       "quri"
 	       "yason"
-	       "let-plus"
-	       "dfio/json")
+	       "dfio"
+	       "let-plus")
   :serial t
   :pathname    "src/vglt/"
   :components ((:file "pkgdcl")
@@ -48,7 +49,7 @@
 	       (:file "vega-data")
 	       (:file "plot")
 	       (:file "device")
-	       (:file "encode")
+	       (:file "data")
 	       (:file "utilities"))
   :in-order-to ((test-op (test-op "plot/vglt/tests"))))
 
