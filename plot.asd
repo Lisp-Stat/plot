@@ -7,15 +7,16 @@
   :long-description "A plotting system for Common Lisp"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
-  :depends-on ("lass"
-	       "cl-who"
-	       "cl-ppcre"		;browser command line option parsing
-	       "alexandria")
+  :depends-on ("cl-ppcre"		;browser command line option parsing
+	       "alexandria"
+	       "alexandria+"
+	       "array-operations")
   :serial t
   :pathname "src/plot/"
   :components ((:file "pkgdcl")
 	       (:file "init")
 	       (:file "browser")
+	       (:file "plist-aops")	;array operations for plists
 	       (:file "plot")))
 
 (defsystem "plot/text"
@@ -38,6 +39,8 @@
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
   :depends-on ("plot"
+	       "lass"
+	       "cl-who"
 	       "quri"
 	       "yason"
 	       "dfio"
@@ -46,7 +49,7 @@
   :pathname    "src/vglt/"
   :components ((:file "pkgdcl")
 	       (:file "init")
-	       (:file "vega-data")
+	       (:file "vega-datasets")
 	       (:file "plot")
 	       (:file "device")
 	       (:file "data")
