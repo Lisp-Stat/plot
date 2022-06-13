@@ -1,14 +1,14 @@
-;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VGLT -*-
+;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VEGA -*-
 ;;; Copyright (c) 2022 Symbolics Pte. Ltd. All rights reserved.
-(in-package #:vglt)
+(in-package #:vega)
 
 ;;; Plotting utilities
 
 ;;; These are (mostly) generic so you may override their behaviour for
 ;;; use in more advanced plots than those provided by default
-
+#|
 (defgeneric variable-title (v default)
-  ;; Is there a way to use a global default for x&y titles? E.g. vglt:*default-x-title*, vglt:*default-y-title*
+  ;; Is there a way to use a global default for x&y titles? E.g. vega:*default-x-title*, vega:*default-y-title*
   (:documentation
    "Give variable V a title by progressively searching meta data sources.
 
@@ -22,7 +22,12 @@ Finally, in the case of a literal sequence, use DEFAULT")
   (:method ((v sequence) default)
     (format nil ":title ~A" default)))
 
-;; This assumes using a data frame variable.  In the final three-layer architecture, this layer (vglt) only uses Common Lisp types.
+;; According one of the Vega-Lite developers, Ordinal and nominal are
+;; really just categorical data. Sorted categorical data is ordinal.
+;; See: https://github.com/vega/vega-lite/issues/7654 and
+;;      https://github.com/vega/vega-lite/issues/6633
+;; When he says 'sorted', does he mean 'ordered' -- seems so
+;; Integer vector then could be mapped to 'nominal'
 (defun variable-type (v &optional (default "quantitative"))
   "Convert Lisp-Stat variable types to Vega-Lite types"
   (let ((type (get v :type)))
@@ -30,12 +35,14 @@ Finally, in the case of a literal sequence, use DEFAULT")
 				(string       "ordinal")
 				(double-float "quantitative")
 				(single-float "quantitative")
-				(factor       "ordinal")
+				(categorical  "ordinal")
+				(temporal     "temporal")
 				;;	    (integer "quantitative")	;this depends on proper variable meta-data. A integer in a column could be a FACTOR or quantitative variable
 				(bit "ordinal")
 				(null default)
 				(t default))
 		     ))))
+|#
 
 (defun title-description (title description)
   "Set title and description of plot"
@@ -51,10 +58,11 @@ Finally, in the case of a literal sequence, use DEFAULT")
     (if w (setf (getf hw :width) w))
     hw))
 
-
 ;; I would have named this 'encode', but don't want to clash with YASON:ENCODE
 ;; See: https://vega.github.io/vega-lite/docs/encoding.html for the gory complexity that is Vega-Lite encoding
 ;; TODO: account for legend in :color, e.g. :color (:field f :type "nominal" ,@(if legend `(:legend (:title ,legend))))
+;; I think this can go away when we implement yason:encode for data variables, e.g mtcars:horsepower
+#+nil
 (defun aesthetics (plist)
   "Map variables to aesthetics
 Shorthand encodings for Vega-Lite plot specifications. These short-hand versions handle most statistical use cases."
@@ -65,7 +73,7 @@ Shorthand encodings for Vega-Lite plot specifications. These short-hand versions
 		 ;; (:x `(:x (:field ,(string-downcase (symbol-name value)) ,@(variable-type value) ,@(variable-title value "x"))))
 		 (:x `(:x (:field ,value ,@(variable-type value) ,@(variable-title value "x"))))
 		 (:y `(:y (:field ,value ,@(variable-type value) ,@(variable-title value "y"))))
-		 (:color `(:color `(:field ,value ,@(variable-type value))))
+		 (:color `(:color (:field ,value))) ; ,@(variable-type value)))) ;See: https://vega.github.io/vega-lite/docs/scale.html#scheme
 		 (:shape `(:shape `(:field ,value ,@(variable-type value))))
 		  )
       into plot-encoding
@@ -73,7 +81,7 @@ Shorthand encodings for Vega-Lite plot specifications. These short-hand versions
     )
   )
 
-
+;;    (defmacro defprop (symbol value indicator)
 
 ;;;
 ;;; Helpers for specific plot types
@@ -109,7 +117,7 @@ We use a fill pointer, so the y values need not be of equal length."
 
 ;;; This is a slightly odd way to return the data. The reason is that, initially, the line plotting functions had a 2D array as input. That's a useful format to have this kind of data in, so we kept it as optional.
 (defun plot-univariate-functions (x funs &key (as-array nil))
-  "Apply the functions in FUN, a list, to X and return the results in an array suitable to pass to vglt:multi-line-plot"
+  "Apply the functions in FUN, a list, to X and return the results in an array suitable to pass to vega:multi-line-plot"
   (let+ (((&flet gen-vega-rows (fun)
 	    (lambda (x)
 	      `#(,x ,(funcall fun x) ,(string-downcase (symbol-name fun))))))

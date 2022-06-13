@@ -6,8 +6,10 @@
 
 (defclass plot ()
   ((name :initarg :name :initform nil :accessor plot-name)
-   (data :initarg :data :initform nil :accessor plot-data)	;alist of key/column pairs
-   (spec :initarg :spec :initform nil :accessor plot-spec))	;plot specification, lisp format
+   (data :initarg :data :initform nil :accessor plot-data
+	 :documentation "A DATA-FRAME OR PLIST of key/column pairs.  Internally, a PLIST will will be converted to a DATA-FRAME by the rendering functions.  A PLIST can sometimes be more convenient for ad-hoc plotting.")
+   (spec :initarg :spec :initform nil :accessor plot-spec
+	 :documentation "The plot specification in PLIST format.  The PLIST is passed to YASON for encoding to the backend specific JSON.  See the file encode.lisp in the Vega backend for examples of how this is done."))
    (:documentation "Base class for plots"))
 
 (defun make-plot (name &optional data spec)
@@ -16,7 +18,9 @@
 		       :data data
 		       :spec spec))
 
-;;; More specific plots, like Vega-lite, have definitions of print-object. Do we need one at this level?
+;;; More specific plots, like Vega-lite, have definitions of
+;;; print-object. If the plot:plot class is going to be abstract, do
+;;; we need one at this level?
 #+nil
 (defmethod print-object ((p plot) stream)
   (print-unreadable-object (p stream :type t)

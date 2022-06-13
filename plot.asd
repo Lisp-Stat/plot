@@ -6,17 +6,19 @@
   :description "Plots for Common Lisp"
   :long-description "A plotting system for Common Lisp"
   :author      "Steve Nunez <steve@symbolics.tech>"
+  :homepage    "https://lisp-stat.dev/docs/tasks/plotting/"
+  :bug-tracker "https://github.com/Lisp-Stat/plot/issues"
+  :source-control (:git "https://github.com/Lisp-Stat/plot.git")
   :licence     :MS-PL
   :depends-on ("cl-ppcre"		;browser command line option parsing
 	       "alexandria"
 	       "alexandria+"
-	       "array-operations")
+	       "data-frame")
   :serial t
   :pathname "src/plot/"
   :components ((:file "pkgdcl")
 	       (:file "init")
 	       (:file "browser")
-	       (:file "plist-aops")	;array operations for plists
 	       (:file "plot")))
 
 (defsystem "plot/text"
@@ -33,9 +35,9 @@
 		(:file "histogram")
 		(:file "stem-and-leaf")))
 
-(defsystem "plot/vglt"
+(defsystem "plot/vega"
   :version     "2.0"
-  :description "Plotting with vega lite"
+  :description "Plotting with Vega & Vega-Lite"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
   :depends-on ("plot"
@@ -44,26 +46,30 @@
 	       "quri"
 	       "yason"
 	       "dfio"
-	       "let-plus")
+	       "let-plus"
+	       "local-time"
+	       "duologue")
   :serial t
-  :pathname    "src/vglt/"
+  :pathname    "src/vega/"
   :components ((:file "pkgdcl")
 	       (:file "init")
-	       (:file "vega-datasets")
+	       (:file "data")
 	       (:file "plot")
 	       (:file "device")
-	       (:file "data")
-	       (:file "utilities"))
-  :in-order-to ((test-op (test-op "plot/vglt/tests"))))
+	       (:file "encode")
+	       (:file "utilities")
+	       (:file "statistics")
+	       (:file "vega-datasets"))
+  :in-order-to ((test-op (test-op "plot/vega/tests"))))
 
-(defsystem "plot/vglt/tests"
-  :description "Unit tests for Vega Lite plotting"
+(defsystem "plot/vega/tests"
+  :description "Unit tests for Vega plotting"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
-  :depends-on ("plot/vglt" "parachute")
+  :depends-on ("plot/vega" "parachute")
   :serial t
   :pathname "tests/"
   :components ((:file "tstpkg")
-	       (:file "vglt-tests"))
+	       (:file "vega-tests"))
   :perform (test-op (o s)
-  		    (symbol-call :vglt-tests :run-tests)))
+  		    (symbol-call :vega-tests :run-tests)))

@@ -1,16 +1,19 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
 ;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 
-(uiop:define-package #:vglt
+(uiop:define-package #:vega
     (:use #:cl
 	  #:dfio
 	  #:plot
 	  #:select
 	  #:let-plus
 	  #:alexandria
-	  #:alexandria+)
-  (:import-from #:dfio #:df-to-alist)
-  (:nicknames #:vl)
+	  #:alexandria+
+	  #:data-frame)
+  (:import-from #:select #:select)
+  (:import-from #:dfio #:with-input-stream #:data-column #:data-column-add #:data-column-vector)
+  (:local-nicknames (:lt :local-time))
+  (:documentation "A plotting backend for Plot based on Vega. The specification DSL, in PLIST format, is that of Vega-Lite.  The data output representation is Vega.")
   (:export
    #:spec
    #:add
@@ -22,7 +25,12 @@
    #:show-plots
    #:write-html
    #:write-spec
+   #:show-plots				;move to PLOT?
    #:plot-to-device
+
+   ;; Data-frame I/O
+   #:read-vega
+   #:df-to-vl-plist
 
    ;; Convenience wrappers for commonly used plots
    #:bar-chart

@@ -1,6 +1,6 @@
-;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: VGLT -*-
-;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
-(in-package #:vglt)
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: VEGA -*-
+;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
+(in-package #:vega)
 
 (defparameter base-url "http://raw.githubusercontent.com/vega/vega-datasets/master/data/"
   "Base URL for datasets included in Vega")

@@ -1,6 +1,6 @@
-;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: PLOT -*-
+;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: VEGA -*-
 ;;; Copyright (c) 2022 by Symbolics Pte. Ltd. All rights reserved.
-(in-package #:vglt)
+(in-package #:vega)
 
 ;;; A plot DEVICE is a proxy for the streams that have to be
 ;;; written/read to interact with a plot.
@@ -12,7 +12,7 @@
 ;;; specification file, the data and the URL. Here are two examples:
 
 #+nil
-(defparameter vglt-desktop '(:spec-loc #P"~/Desktop/plots/"
+(defparameter vega-desktop '(:spec-loc #P"~/Desktop/plots/"
 			     :data-loc #P"~/Desktop/plots/")
   "Data and specification go in the same directory")
 
@@ -63,7 +63,7 @@
 				      :type "json"
 				      :name (string-downcase (concatenate 'string name "-data")))))
 
-    (vglt::write-spec plot :spec-loc spec-loc :data-url data-url :data-loc data-loc)))
+    (vega:write-spec plot :spec-loc spec-loc :data-url data-url :data-loc data-loc)))
 
 
 
@@ -108,6 +108,6 @@
 (plot-to-device hp-mpg '(:spec-loc #P"~/Desktop/plots/foo.vl.json")) ;embed the data into a spec of the given name
 
 ;; Use pre-defined locations
-(plot-to-device hp-mpg vglt-desktop)
+(plot-to-device hp-mpg vega-desktop)
 (plot-to-device hp-mpg vdsk1)
 |#
