@@ -4,46 +4,6 @@
 
 ;;; Plotting utilities
 
-;;; These are (mostly) generic so you may override their behaviour for
-;;; use in more advanced plots than those provided by default
-#|
-(defgeneric variable-title (v default)
-  ;; Is there a way to use a global default for x&y titles? E.g. vega:*default-x-title*, vega:*default-y-title*
-  (:documentation
-   "Give variable V a title by progressively searching meta data sources.
-
-First we look for a DATA-FRAME column type designator and use that if present
-If not, take the symbol name
-Finally, in the case of a literal sequence, use DEFAULT")
-  (:method ((v symbol) default)
-    `(:title ,(format nil "~A" (if (get v :label)
-				   (get v :label)
-				   (symbol-name v)))))
-  (:method ((v sequence) default)
-    (format nil ":title ~A" default)))
-
-;; According one of the Vega-Lite developers, Ordinal and nominal are
-;; really just categorical data. Sorted categorical data is ordinal.
-;; See: https://github.com/vega/vega-lite/issues/7654 and
-;;      https://github.com/vega/vega-lite/issues/6633
-;; When he says 'sorted', does he mean 'ordered' -- seems so
-;; Integer vector then could be mapped to 'nominal'
-(defun variable-type (v &optional (default "quantitative"))
-  "Convert Lisp-Stat variable types to Vega-Lite types"
-  (let ((type (get v :type)))
-    `(:type ,(format nil "~A" (case type
-				(string       "ordinal")
-				(double-float "quantitative")
-				(single-float "quantitative")
-				(categorical  "ordinal")
-				(temporal     "temporal")
-				;;	    (integer "quantitative")	;this depends on proper variable meta-data. A integer in a column could be a FACTOR or quantitative variable
-				(bit "ordinal")
-				(null default)
-				(t default))
-		     ))))
-|#
-
 (defun title-description (title description)
   "Set title and description of plot"
   (let (td)
@@ -58,35 +18,18 @@ Finally, in the case of a literal sequence, use DEFAULT")
     (if w (setf (getf hw :width) w))
     hw))
 
-;; I would have named this 'encode', but don't want to clash with YASON:ENCODE
-;; See: https://vega.github.io/vega-lite/docs/encoding.html for the gory complexity that is Vega-Lite encoding
-;; TODO: account for legend in :color, e.g. :color (:field f :type "nominal" ,@(if legend `(:legend (:title ,legend))))
-;; I think this can go away when we implement yason:encode for data variables, e.g mtcars:horsepower
-#+nil
-(defun aesthetics (plist)
-  "Map variables to aesthetics
-Shorthand encodings for Vega-Lite plot specifications. These short-hand versions handle most statistical use cases."
-  (assert (typep plist 'list) () "Error ~A is not a plist" plist)
-  (loop
-    for (key value) on plist by #'cddr
-    append (case key
-		 ;; (:x `(:x (:field ,(string-downcase (symbol-name value)) ,@(variable-type value) ,@(variable-title value "x"))))
-		 (:x `(:x (:field ,value ,@(variable-type value) ,@(variable-title value "x"))))
-		 (:y `(:y (:field ,value ,@(variable-type value) ,@(variable-title value "y"))))
-		 (:color `(:color (:field ,value))) ; ,@(variable-type value)))) ;See: https://vega.github.io/vega-lite/docs/scale.html#scheme
-		 (:shape `(:shape `(:field ,value ,@(variable-type value))))
-		  )
-      into plot-encoding
-    finally (return plot-encoding)
-    )
-  )
 
-;;    (defmacro defprop (symbol value indicator)
 
-;;;
+
+;;; General utilities
+
+;; The function that was here was moved.  Placeholder.
+
+
+
 ;;; Helpers for specific plot types
-;;;
 
+#| DEPRECATED - make aops:stack generic and implement a version for data frames.
 
 (defun multi-line-plot-data (d)
   "Transform data, D a plist, into Vega-Lite format for line plotting.
@@ -108,11 +51,11 @@ We use a fill pointer, so the y values need not be of equal length."
 	 (f (make-array len :fill-pointer 0))) ;function
     (loop
       for (key value) on d by #'cddr
-      unless (eq key :x) do
-	(loop for i from 0 to (1- (length value)) do
-	  (progn (vector-push (aref x-values i) x)
-		 (vector-push (aref value i) y)
-		 (vector-push (string-downcase (symbol-name key)) f))))
+      unless (eq key :x)
+	do (loop for i from 0 to (1- (length value))
+		 do (progn (vector-push (aref x-values i) x)
+			   (vector-push (aref value i) y)
+			   (vector-push (string-downcase (symbol-name key)) f))))
     `(:x ,x :y ,y :f ,f)))
 
 ;;; This is a slightly odd way to return the data. The reason is that, initially, the line plotting functions had a 2D array as input. That's a useful format to have this kind of data in, so we kept it as optional.
@@ -130,7 +73,7 @@ We use a fill pointer, so the y values need not be of equal length."
     (if as-array
 	data
 	`(:x ,(select data t 0) :y ,(select data t 1) :f ,(select data t 2)))))
-
+|#
 
 
 

@@ -11,49 +11,36 @@
 ;;; A DEVICE is a plist specifying locations for the Vega
 ;;; specification file, the data and the URL. Here are two examples:
 
-#+nil
-(defparameter vega-desktop '(:spec-loc #P"~/Desktop/plots/"
-			     :data-loc #P"~/Desktop/plots/")
-  "Data and specification go in the same directory")
-
-#+nil
-(defparameter vdsk1 '(:spec-loc #P"~/Desktop/plots/"
-		      :data-loc #P"~/Desktop/plots/data/")
-  "Put data into a data/ subdirectory")
-
-;;; In practice, I define a few of these directories in my lisp init
-;;; file. See the end of this file for some tests/examples.
-
-(defun plot-to-device (plot device)
+(defun plot-to-device (device plot)
   "Wrapper over WRITE-SPEC to make saving plots a bit more convenient."
   (let* ((name (plot-name plot))
-	 (spec-loc (getf device :spec-loc))
+	 (spec-loc (getf device :spec-loc)) ;TODO add alist destructuring to let+
 	 (data-url (getf device :data-url))
 	 (data-loc (getf device :data-loc)))
 
     ;; TODO Sanity check the combinations of keyword parameters
 
     ;; Some heuristics for the data location filename
-    (setf data-url (cond (;; Generate a URL for the data file relative to the spec file location
-			  (and (not data-url) data-loc) (concatenate 'string
-								     (enough-namestring data-loc spec-loc)
-								     (string-downcase name)
-								     "-data.json"))
+    (unless (eql data-url :ignore)
+      (setf data-url (cond (;; Generate a URL for the data file relative to the spec file location
+			    (and (not data-url) data-loc) (concatenate 'string
+								       (enough-namestring data-loc spec-loc)
+								       (string-downcase name)
+								       "-data.json"))
 
-			 (;; Neither data location nor URL given, embed data in the spec
-			  (not (and data-url data-loc)) nil)
+			   (;; Neither data location nor URL given, embed data in the spec
+			    (not (and data-url data-loc)) nil)
 
-			 (;; Location provided. Generate URL relative to spec location.
-			  (and data-url data-loc) (typecase data-url
-						    (string   data-url)
-						    (quri:uri (quri:render-uri data-url))
-						    (pathname (if (uiop:file-pathname-p data-url)
-								  (enough-namestring data-url spec-loc)
-								  (concatenate 'string
-									       (enough-namestring data-url spec-loc)
-									       (string-downcase name)
-									       "-data.json")))))))
-
+			   (;; Location provided. Generate URL relative to spec location.
+			    (and data-url data-loc) (typecase data-url
+						      (string   (concatenate 'string data-url (string-downcase name) "-data.json"))
+						      (quri:uri (quri:render-uri data-url))
+						      (pathname (if (uiop:file-pathname-p data-url)
+								    (enough-namestring data-url spec-loc)
+								    (concatenate 'string
+										 (enough-namestring data-url spec-loc)
+										 (string-downcase name)
+										 "-data.json"))))))))
     (if (uiop:directory-pathname-p spec-loc)
 	(setf spec-loc (make-pathname :directory (pathname-directory spec-loc)
 				      :type "vl.json"
@@ -71,6 +58,37 @@
 ;;;
 ;;; Demonstrate various data/url/spec combinations. These aren't exhaustive, but cover all the common use cases I've encountered
 ;;;
+
+#+nil
+(defparameter vega-desktop '(:spec-loc #P"~/Desktop/plots/"
+			     :data-loc #P"~/Desktop/plots/")
+  "Data and specification go in the same directory")
+
+#+nil
+(defparameter vdsk1 '(:spec-loc #P"~/Desktop/plots/"
+		      :data-loc #P"~/Desktop/plots/data/")
+  "Put data into a data/ subdirectory")
+
+#+nil
+(defparameter vdsk2 '(:spec-loc #P"~/Desktop/plots/"
+		      :data-loc #P"~/Desktop/plots/data/"
+		      :data-url :ignore)
+  "Write specs with data property not at top level")
+
+#+nil
+(defparameter hugo-url '(:spec-loc #P"s:/src/documentation/static/plots/"
+			 :data-loc #P"s:/src/documentation/static/data/"
+			 :data-url "/data/")
+  "Device for most plots deployed to the Lisp-Stat website")
+
+#+nil
+(defparameter hugo-url-2 '(:spec-loc #P"s:/src/documentation/static/plots/"
+			 :data-loc #P"s:/src/documentation/static/data/"
+			 :data-url :ignore)
+  "Device for plots with a data property not at the top level")
+
+;;; In practice, I define a few of these directories in my lisp init
+;;; file. See the end of this file for some tests/examples.
 
 ;(and data-url data-loc)
 (plot-to-device hp-mpg '(;specify the name of the data file

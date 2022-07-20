@@ -5,16 +5,8 @@
 ;;; JSON/Vega-lite serialisation
 
 (defmethod yason:encode ((ts lt:timestamp) &optional (stream *standard-output*))
-  "Encode a timestamp into a Vega dateTime object"
-  (lt:with-decoded-timestamp (:year year :month month :day day :hour hour :minute minute :sec second) ts
-    (yason:with-output (stream)
-      (yason:with-object ()
-	(yason:encode-object-element "year"   year)
-	(yason:encode-object-element "month"  month)
-	(yason:encode-object-element "day"    day)
-	(yason:encode-object-element "hour"   hour)
-	(yason:encode-object-element "minute" minute)
-	(yason:encode-object-element "second" second)))))
+  "Encode a timestamp into an ISO-8601 string"
+  (yason:encode (lt:format-timestring nil ts) stream))
 
 (defmethod yason:encode ((df data-frame) &optional (stream *standard-output*))
   (let ((yason:*symbol-key-encoder* 'yason:encode-symbol-as-lowercase)
@@ -38,91 +30,35 @@ Note: We should have a sentinel property value to indicate a data symbol; we now
 	 ((&plist-r/o (type :type) (unit :unit) (label :label)) (symbol-plist sym)))
     (if (or type unit label)
 	(yason::make-raw-json-output
-	 (yason:with-output-to-string* ()
-	     (yason:with-object ()
-	       (yason:encode-object-element "field" (string-downcase name))
-	       (when type
-		 (check-type type data-type "a valid data variable type")
-		 (yason:encode-object-element "type" (case type
-						       (:string       "ordinal")
-						       (:double-float "quantitative")
-						       (:single-float "quantitative")
-						       (:categorical  "ordinal") ;TODO if multi-level, use 'nominal' & 'sort'
-						       (:temporal     "temporal")
-						       (:integer      "quantitative")
-						       (:bit          "ordinal")
-						       (:null         "ordinal")
-						       (t             "ordinal")))) ;this shouldn't happen
-	       (when label
-		 (yason:encode-object-element "title" label))
-	       (when (and (not label) unit) ;if no label, use unit if it exists
-		 (yason:encode-object-element "title" unit)))))
+	 (yason:with-output-to-string* (:stream-symbol s)
+	   (yason:encode (ps:symbol-to-js-string sym))
+	   (write-char #\, s)
+	   (when type
+	     (check-type type data-type "a valid data variable type")
+	     (yason::encode-key/value "type"
+			       (case type
+				 (:string       "ordinal")
+				 (:double-float "quantitative")
+				 (:single-float "quantitative")
+				 (:categorical  "nominal") ;TODO if sorted, use 'ordinal' once multi-level is in data-frame
+				 (:temporal     "temporal")
+				 (:integer      "quantitative")
+				 (:bit          "nominal")
+				 (:null         "nominal")
+				 (t             "ordinal")) ;this shouldn't happen
+			       s))
+	   (write-char #\, s)
+	   (when label
+	     (yason::encode-key/value "title" label s))
+	   (when (and (not label) unit) ;if no label, use unit if it exists
+	     (yason::encode-key/value "title" unit s))))
 	(progn
 	  (assert (notany #'lower-case-p name))
-	   (string-downcase name)))))
-
-#+nil
-(defun encode-symbol-as-metadata (sym)
-  "Encode a data frame variable name, SYM, with the meta data about that variable
-DATA-FRAME variable names store meta data as symbol properties.
-Note: We should have a sentinal property value to indicate a data symbol; we now just check for a property list."
-  (let+ (meta-data
-	 (name (symbol-name sym))
-	 ((&plist-r/o (type :type) (unit :unit) (label :label)) (symbol-plist sym)))
-    (if (or type unit label)
-	(progn
-	  (push "field" meta-data)
-	  (push (string-downcase name) meta-data)
-	  (when type
-	    (check-type type data-type "a valid data variable type")
-	    (push "type"  meta-data)
-	    (push (case type
-		    (:string       "ordinal")
-		    (:double-float "quantitative")
-		    (:single-float "quantitative")
-		    (:categorical  "ordinal") ;TODO if multi-level, use 'nominal' & 'sort'
-		    (:temporal     "temporal")
-		    (:integer      "quantitative")
-		    (:bit          "ordinal")
-		    (null         "ordinal"))
-		  meta-data))
-	  (when label ;TODO if no label, use unit if it exists
-	    (push "title"  meta-data)
-	    (push label meta-data))
-	(reverse meta-data))
-
-	(progn
-	  (assert (notany #'lower-case-p name))
-	  (string-downcase name)))))
-#+nil
-(defun encode-symbol-as-metadata (sym)
-  "Encode a data frame variable name, SYM, with the meta data about that variable
-DATA-FRAME variable names store meta data as symbol properties.
-Note: We should have a sentinal property value to indicate a data symbol; we now just check for a property list."
-  (let+ ((name (symbol-name sym))
-	 (property-list (symbol-plist sym))
-	 ((&plist-r/o (type :type) (unit :unit) (label :label)) property-list))
-    (declare (ignore unit))
-;;    (format t "Label: ~A" label)
-    (if property-list
-	(yason:with-output (stream)
-	  (yason:with-object ()
-	    (yason:encode-object-element "field" (string-downcase name))
-	    (when type
-	      (yason:encode-object-element "type" (case type
-						    (string       "ordinal")
-						    (double-float "quantitative")
-						    (single-float "quantitative")
-						    (categorical  "ordinal") ;TODO if multi-level, use 'nominal' & 'sort'
-						    (temporal     "temporal")
-						    (integer      "quantitative")
-						    (bit          "ordinal")
-						    (null         "ordinal")))) ;this shouldn't happen
-	    (when label ;TODO if no label, use unit if it exists
-	      (yason:encode-object-element "title" label))))
-
-	)
-    (progn
-      (assert (notany #'lower-case-p name))
-      (string-downcase name))
-    ))
+	  (yason::make-raw-json-output
+	   (yason:with-output-to-string* ()
+	     (cond ((string= name "NA")
+		    (yason:encode nil))
+		   ((string= name "FALSE")
+		    (yason:encode 'yason::false))
+		   (t
+		    (yason:encode (ps:symbol-to-js-string sym))))))))))

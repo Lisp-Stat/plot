@@ -43,5 +43,4 @@ A device could be a webserver, where a PUT operation would write the plot, locat
 									(setf (cdr (assoc "app" browser-options :test 'string=)) plot-file))
 							    (encode-chrome-options browser-options))
 							   (:default plot-file))))
-			 :ignore-error-status t)))
-
+			  :ignore-error-status t)))

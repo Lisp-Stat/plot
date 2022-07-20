@@ -13,9 +13,3 @@
 	  ("DATA;**;*.*.*"     ,(merge-pathnames "plot/**/*.*" (uiop:xdg-data-home)))
 	  ("TEMP;**;*.*.*"     ,(merge-pathnames "plot/**/*.*" (uiop:default-temporary-directory)))
 	  ("CONFIG;**;*.*.*"   ,(merge-pathnames "plot/**/*.*" (uiop:xdg-config-home))))))
-
-;;; From version 2.0, use regular pathnames
-(defparameter *cache*  (uiop:xdg-cache-home))
-(defparameter *data*   (uiop:xdg-data-home))
-(defparameter *temp*   (uiop:default-temporary-directory))
-(defparameter *config* (uiop:xdg-config-home))

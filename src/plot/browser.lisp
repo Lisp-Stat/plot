@@ -7,7 +7,7 @@
 ;;; Note: This experiment has shown that there is too much variability
 ;;; in browser behaviour to use the command line switches to control
 ;;; behaviour.  The best solution is to control as much of the browser
-;;; behaviour in JavaScript, where the behaviour should be the same
+;;; behaviour in JavaScript, where the behaviour should be similar
 ;;; across platforms.
 
 ;;; Some things, like launching in app mode, must be done at the

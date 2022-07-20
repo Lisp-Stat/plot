@@ -4,50 +4,50 @@
 
 ;;; Wrappers for common statistical plots
 
-(defun scatter-plot (data encoding &key (title nil) (description nil) (height nil) (width nil))
-  "Return a scatter plot of X and Y"
+(defun scatter-plot-matrix (data columns &key (title nil) (description nil) (height nil) (width nil))
+  "Return a scatter plot matrix of ROWS and COLUMNS"
   (assert (or (typep data 'df:data-frame)
 	      (typep data 'plist)) () "Error: DATA must be either a PLIST or DATA-FRAME")
-  (check-type encoding plist "a plist")
-  `(,@(title-description title description)
-    ,@(height-width height width)
+
+    (when (typep data 'plist)
+      (setf data (plist-df data)))
+
+  `("$schema" "https://vega.github.io/schema/vega-lite/v5.json"
+    :title ...
+    :repeat (:row     #(,columns)
+	     :columns #(,columns))	;reverse?
+    :description ...
+    :height ...
+    :width ...
     :mark :point
     :data ,data
-    :encoding ,encoding))
-;;    :encoding ,(vega:aesthetics encoding)))
-#+nil
-(defun line-plot (data encoding &key (title nil) (description nil) (height nil) (width nil))
-  "Line plot"
-  `(,@(title-description title description)
-    ,@(height-width height width)
-    :mark :line
-    :data ,data
-    :encoding ,(vega:aesthetics encoding)))
-#+nil
-(defun bar-chart (data encoding &key (title nil) (description nil) (height nil) (width nil))
-  "Return a Vega-Lite JSON specification for a bar chart"
-  `(,@(title-description title description)
-    ,@(height-width height width)
-    :mark :bar
-    :data ,data
-    :encoding ,(vega:aesthetics encoding)))
+))
 
-
-    ;; (setf spec (acons "encoding" `(("x" ("field" . ,x) ("type" . "nominal") ("axis" ("labelAngle" . 0)))
-    ;; 				   ("y" ("field" . ,y) ("type" . "quantitative")))
-    ;; 		      spec))
-
-#+nil
-(defun multi-line-plot (data &key (title nil) (description nil) (legend nil))
-  "Multi-series colored line chart
-Vega expects data in 'long', repeating format.  See function-plot-data and plot-univariate-functions for details."
-;;  (let+ ((#(x y z) data))
-    `(,@(title-description title description)
-      :mark :line
-      :data ,data
-      :encoding (:x (:field x :type "quantitative")
-		 :y (:field y :type "quantitative")
-		 :color (:field f :type "nominal" ,@(if legend `(:legend (:title ,legend))))))
-;;    )
-
-  )
+#| From the plotting examples
+(defparameter vgcars-splom
+ (vega::make-plot "vgcars-splom"
+		  vgcars
+		  `("$schema" "https://vega.github.io/schema/vega-lite/v5.json"
+			:title "Scatterplot Matrix for Vega Cars"
+			:repeat (:row    #(:horsepower :acceleration :miles-per-gallon)
+			         :column #(:miles-per-gallon :acceleration :horsepower))
+			:spec (:data (:url "/data/vgcars-splom-data.json")
+			:mark :point
+			:params #((:name "brush"
+			:select (:type "interval"
+			         :resolve "union"
+					 :on "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!"
+					 :translate "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!"
+					 :zoom "wheel![event.shiftKey]"))
+				    (:name "grid"
+					 :select (:type "interval"
+					 :resolve "global"
+					 :translate "[mousedown[!event.shiftKey], window:mouseup] > window:mousemove!"
+					 :zoom "wheel![!event.shiftKey]")
+					 :bind :scales))
+	        :encoding (:x (:field (:repeat "column") :type "quantitative")
+			           :y (:field (:repeat "row") :type "quantitative" :axis ("minExtent" 30))
+					   :color (:condition (:param "brush" :field :origin :type "nominal")
+					           :value "grey"))))))
+(plot:plot vgcars-splom)
+|#

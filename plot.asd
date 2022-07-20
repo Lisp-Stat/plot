@@ -2,14 +2,17 @@
 ;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (defsystem "plot"
-  :version     "2.0"
-  :description "Plots for Common Lisp"
-  :long-description "A plotting system for Common Lisp"
-  :author      "Steve Nunez <steve@symbolics.tech>"
-  :homepage    "https://lisp-stat.dev/docs/tasks/plotting/"
-  :bug-tracker "https://github.com/Lisp-Stat/plot/issues"
-  :source-control (:git "https://github.com/Lisp-Stat/plot.git")
+  :version     "1.0.0"
   :licence     :MS-PL
+  :author      "Steve Nunez <steve@symbolics.tech>"
+  :long-name   "Common Lisp Vega Plotting"
+  :description "A plotting system for Common Lisp"
+  :long-description  #.(uiop:read-file-string
+			(uiop:subpathname *load-pathname* "description.text"))
+  :homepage    "https://lisp-stat.dev/docs/tasks/plotting/"
+  :source-control (:git "https://github.com/Lisp-Stat/plot.git")
+  :bug-tracker "https://github.com/Lisp-Stat/plot/issues"
+
   :depends-on ("cl-ppcre"		;browser command line option parsing
 	       "alexandria"
 	       "alexandria+"
@@ -22,7 +25,7 @@
 	       (:file "plot")))
 
 (defsystem "plot/text"
-  :version     "1.0"
+  :version     "1.0.0"
   :description "Text based plotting"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
@@ -36,7 +39,7 @@
 		(:file "stem-and-leaf")))
 
 (defsystem "plot/vega"
-  :version     "2.0"
+  :version     "1.0.0"
   :description "Plotting with Vega & Vega-Lite"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
@@ -48,6 +51,7 @@
 	       "dfio"
 	       "let-plus"
 	       "local-time"
+	       "parenscript"
 	       "duologue")
   :serial t
   :pathname    "src/vega/"
@@ -58,11 +62,12 @@
 	       (:file "device")
 	       (:file "encode")
 	       (:file "utilities")
-	       (:file "statistics")
 	       (:file "vega-datasets"))
   :in-order-to ((test-op (test-op "plot/vega/tests"))))
 
+#|
 (defsystem "plot/vega/tests"
+  :version "1.0.0"
   :description "Unit tests for Vega plotting"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
@@ -73,3 +78,4 @@
 	       (:file "vega-tests"))
   :perform (test-op (o s)
   		    (symbol-call :vega-tests :run-tests)))
+|#

@@ -11,6 +11,9 @@
 	  #:alexandria+
 	  #:data-frame)
   (:import-from #:select #:select)
+  (:import-from #:lisp-stat #:data)
+  (:import-from #:data-frame #:defdf)
+  (:import-from #:parenscript #:symbol-to-js-string)
   (:import-from #:dfio #:with-input-stream #:data-column #:data-column-add #:data-column-vector)
   (:local-nicknames (:lt :local-time))
   (:documentation "A plotting backend for Plot based on Vega. The specification DSL, in PLIST format, is that of Vega-Lite.  The data output representation is Vega.")
@@ -22,9 +25,11 @@
    #:defplot
    #:aesthetics
    #:save-plot
+   #:make-plot
    #:show-plots
    #:write-html
    #:write-spec
+   #:write-vega-data			;write data to a file
    #:show-plots				;move to PLOT?
    #:plot-to-device
 
@@ -41,6 +46,8 @@
    #:box-plot
 
    ;; Vega-Lite example data sets
+   #:load-vega-examples
+
    #:annual-precip
    #:anscombe
    #:barley

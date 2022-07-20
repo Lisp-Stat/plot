@@ -9,8 +9,8 @@
 This is useful when working with a JSON encoder that will take a plist and output a Vega-Lite plot specification."
   (loop for i below (aops:nrow df)
 	with lst = nil
-	do (loop for k across (df:keys df)
-		 collecting k into row
+	do (loop for k across (keys df)
+		 collecting (ps:symbol-to-js-string k) into row
 		 collecting (select df i k) into row
 		 finally (push row lst))
 	finally (return (coerce lst 'vector))))
@@ -40,5 +40,15 @@ Useful when working with Vega-Lite data sets from external sources."
 	      (mapcar (lambda (column-key data-column)
 			(cons column-key (data-column-vector data-column)))
 		      column-keys data-columns))))
-    (setf (source df) source)
     df))
+
+
+(defun write-vega-data (data pathspec)
+  "Write DATA to PATHSPEC in vega JSON format"
+    (let ((yason:*symbol-encoder*     'encode-symbol-as-metadata) ;not just meta-data, to JavaScript as well
+	  (yason:*symbol-key-encoder* 'encode-symbol-as-metadata))
+      (with-open-file (stream pathspec :direction :output
+				       :if-exists :supersede
+				       :if-does-not-exist :create)
+	(yason:encode (df-to-vl-plist data) stream)))
+  (values))				;return nothing. Emacs buffers choke on large data.

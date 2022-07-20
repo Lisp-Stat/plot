@@ -4,5 +4,6 @@
 
 ;;; Default to using plists for plot encoding. You can overide this on
 ;;; an individual basis by rebinding before calling a write or
-;;; encoding function.
+;;; encoding function, but you probably don't want to when using this
+;;; package.
 (setf yason:*list-encoder* 'yason:encode-plist)
