@@ -1,0 +1,1064 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.8, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Copyright (C) 2019-2022 Steve Nunez
+
+Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+section entitled "Copying" is included exactly as in the original.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be translated as well. -->
+<title>The Plotting Reference Manual</title>
+
+<meta name="description" content="The Plotting Reference Manual, version 1.0.0.">
+<meta name="keywords" content="The Plotting Reference Manual">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="#Top" rel="start" title="Top">
+<link href="#Indexes" rel="index" title="Indexes">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<link href="#Copying" rel="next" title="Copying">
+<link href="dir.html#Top" rel="prev" title="(dir)">
+<style type="text/css">
+<!--
+a.copiable-anchor {visibility: hidden; text-decoration: none; line-height: 0em}
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+span:hover a.copiable-anchor {visibility: visible}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">The Plotting Reference Manual</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="top" id="Top">
+<span id="The-Plotting-Reference-Manual"></span><h1 class="top">The Plotting Reference Manual</h1>
+<p>This is the Plotting Reference Manual, version 1.0.0,
+generated automatically by Declt version 4.0b2.
+</p>
+
+<blockquote>
+<p>Copyright &copy; 2019-2022 Steve Nunez
+</p>
+<p>Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+</p>
+<p>Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+section entitled &ldquo;Copying&rdquo; is included exactly as in the original.
+</p>
+<p>Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be translated as well.
+</p></blockquote>
+
+
+
+<div class="Contents_element" id="SEC_Contents">
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a id="toc-Copying-1" href="#Copying">Copying</a></li>
+  <li><a id="toc-Systems-1" href="#Systems">1 Systems</a>
+  <ul class="no-bullet">
+    <li><a id="toc-plot" href="#The-plot-system">1.1 <tt>plot</tt></a></li>
+  </ul></li>
+  <li><a id="toc-Files-1" href="#Files">2 Files</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Lisp" href="#Lisp-files">2.1 Lisp</a>
+    <ul class="no-bullet">
+      <li><a id="toc-plot_002fplot_002easd" href="#The-plot_002fplot_2024asd-file">2.1.1 <tt>plot/plot.asd</tt></a></li>
+      <li><a id="toc-plot_002fpkgdcl_002elisp" href="#The-plot_002fpkgdcl_2024lisp-file">2.1.2 <tt>plot/pkgdcl.lisp</tt></a></li>
+      <li><a id="toc-plot_002finit_002elisp" href="#The-plot_002finit_2024lisp-file">2.1.3 <tt>plot/init.lisp</tt></a></li>
+      <li><a id="toc-plot_002fbrowser_002elisp" href="#The-plot_002fbrowser_2024lisp-file">2.1.4 <tt>plot/browser.lisp</tt></a></li>
+      <li><a id="toc-plot_002fplot_002elisp" href="#The-plot_002fplot_2024lisp-file">2.1.5 <tt>plot/plot.lisp</tt></a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Packages-1" href="#Packages">3 Packages</a>
+  <ul class="no-bullet">
+    <li><a id="toc-plot-1" href="#The-plot-package">3.1 <tt>plot</tt></a></li>
+  </ul></li>
+  <li><a id="toc-Definitions-1" href="#Definitions">4 Definitions</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Public-Interface-1" href="#Public-Interface">4.1 Public Interface</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Special-variables" href="#Public-special-variables">4.1.1 Special variables</a></li>
+      <li><a id="toc-Ordinary-functions" href="#Public-ordinary-functions">4.1.2 Ordinary functions</a></li>
+      <li><a id="toc-Generic-functions" href="#Public-generic-functions">4.1.3 Generic functions</a></li>
+      <li><a id="toc-Classes" href="#Public-classes">4.1.4 Classes</a></li>
+    </ul></li>
+    <li><a id="toc-Internals-1" href="#Internals">4.2 Internals</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Special-variables-1" href="#Private-special-variables">4.2.1 Special variables</a></li>
+      <li><a id="toc-Ordinary-functions-1" href="#Private-ordinary-functions">4.2.2 Ordinary functions</a></li>
+      <li><a id="toc-Generic-functions-1" href="#Private-generic-functions">4.2.3 Generic functions</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a id="toc-Indexes-1" href="#Indexes">Appendix A Indexes</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Concepts" href="#Concept-index" rel="index">A.1 Concepts</a></li>
+    <li><a id="toc-Functions" href="#Function-index" rel="index">A.2 Functions</a></li>
+    <li><a id="toc-Variables" href="#Variable-index" rel="index">A.3 Variables</a></li>
+    <li><a id="toc-Data-types" href="#Data-type-index" rel="index">A.4 Data types</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+<hr>
+<div class="unnumbered" id="Copying">
+<span id="Copying-1"></span><h2 class="unnumbered">Copying</h2>
+<blockquote>
+<p>This program is distributed under the terms of the Microsoft Public
+License.
+</p></blockquote>
+
+
+
+<hr>
+</div>
+<div class="chapter" id="Systems">
+<span id="Systems-1"></span><h2 class="chapter">1 Systems</h2>
+<p>The main system appears first, followed by any subsystem dependency.
+</p>
+
+
+<hr>
+<div class="section" id="The-plot-system">
+<span id="plot"></span><h3 class="section">1.1 <tt>plot</tt></h3>
+<span id="g_t_27681_2769"></span><span id="index-plot"></span>
+<span id="index-System_002c-plot"></span>
+<p>A plotting system for Common Lisp
+</p><dl compact="compact">
+<dt><span><strong>Long Name</strong></span></dt>
+<dd><p>Common Lisp Vega Plotting
+</p></dd>
+<dt><span><strong>Author</strong></span></dt>
+<dd><p>Steve Nunez &lt;<a href="mailto:steve@symbolics.tech">steve@symbolics.tech</a>&gt;
+</p></dd>
+<dt><span><strong>Home Page</strong></span></dt>
+<dd><p><a href="https://lisp-stat.dev/docs/tasks/plotting/">https://lisp-stat.dev/docs/tasks/plotting/</a>
+</p></dd>
+<dt><span><strong>Source Control</strong></span></dt>
+<dd><p><tt>(GIT https://github.com/Lisp-Stat/plot.git)</tt>
+</p></dd>
+<dt><span><strong>Bug Tracker</strong></span></dt>
+<dd><p><a href="https://github.com/Lisp-Stat/plot/issues">https://github.com/Lisp-Stat/plot/issues</a>
+</p></dd>
+<dt><span><strong>License</strong></span></dt>
+<dd><p>MS-PL
+</p></dd>
+<dt><span><strong>Long Description</strong></span></dt>
+<dd><p>Plot is a general front end for describing plots.  The front end handles interaction with the display, a local window or a browser, and backends handle the rendering.  There are backends for Vega and Vega-Lite, as well as text.
+</p></dd>
+<dt><span><strong>Version</strong></span></dt>
+<dd><p>1.0.0
+</p></dd>
+<dt><span><strong>Dependencies</strong></span></dt>
+<dd><ul>
+<li> <tt>cl-ppcre</tt> (system).
+</li><li> <tt>alexandria</tt> (system).
+</li><li> <tt>alexandria+</tt> (system).
+</li><li> <tt>data-frame</tt> (system).
+</li></ul>
+</dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27682_2769"><tt>plot.asd</tt></a>.
+</p></dd>
+<dt><span><strong>Child Components</strong></span></dt>
+<dd><ul>
+<li> <a href="#g_t_27683_2769"><tt>pkgdcl.lisp</tt></a> (file).
+</li><li> <a href="#g_t_27684_2769"><tt>init.lisp</tt></a> (file).
+</li><li> <a href="#g_t_27685_2769"><tt>browser.lisp</tt></a> (file).
+</li><li> <a href="#g_t_27686_2769"><tt>plot.lisp</tt></a> (file).
+</li></ul>
+</dd>
+</dl>
+
+
+
+<hr>
+</div>
+</div>
+<div class="chapter" id="Files">
+<span id="Files-1"></span><h2 class="chapter">2 Files</h2>
+<p>Files are sorted by type and then listed depth-first from the systems
+components trees.
+</p>
+
+
+<hr>
+<div class="section" id="Lisp-files">
+<span id="Lisp"></span><h3 class="section">2.1 Lisp</h3>
+
+<hr>
+<div class="subsection" id="The-plot_002fplot_2024asd-file">
+<span id="plot_002fplot_002easd"></span><h4 class="subsection">2.1.1 <tt>plot/plot.asd</tt></h4>
+<span id="g_t_27682_2769"></span><span id="index-plot_002easd"></span>
+<span id="index-File_002c-plot_002easd"></span>
+<dl compact="compact">
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27682_2769"><tt>plot.asd</tt></a>.
+</p></dd>
+<dt><span><strong>Parent Component</strong></span></dt>
+<dd><p><a href="#g_t_27681_2769"><tt>plot</tt></a> (system).
+</p></dd>
+<dt><span><strong>ASDF Systems</strong></span></dt>
+<dd><p><a href="#g_t_27681_2769"><tt>plot</tt></a>.
+</p></dd>
+</dl>
+
+<hr>
+</div>
+<div class="subsection" id="The-plot_002fpkgdcl_2024lisp-file">
+<span id="plot_002fpkgdcl_002elisp"></span><h4 class="subsection">2.1.2 <tt>plot/pkgdcl.lisp</tt></h4>
+<span id="g_t_27683_2769"></span><span id="index-pkgdcl_002elisp"></span>
+<span id="index-File_002c-pkgdcl_002elisp"></span>
+<dl compact="compact">
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27682_2769"><tt>plot.asd</tt></a>.
+</p></dd>
+<dt><span><strong>Parent Component</strong></span></dt>
+<dd><p><a href="#g_t_27681_2769"><tt>plot</tt></a> (system).
+</p></dd>
+<dt><span><strong>Packages</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+</dl>
+
+<hr>
+</div>
+<div class="subsection" id="The-plot_002finit_2024lisp-file">
+<span id="plot_002finit_002elisp"></span><h4 class="subsection">2.1.3 <tt>plot/init.lisp</tt></h4>
+<span id="g_t_27684_2769"></span><span id="index-init_002elisp"></span>
+<span id="index-File_002c-init_002elisp"></span>
+<dl compact="compact">
+<dt><span><strong>Dependency</strong></span></dt>
+<dd><p><a href="#g_t_27683_2769"><tt>pkgdcl.lisp</tt></a> (file).
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27682_2769"><tt>plot.asd</tt></a>.
+</p></dd>
+<dt><span><strong>Parent Component</strong></span></dt>
+<dd><p><a href="#g_t_27681_2769"><tt>plot</tt></a> (system).
+</p></dd>
+</dl>
+
+<hr>
+</div>
+<div class="subsection" id="The-plot_002fbrowser_2024lisp-file">
+<span id="plot_002fbrowser_002elisp"></span><h4 class="subsection">2.1.4 <tt>plot/browser.lisp</tt></h4>
+<span id="g_t_27685_2769"></span><span id="index-browser_002elisp"></span>
+<span id="index-File_002c-browser_002elisp"></span>
+<dl compact="compact">
+<dt><span><strong>Dependency</strong></span></dt>
+<dd><p><a href="#g_t_27684_2769"><tt>init.lisp</tt></a> (file).
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27682_2769"><tt>plot.asd</tt></a>.
+</p></dd>
+<dt><span><strong>Parent Component</strong></span></dt>
+<dd><p><a href="#g_t_27681_2769"><tt>plot</tt></a> (system).
+</p></dd>
+<dt><span><strong>Public Interface</strong></span></dt>
+<dd><ul>
+<li> <a href="#g_t_27689_2769"><tt>*browser-commands*</tt></a> (special variable).
+</li><li> <a href="#g_t_27688_2769"><tt>*default-browser-command*</tt></a> (special variable).
+</li><li> <a href="#g_t_276815_2769"><tt>*default-browser-options*</tt></a> (special variable).
+</li></ul>
+</dd>
+<dt><span><strong>Internals</strong></span></dt>
+<dd><ul>
+<li> <a href="#g_t_276833_2769"><tt>%print-alist</tt></a> (function).
+</li><li> <a href="#g_t_276831_2769"><tt>*default-chrome-options*</tt></a> (special variable).
+</li><li> <a href="#g_t_276830_2769"><tt>encode-application-options</tt></a> (function).
+</li><li> <a href="#g_t_276834_2769"><tt>encode-chrome-options</tt></a> (function).
+</li><li> <a href="#g_t_276829_2769"><tt>set-chrome-size</tt></a> (function).
+</li></ul>
+</dd>
+</dl>
+
+<hr>
+</div>
+<div class="subsection" id="The-plot_002fplot_2024lisp-file">
+<span id="plot_002fplot_002elisp"></span><h4 class="subsection">2.1.5 <tt>plot/plot.lisp</tt></h4>
+<span id="g_t_27686_2769"></span><span id="index-plot_002elisp"></span>
+<span id="index-File_002c-plot_002elisp"></span>
+<dl compact="compact">
+<dt><span><strong>Dependency</strong></span></dt>
+<dd><p><a href="#g_t_27685_2769"><tt>browser.lisp</tt></a> (file).
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27682_2769"><tt>plot.asd</tt></a>.
+</p></dd>
+<dt><span><strong>Parent Component</strong></span></dt>
+<dd><p><a href="#g_t_27681_2769"><tt>plot</tt></a> (system).
+</p></dd>
+<dt><span><strong>Public Interface</strong></span></dt>
+<dd><ul>
+<li> <a href="#g_t_276824_2769"><tt>plot</tt></a> (class).
+</li><li> <a href="#g_t_276821_2769"><tt>plot-data</tt></a> (reader method).
+</li><li> <a href="#g_t_276823_2769"><tt>(setf plot-data)</tt></a> (writer method).
+</li><li> <a href="#g_t_276814_2769"><tt>plot-from-file</tt></a> (function).
+</li><li> <a href="#g_t_276817_2769"><tt>plot-name</tt></a> (reader method).
+</li><li> <a href="#g_t_276819_2769"><tt>(setf plot-name)</tt></a> (writer method).
+</li><li> <a href="#g_t_276811_2769"><tt>plot-spec</tt></a> (reader method).
+</li><li> <a href="#g_t_276813_2769"><tt>(setf plot-spec)</tt></a> (writer method).
+</li></ul>
+</dd>
+<dt><span><strong>Internals</strong></span></dt>
+<dd><ul>
+<li> <a href="#g_t_276832_2769"><tt>make-plot</tt></a> (function).
+</li><li> <a href="#g_t_276828_2769"><tt>write-plot</tt></a> (generic function).
+</li></ul>
+</dd>
+</dl>
+
+
+
+<hr>
+</div>
+</div>
+</div>
+<div class="chapter" id="Packages">
+<span id="Packages-1"></span><h2 class="chapter">3 Packages</h2>
+<p>Packages are listed by definition order.
+</p>
+
+
+<hr>
+<div class="section" id="The-plot-package">
+<span id="plot-1"></span><h3 class="section">3.1 <tt>plot</tt></h3>
+<span id="g_t_27687_2769"></span><span id="index-plot-1"></span>
+<span id="index-Package_002c-plot"></span>
+<p>Functionality common to all plotting.  The plot class is defined here, with each backend subclassing it.  Functions for interacting with display systems, like the browser or Electron/Webview are also defined here
+</p><dl compact="compact">
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27683_2769"><tt>pkgdcl.lisp</tt></a>.
+</p></dd>
+<dt><span><strong>Use List</strong></span></dt>
+<dd><ul>
+<li> <tt>alexandria</tt>.
+</li><li> <tt>alexandria+</tt>.
+</li><li> <tt>common-lisp</tt>.
+</li></ul>
+</dd>
+<dt><span><strong>Public Interface</strong></span></dt>
+<dd><ul>
+<li> <a href="#g_t_27689_2769"><tt>*browser-commands*</tt></a> (special variable).
+</li><li> <a href="#g_t_27688_2769"><tt>*default-browser-command*</tt></a> (special variable).
+</li><li> <a href="#g_t_276815_2769"><tt>*default-browser-options*</tt></a> (special variable).
+</li><li> <a href="#g_t_276824_2769"><tt>plot</tt></a> (class).
+</li><li> <a href="#g_t_276820_2769"><tt>plot-data</tt></a> (generic reader).
+</li><li> <a href="#g_t_276822_2769"><tt>(setf plot-data)</tt></a> (generic writer).
+</li><li> <a href="#g_t_276814_2769"><tt>plot-from-file</tt></a> (function).
+</li><li> <a href="#g_t_276816_2769"><tt>plot-name</tt></a> (generic reader).
+</li><li> <a href="#g_t_276818_2769"><tt>(setf plot-name)</tt></a> (generic writer).
+</li><li> <a href="#g_t_276810_2769"><tt>plot-spec</tt></a> (generic reader).
+</li><li> <a href="#g_t_276812_2769"><tt>(setf plot-spec)</tt></a> (generic writer).
+</li></ul>
+</dd>
+<dt><span><strong>Internals</strong></span></dt>
+<dd><ul>
+<li> <a href="#g_t_276833_2769"><tt>%print-alist</tt></a> (function).
+</li><li> <a href="#g_t_276831_2769"><tt>*default-chrome-options*</tt></a> (special variable).
+</li><li> <a href="#g_t_276830_2769"><tt>encode-application-options</tt></a> (function).
+</li><li> <a href="#g_t_276834_2769"><tt>encode-chrome-options</tt></a> (function).
+</li><li> <a href="#g_t_276832_2769"><tt>make-plot</tt></a> (function).
+</li><li> <a href="#g_t_276829_2769"><tt>set-chrome-size</tt></a> (function).
+</li><li> <a href="#g_t_276828_2769"><tt>write-plot</tt></a> (generic function).
+</li></ul>
+</dd>
+</dl>
+
+
+
+<hr>
+</div>
+</div>
+<div class="chapter" id="Definitions">
+<span id="Definitions-1"></span><h2 class="chapter">4 Definitions</h2>
+<p>Definitions are sorted by export status, category, package, and then by
+lexicographic order.
+</p>
+
+
+<hr>
+<div class="section" id="Public-Interface">
+<span id="Public-Interface-1"></span><h3 class="section">4.1 Public Interface</h3>
+
+<hr>
+<div class="subsection" id="Public-special-variables">
+<span id="Special-variables"></span><h4 class="subsection">4.1.1 Special variables</h4>
+<dl class="def">
+<dt id="index-_002abrowser_002dcommands_002a"><span class="category">Special Variable: </span><span><strong>*browser-commands*</strong><a href='#index-_002abrowser_002dcommands_002a' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_27689_2769"></span><span id="index-Special-Variable_002c-_002abrowser_002dcommands_002a"></span>
+<dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27685_2769"><tt>browser.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-_002adefault_002dbrowser_002dcommand_002a"><span class="category">Special Variable: </span><span><strong>*default-browser-command*</strong><a href='#index-_002adefault_002dbrowser_002dcommand_002a' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_27688_2769"></span><span id="index-Special-Variable_002c-_002adefault_002dbrowser_002dcommand_002a"></span>
+<dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27685_2769"><tt>browser.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-_002adefault_002dbrowser_002doptions_002a"><span class="category">Special Variable: </span><span><strong>*default-browser-options*</strong><a href='#index-_002adefault_002dbrowser_002doptions_002a' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276815_2769"></span><span id="index-Special-Variable_002c-_002adefault_002dbrowser_002doptions_002a"></span>
+<dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27685_2769"><tt>browser.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
+</div>
+<div class="subsection" id="Public-ordinary-functions">
+<span id="Ordinary-functions"></span><h4 class="subsection">4.1.2 Ordinary functions</h4>
+<dl class="def">
+<dt id="index-plot_002dfrom_002dfile"><span class="category">Function: </span><span><strong>plot-from-file</strong> <em>(filespec &amp;key browser browser-options)</em><a href='#index-plot_002dfrom_002dfile' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276814_2769"></span><span id="index-Function_002c-plot_002dfrom_002dfile"></span>
+<p>Open FILESPEC with browser. FILESPEC must be displayable by the browser, e.g. HTML.
+</p><dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27686_2769"><tt>plot.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
+</div>
+<div class="subsection" id="Public-generic-functions">
+<span id="Generic-functions"></span><h4 class="subsection">4.1.3 Generic functions</h4>
+<dl class="def">
+<dt id="index-plot_002ddata"><span class="category">Generic Reader: </span><span><strong>plot-data</strong> <em>(object)</em><a href='#index-plot_002ddata' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276820_2769"></span><span id="index-Generic-Function_002c-plot_002ddata"></span>
+</dd><dt id="index-_0028setf-plot_002ddata_0029"><span class="category">Generic Writer: </span><span><strong>(setf plot-data)</strong> <em>(object)</em><a href='#index-_0028setf-plot_002ddata_0029' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276822_2769"></span><span id="index-Generic-Function_002c-_0028setf-plot_002ddata_0029"></span>
+<dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Methods</strong></span></dt>
+<dd><dl class="def">
+<dt id="index-plot_002ddata-1"><span class="category">Reader Method: </span><span><strong>plot-data</strong> <em>((plot <a href="#g_t_276824_2769"><tt>plot</tt></a>))</em><a href='#index-plot_002ddata-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276821_2769"></span><span id="index-Method_002c-plot_002ddata"></span>
+</dd><dt id="index-_0028setf-plot_002ddata_0029-1"><span class="category">Writer Method: </span><span><strong>(setf plot-data)</strong> <em>((plot <a href="#g_t_276824_2769"><tt>plot</tt></a>))</em><a href='#index-_0028setf-plot_002ddata_0029-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276823_2769"></span><span id="index-Method_002c-_0028setf-plot_002ddata_0029"></span>
+<p>A DATA-FRAME OR PLIST of key/column pairs.  Internally, a PLIST will will be converted to a DATA-FRAME by the rendering functions.  A PLIST can sometimes be more convenient for ad-hoc plotting.
+</p><dl compact="compact">
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27686_2769"><tt>plot.lisp</tt></a>.
+</p></dd>
+<dt><span><strong>Target Slot</strong></span></dt>
+<dd><p><a href="#g_t_276826_2769"><tt>data</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-plot_002dname"><span class="category">Generic Reader: </span><span><strong>plot-name</strong> <em>(object)</em><a href='#index-plot_002dname' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276816_2769"></span><span id="index-Generic-Function_002c-plot_002dname"></span>
+<dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Methods</strong></span></dt>
+<dd><dl class="def">
+<dt id="index-plot_002dname-1"><span class="category">Reader Method: </span><span><strong>plot-name</strong> <em>((plot <a href="#g_t_276824_2769"><tt>plot</tt></a>))</em><a href='#index-plot_002dname-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276817_2769"></span><span id="index-Method_002c-plot_002dname"></span>
+<p>automatically generated reader method
+</p><dl compact="compact">
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27686_2769"><tt>plot.lisp</tt></a>.
+</p></dd>
+<dt><span><strong>Target Slot</strong></span></dt>
+<dd><p><a href="#g_t_276825_2769"><tt>name</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-_0028setf-plot_002dname_0029"><span class="category">Generic Writer: </span><span><strong>(setf plot-name)</strong> <em>(object)</em><a href='#index-_0028setf-plot_002dname_0029' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276818_2769"></span><span id="index-Generic-Function_002c-_0028setf-plot_002dname_0029"></span>
+<dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Methods</strong></span></dt>
+<dd><dl class="def">
+<dt id="index-_0028setf-plot_002dname_0029-1"><span class="category">Writer Method: </span><span><strong>(setf plot-name)</strong> <em>((plot <a href="#g_t_276824_2769"><tt>plot</tt></a>))</em><a href='#index-_0028setf-plot_002dname_0029-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276819_2769"></span><span id="index-Method_002c-_0028setf-plot_002dname_0029"></span>
+<p>automatically generated writer method
+</p><dl compact="compact">
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27686_2769"><tt>plot.lisp</tt></a>.
+</p></dd>
+<dt><span><strong>Target Slot</strong></span></dt>
+<dd><p><a href="#g_t_276825_2769"><tt>name</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-plot_002dspec"><span class="category">Generic Reader: </span><span><strong>plot-spec</strong> <em>(object)</em><a href='#index-plot_002dspec' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276810_2769"></span><span id="index-Generic-Function_002c-plot_002dspec"></span>
+</dd><dt id="index-_0028setf-plot_002dspec_0029"><span class="category">Generic Writer: </span><span><strong>(setf plot-spec)</strong> <em>(object)</em><a href='#index-_0028setf-plot_002dspec_0029' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276812_2769"></span><span id="index-Generic-Function_002c-_0028setf-plot_002dspec_0029"></span>
+<dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Methods</strong></span></dt>
+<dd><dl class="def">
+<dt id="index-plot_002dspec-1"><span class="category">Reader Method: </span><span><strong>plot-spec</strong> <em>((plot <a href="#g_t_276824_2769"><tt>plot</tt></a>))</em><a href='#index-plot_002dspec-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276811_2769"></span><span id="index-Method_002c-plot_002dspec"></span>
+</dd><dt id="index-_0028setf-plot_002dspec_0029-1"><span class="category">Writer Method: </span><span><strong>(setf plot-spec)</strong> <em>((plot <a href="#g_t_276824_2769"><tt>plot</tt></a>))</em><a href='#index-_0028setf-plot_002dspec_0029-1' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276813_2769"></span><span id="index-Method_002c-_0028setf-plot_002dspec_0029"></span>
+<p>The plot specification in PLIST format.  The PLIST is passed to YASON for encoding to the backend specific JSON.  See the file encode.lisp in the Vega backend for examples of how this is done.
+</p><dl compact="compact">
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27686_2769"><tt>plot.lisp</tt></a>.
+</p></dd>
+<dt><span><strong>Target Slot</strong></span></dt>
+<dd><p><a href="#g_t_276827_2769"><tt>spec</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+
+<hr>
+</div>
+<div class="subsection" id="Public-classes">
+<span id="Classes"></span><h4 class="subsection">4.1.4 Classes</h4>
+<dl class="def">
+<dt id="index-plot-2"><span class="category">Class: </span><span><strong>plot</strong><a href='#index-plot-2' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276824_2769"></span><span id="index-Class_002c-plot"></span>
+<p>Base class for plots
+</p><dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27686_2769"><tt>plot.lisp</tt></a>.
+</p></dd>
+<dt><span><strong>Direct methods</strong></span></dt>
+<dd><ul>
+<li> <a href="#g_t_276823_2769"><tt>(setf plot-data)</tt></a>.
+</li><li> <a href="#g_t_276821_2769"><tt>plot-data</tt></a>.
+</li><li> <a href="#g_t_276819_2769"><tt>(setf plot-name)</tt></a>.
+</li><li> <a href="#g_t_276817_2769"><tt>plot-name</tt></a>.
+</li><li> <a href="#g_t_276813_2769"><tt>(setf plot-spec)</tt></a>.
+</li><li> <a href="#g_t_276811_2769"><tt>plot-spec</tt></a>.
+</li></ul>
+</dd>
+<dt><span><strong>Direct slots</strong></span></dt>
+<dd><dl class="def">
+<dt id="index-name"><span class="category">Slot: </span><span><strong>name</strong><a href='#index-name' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276825_2769"></span><span id="index-Slot_002c-name"></span>
+<dl compact="compact">
+<dt><span><strong>Initargs</strong></span></dt>
+<dd><p><tt>:name</tt>
+</p></dd>
+<dt><span><strong>Readers</strong></span></dt>
+<dd><p><a href="#g_t_276817_2769"><tt>plot-name</tt></a>.
+</p></dd>
+<dt><span><strong>Writers</strong></span></dt>
+<dd><p><a href="#g_t_276819_2769"><tt>(setf plot-name)</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-data"><span class="category">Slot: </span><span><strong>data</strong><a href='#index-data' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276826_2769"></span><span id="index-Slot_002c-data"></span>
+<p>A DATA-FRAME OR PLIST of key/column pairs.  Internally, a PLIST will will be converted to a DATA-FRAME by the rendering functions.  A PLIST can sometimes be more convenient for ad-hoc plotting.
+</p><dl compact="compact">
+<dt><span><strong>Initargs</strong></span></dt>
+<dd><p><tt>:data</tt>
+</p></dd>
+<dt><span><strong>Readers</strong></span></dt>
+<dd><p><a href="#g_t_276821_2769"><tt>plot-data</tt></a>.
+</p></dd>
+<dt><span><strong>Writers</strong></span></dt>
+<dd><p><a href="#g_t_276823_2769"><tt>(setf plot-data)</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-spec"><span class="category">Slot: </span><span><strong>spec</strong><a href='#index-spec' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276827_2769"></span><span id="index-Slot_002c-spec"></span>
+<p>The plot specification in PLIST format.  The PLIST is passed to YASON for encoding to the backend specific JSON.  See the file encode.lisp in the Vega backend for examples of how this is done.
+</p><dl compact="compact">
+<dt><span><strong>Initargs</strong></span></dt>
+<dd><p><tt>:spec</tt>
+</p></dd>
+<dt><span><strong>Readers</strong></span></dt>
+<dd><p><a href="#g_t_276811_2769"><tt>plot-spec</tt></a>.
+</p></dd>
+<dt><span><strong>Writers</strong></span></dt>
+<dd><p><a href="#g_t_276813_2769"><tt>(setf plot-spec)</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+</dd>
+</dl>
+</dd></dl>
+
+
+<hr>
+</div>
+</div>
+<div class="section" id="Internals">
+<span id="Internals-1"></span><h3 class="section">4.2 Internals</h3>
+
+<hr>
+<div class="subsection" id="Private-special-variables">
+<span id="Special-variables-1"></span><h4 class="subsection">4.2.1 Special variables</h4>
+<dl class="def">
+<dt id="index-_002adefault_002dchrome_002doptions_002a"><span class="category">Special Variable: </span><span><strong>*default-chrome-options*</strong><a href='#index-_002adefault_002dchrome_002doptions_002a' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276831_2769"></span><span id="index-Special-Variable_002c-_002adefault_002dchrome_002doptions_002a"></span>
+<dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27685_2769"><tt>browser.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
+</div>
+<div class="subsection" id="Private-ordinary-functions">
+<span id="Ordinary-functions-1"></span><h4 class="subsection">4.2.2 Ordinary functions</h4>
+<dl class="def">
+<dt id="index-_0025print_002dalist"><span class="category">Function: </span><span><strong>%print-alist</strong> <em>(stream data &amp;rest args)</em><a href='#index-_0025print_002dalist' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276833_2769"></span><span id="index-Function_002c-_0025print_002dalist"></span>
+<dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27685_2769"><tt>browser.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-encode_002dapplication_002doptions"><span class="category">Function: </span><span><strong>encode-application-options</strong> <em>(options arg-format)</em><a href='#index-encode_002dapplication_002doptions' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276830_2769"></span><span id="index-Function_002c-encode_002dapplication_002doptions"></span>
+<p>Turns OPTIONS, an alist, into a command line argument list according to ARG-FORMAT
+</p><dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27685_2769"><tt>browser.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-encode_002dchrome_002doptions"><span class="category">Function: </span><span><strong>encode-chrome-options</strong> <em>(options)</em><a href='#index-encode_002dchrome_002doptions' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276834_2769"></span><span id="index-Function_002c-encode_002dchrome_002doptions"></span>
+<p>Encode command line options for Chrome
+</p><dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27685_2769"><tt>browser.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-make_002dplot"><span class="category">Function: </span><span><strong>make-plot</strong> <em>(name &amp;optional data spec)</em><a href='#index-make_002dplot' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276832_2769"></span><span id="index-Function_002c-make_002dplot"></span>
+<p>Plot constructor
+</p><dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27686_2769"><tt>plot.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+<dl class="def">
+<dt id="index-set_002dchrome_002dsize"><span class="category">Function: </span><span><strong>set-chrome-size</strong> <em>(size)</em><a href='#index-set_002dchrome_002dsize' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276829_2769"></span><span id="index-Function_002c-set_002dchrome_002dsize"></span>
+<p>Set the windows size in *default-browser-options*
+</p><dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27685_2769"><tt>browser.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
+</div>
+<div class="subsection" id="Private-generic-functions">
+<span id="Generic-functions-1"></span><h4 class="subsection">4.2.3 Generic functions</h4>
+<dl class="def">
+<dt id="index-write_002dplot"><span class="category">Generic Function: </span><span><strong>write-plot</strong> <em>(plot device)</em><a href='#index-write_002dplot' class='copiable-anchor'> &para;</a></span></dt>
+<dd><span id="g_t_276828_2769"></span><span id="index-Generic-Function_002c-write_002dplot"></span>
+<p>Write PLOT to DEVICE<br>
+May not be immediately visible to the user, depending on the device.<br>
+A device could be a webserver, where a PUT operation would write the plot, locations on disk, a github gist, etc.
+</p><dl compact="compact">
+<dt><span><strong>Package</strong></span></dt>
+<dd><p><a href="#g_t_27687_2769"><tt>plot</tt></a>.
+</p></dd>
+<dt><span><strong>Source</strong></span></dt>
+<dd><p><a href="#g_t_27686_2769"><tt>plot.lisp</tt></a>.
+</p></dd>
+</dl>
+</dd></dl>
+
+
+
+<hr>
+</div>
+</div>
+</div>
+<div class="appendix" id="Indexes">
+<span id="Indexes-1"></span><h2 class="appendix">Appendix A Indexes</h2>
+
+
+<hr>
+<div class="appendixsec" id="Concept-index">
+<span id="Concepts"></span><h3 class="appendixsec">A.1 Concepts</h3>
+
+
+
+<hr>
+</div>
+<div class="appendixsec" id="Function-index">
+<span id="Functions"></span><h3 class="appendixsec">A.2 Functions</h3>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Function-index_fn_symbol-1"><b>%</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_symbol-2"><b>(</b></a>
+ &nbsp; 
+<br>
+<a class="summary-letter" href="#Function-index_fn_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-W"><b>W</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-fn" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_symbol-1">%</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0025print_002dalist"><code>%print-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_symbol-2">(</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0028setf-plot_002ddata_0029"><code>(setf plot-data)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0028setf-plot_002ddata_0029-1"><code>(setf plot-data)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0028setf-plot_002dname_0029"><code>(setf plot-name)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0028setf-plot_002dname_0029-1"><code>(setf plot-name)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0028setf-plot_002dspec_0029"><code>(setf plot-spec)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_0028setf-plot_002dspec_0029-1"><code>(setf plot-spec)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-E">E</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-encode_002dapplication_002doptions"><code>encode-application-options</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-encode_002dchrome_002doptions"><code>encode-chrome-options</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-F">F</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-_0025print_002dalist"><code><span class="roman">Function, </span>%print-alist</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-encode_002dapplication_002doptions"><code><span class="roman">Function, </span>encode-application-options</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-encode_002dchrome_002doptions"><code><span class="roman">Function, </span>encode-chrome-options</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dplot"><code><span class="roman">Function, </span>make-plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-plot_002dfrom_002dfile"><code><span class="roman">Function, </span>plot-from-file</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-ordinary-functions">Public ordinary functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-set_002dchrome_002dsize"><code><span class="roman">Function, </span>set-chrome-size</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-G">G</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-_0028setf-plot_002ddata_0029"><code><span class="roman">Generic Function, </span>(setf plot-data)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-_0028setf-plot_002dname_0029"><code><span class="roman">Generic Function, </span>(setf plot-name)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-_0028setf-plot_002dspec_0029"><code><span class="roman">Generic Function, </span>(setf plot-spec)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-plot_002ddata"><code><span class="roman">Generic Function, </span>plot-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-plot_002dname"><code><span class="roman">Generic Function, </span>plot-name</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-plot_002dspec"><code><span class="roman">Generic Function, </span>plot-spec</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-write_002dplot"><code><span class="roman">Generic Function, </span>write-plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-generic-functions">Private generic functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-M">M</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002dplot"><code>make-plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-_0028setf-plot_002ddata_0029"><code><span class="roman">Method, </span>(setf plot-data)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-_0028setf-plot_002dname_0029"><code><span class="roman">Method, </span>(setf plot-name)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-_0028setf-plot_002dspec_0029"><code><span class="roman">Method, </span>(setf plot-spec)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-plot_002ddata"><code><span class="roman">Method, </span>plot-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-plot_002dname"><code><span class="roman">Method, </span>plot-name</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Method_002c-plot_002dspec"><code><span class="roman">Method, </span>plot-spec</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-P">P</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot_002ddata"><code>plot-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot_002ddata-1"><code>plot-data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot_002dfrom_002dfile"><code>plot-from-file</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-ordinary-functions">Public ordinary functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot_002dname"><code>plot-name</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot_002dname-1"><code>plot-name</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot_002dspec"><code>plot-spec</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot_002dspec-1"><code>plot-spec</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-generic-functions">Public generic functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-S">S</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-set_002dchrome_002dsize"><code>set-chrome-size</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-ordinary-functions">Private ordinary functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-W">W</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-write_002dplot"><code>write-plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-generic-functions">Private generic functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Function-index_fn_symbol-1"><b>%</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_symbol-2"><b>(</b></a>
+ &nbsp; 
+<br>
+<a class="summary-letter" href="#Function-index_fn_letter-E"><b>E</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-G"><b>G</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-M"><b>M</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-S"><b>S</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-W"><b>W</b></a>
+ &nbsp; 
+</td></tr></table>
+
+
+
+<hr>
+</div>
+<div class="appendixsec" id="Variable-index">
+<span id="Variables"></span><h3 class="appendixsec">A.3 Variables</h3>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Variable-index_vr_symbol-1"><b>*</b></a>
+ &nbsp; 
+<br>
+<a class="summary-letter" href="#Variable-index_vr_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-N"><b>N</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-S"><b>S</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-vr" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_symbol-1">*</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002abrowser_002dcommands_002a"><code>*browser-commands*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-special-variables">Public special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002adefault_002dbrowser_002dcommand_002a"><code>*default-browser-command*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-special-variables">Public special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002adefault_002dbrowser_002doptions_002a"><code>*default-browser-options*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-special-variables">Public special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002adefault_002dchrome_002doptions_002a"><code>*default-chrome-options*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-special-variables">Private special variables</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-D">D</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-data"><code>data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-classes">Public classes</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-N">N</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-name"><code>name</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-classes">Public classes</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-S">S</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-data"><code><span class="roman">Slot, </span>data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-classes">Public classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-name"><code><span class="roman">Slot, </span>name</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-classes">Public classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Slot_002c-spec"><code><span class="roman">Slot, </span>spec</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-classes">Public classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-spec"><code>spec</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-classes">Public classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002abrowser_002dcommands_002a"><code><span class="roman">Special Variable, </span>*browser-commands*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-special-variables">Public special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002adefault_002dbrowser_002dcommand_002a"><code><span class="roman">Special Variable, </span>*default-browser-command*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-special-variables">Public special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002adefault_002dbrowser_002doptions_002a"><code><span class="roman">Special Variable, </span>*default-browser-options*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-special-variables">Public special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002adefault_002dchrome_002doptions_002a"><code><span class="roman">Special Variable, </span>*default-chrome-options*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Private-special-variables">Private special variables</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Variable-index_vr_symbol-1"><b>*</b></a>
+ &nbsp; 
+<br>
+<a class="summary-letter" href="#Variable-index_vr_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-N"><b>N</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_letter-S"><b>S</b></a>
+ &nbsp; 
+</td></tr></table>
+
+
+
+<hr>
+</div>
+<div class="appendixsec" id="Data-type-index">
+<span id="Data-types"></span><h3 class="appendixsec">A.4 Data types</h3>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Data-type-index_tp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-I"><b>I</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-S"><b>S</b></a>
+ &nbsp; 
+</td></tr></table>
+<table class="index-tp" border="0">
+<tr><td></td><th align="left">Index Entry</th><td>&nbsp;</td><th align="left"> Section</th></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-B">B</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-browser_002elisp"><code><tt>browser.lisp</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002fbrowser_2024lisp-file">The plot/browser․lisp file</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-C">C</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Class_002c-plot"><code><span class="roman">Class, </span>plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-classes">Public classes</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-F">F</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-browser_002elisp"><code>File, <tt>browser.lisp</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002fbrowser_2024lisp-file">The plot/browser․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-init_002elisp"><code>File, <tt>init.lisp</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002finit_2024lisp-file">The plot/init․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-pkgdcl_002elisp"><code>File, <tt>pkgdcl.lisp</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002fpkgdcl_2024lisp-file">The plot/pkgdcl․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-plot_002easd"><code>File, <tt>plot.asd</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002fplot_2024asd-file">The plot/plot․asd file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-plot_002elisp"><code>File, <tt>plot.lisp</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002fplot_2024lisp-file">The plot/plot․lisp file</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-I">I</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-init_002elisp"><code><tt>init.lisp</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002finit_2024lisp-file">The plot/init․lisp file</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-P">P</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Package_002c-plot"><code><span class="roman">Package, </span>plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot-package">The plot package</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-pkgdcl_002elisp"><code><tt>pkgdcl.lisp</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002fpkgdcl_2024lisp-file">The plot/pkgdcl․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot"><code>plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot-system">The plot system</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot-1"><code>plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot-package">The plot package</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot-2"><code>plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Public-classes">Public classes</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot_002easd"><code><tt>plot.asd</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002fplot_2024asd-file">The plot/plot․asd file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-plot_002elisp"><code><tt>plot.lisp</tt></code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot_002fplot_2024lisp-file">The plot/plot․lisp file</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Data-type-index_tp_letter-S">S</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-System_002c-plot"><code><span class="roman">System, </span>plot</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-plot-system">The plot system</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+</table>
+<table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Data-type-index_tp_letter-B"><b>B</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-C"><b>C</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-F"><b>F</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-I"><b>I</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-P"><b>P</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Data-type-index_tp_letter-S"><b>S</b></a>
+ &nbsp; 
+</td></tr></table>
+
+</div>
+</div>
+</div>
+
+
+
+</body>
+</html>

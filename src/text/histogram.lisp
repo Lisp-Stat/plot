@@ -25,7 +25,7 @@
 
 (in-package :plot/text)
 
-;;; This is very old code. Expect warnings.
+;;; SN: This is very old code. Expect warnings.
 
 ;;; Uses a bunch of specials for communication.
 

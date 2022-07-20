@@ -1,24 +1,31 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: ASDF -*-
-;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (defsystem "plot"
-  :version     "1.0"
-  :description "Plots for Common Lisp"
-  :long-description "A plotting system for Common Lisp"
-  :author      "Steve Nunez <steve@symbolics.tech>"
+  :version     "1.0.0"
   :licence     :MS-PL
-  :depends-on ("lass"
-	       "cl-who"
-	       "cl-ppcre"		;browser command line option parsing
-	       "alexandria")
+  :author      "Steve Nunez <steve@symbolics.tech>"
+  :long-name   "Common Lisp Vega Plotting"
+  :description "A plotting system for Common Lisp"
+  :long-description  #.(uiop:read-file-string
+			(uiop:subpathname *load-pathname* "description.text"))
+  :homepage    "https://lisp-stat.dev/docs/tasks/plotting/"
+  :source-control (:git "https://github.com/Lisp-Stat/plot.git")
+  :bug-tracker "https://github.com/Lisp-Stat/plot/issues"
+
+  :depends-on ("cl-ppcre"		;browser command line option parsing
+	       "alexandria"
+	       "alexandria+"
+	       "data-frame")
   :serial t
+  :pathname "src/plot/"
   :components ((:file "pkgdcl")
 	       (:file "init")
 	       (:file "browser")
 	       (:file "plot")))
 
 (defsystem "plot/text"
-  :version     "1.0"
+  :version     "1.0.0"
   :description "Text based plotting"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
@@ -31,30 +38,44 @@
 		(:file "histogram")
 		(:file "stem-and-leaf")))
 
-(defsystem "plot/vglt"
-  :version     "1.0"
-  :description "Plotting with vega lite"
+(defsystem "plot/vega"
+  :version     "1.0.0"
+  :description "Plotting with Vega & Vega-Lite"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
   :depends-on ("plot"
+	       "lass"
+	       "cl-who"
+	       "quri"
 	       "yason"
+	       "dfio"
 	       "let-plus"
-	       "dfio/json")
+	       "local-time"
+	       "parenscript"
+	       "duologue")
   :serial t
-  :pathname    "src/vglt/"
+  :pathname    "src/vega/"
   :components ((:file "pkgdcl")
-	       (:file "vega-data")
+	       (:file "init")
 	       (:file "data")
-	       (:file "spec")
-	       (:file "plots")))
-  ;; :in-order-to ((test-op (test-op "plot/tests/vega")))) ;; TODO: Add tests for Vega/JSON functions
+	       (:file "plot")
+	       (:file "device")
+	       (:file "encode")
+	       (:file "utilities")
+	       (:file "vega-datasets"))
+  :in-order-to ((test-op (test-op "plot/vega/tests"))))
 
-#+nil
-(defsystem "plot/tests"
-  :description "Unit tests for PLOT"
+#|
+(defsystem "plot/vega/tests"
+  :version "1.0.0"
+  :description "Unit tests for Vega plotting"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
-  :depends-on ("plot"
-               "parachute")
+  :depends-on ("plot/vega" "parachute")
   :serial t
-  :components ((:file "plot-tests")))
+  :pathname "tests/"
+  :components ((:file "tstpkg")
+	       (:file "vega-tests"))
+  :perform (test-op (o s)
+  		    (symbol-call :vega-tests :run-tests)))
+|#

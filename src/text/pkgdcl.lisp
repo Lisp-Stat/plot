@@ -9,6 +9,7 @@
   (:export
    #:hist
    #:hist-record
-   #:stem-and-leaf))
+   #:stem-and-leaf)
+  (:documentation "Text based plotting utilties.  These are intended to show summaries, for example stem plots or frequency tables, using text and rendered in the emacs REPL buffer."))
 
 

@@ -1,0 +1,1689 @@
+This is vega.info, produced by makeinfo version 6.8 from vega.texi.
+
+     Copyright © 2019-2022 Steve Nunez
+
+     Permission is granted to make and distribute verbatim copies of
+     this manual provided the copyright notice and this permission
+     notice are preserved on all copies.
+
+     Permission is granted to copy and distribute modified versions of
+     this manual under the conditions for verbatim copying, provided
+     also that the section entitled “Copying” is included exactly as in
+     the original.
+
+     Permission is granted to copy and distribute translations of this
+     manual into another language, under the above conditions for
+     modified versions, except that this permission notice may be
+     translated as well.
+INFO-DIR-SECTION Lisp-Stat
+START-INFO-DIR-ENTRY
+* PLOT/VEGA Reference Manual: (plot/vega). The PLOT/VEGA Reference Manual.
+END-INFO-DIR-ENTRY
+
+
+File: vega.info,  Node: Top,  Next: Copying,  Prev: (dir),  Up: (dir)
+
+The PLOT/VEGA Reference Manual
+******************************
+
+This is the PLOT/VEGA Reference Manual, version 2.0, generated
+automatically by Declt version 4.0b2.
+
+* Menu:
+
+* Copying:: The Microsoft Public License
+* Systems:: The systems documentation
+* Files:: The files documentation
+* Packages:: The packages documentation
+* Definitions:: The symbols documentation
+* Indexes:: Concepts, functions, variables and data types
+
+     Copyright © 2019-2022 Steve Nunez
+
+     Permission is granted to make and distribute verbatim copies of
+     this manual provided the copyright notice and this permission
+     notice are preserved on all copies.
+
+     Permission is granted to copy and distribute modified versions of
+     this manual under the conditions for verbatim copying, provided
+     also that the section entitled “Copying” is included exactly as in
+     the original.
+
+     Permission is granted to copy and distribute translations of this
+     manual into another language, under the above conditions for
+     modified versions, except that this permission notice may be
+     translated as well.
+
+
+File: vega.info,  Node: Copying,  Next: Systems,  Prev: Top,  Up: Top
+
+Copying
+*******
+
+     This program is distributed under the terms of the Microsoft Public
+     License.
+
+
+File: vega.info,  Node: Systems,  Next: Files,  Prev: Copying,  Up: Top
+
+1 Systems
+*********
+
+The main system appears first, followed by any subsystem dependency.
+
+* Menu:
+
+* The plot/vega system::
+
+
+File: vega.info,  Node: The plot/vega system,  Prev: Systems,  Up: Systems
+
+1.1 plot/vega
+=============
+
+Plotting with Vega & Vega-Lite
+*Author*
+     Steve Nunez <<steve@symbolics.tech>>
+*Home Page*
+     <https://lisp-stat.dev/docs/tasks/plotting/>
+*Source Control*
+     (GIT https://github.com/Lisp-Stat/plot.git)
+*Bug Tracker*
+     <https://github.com/Lisp-Stat/plot/issues>
+*License*
+     MS-PL
+*Version*
+     2.0
+*Dependencies*
+        • plot (system).
+        • lass (system).
+        • cl-who (system).
+        • quri (system).
+        • yason (system).
+        • dfio (system).
+        • let-plus (system).
+        • local-time (system).
+        • duologue (system).
+*Source*
+     *note plot.asd: ❨2❩.
+*Child Components*
+        • *note pkgdcl.lisp: ❨3❩. (file).
+        • *note init.lisp: ❨4❩. (file).
+        • *note data.lisp: ❨5❩. (file).
+        • *note plot.lisp: ❨6❩. (file).
+        • *note device.lisp: ❨7❩. (file).
+        • *note encode.lisp: ❨8❩. (file).
+        • *note utilities.lisp: ❨9❩. (file).
+        • *note statistics.lisp: ❨10❩. (file).
+        • *note vega-datasets.lisp: ❨11❩. (file).
+
+
+File: vega.info,  Node: Files,  Next: Packages,  Prev: Systems,  Up: Top
+
+2 Files
+*******
+
+Files are sorted by type and then listed depth-first from the systems
+components trees.
+
+* Menu:
+
+* Lisp files::
+
+
+File: vega.info,  Node: Lisp files,  Prev: Files,  Up: Files
+
+2.1 Lisp
+========
+
+* Menu:
+
+* The plot/vega/plot․asd file::
+* The plot/vega/pkgdcl․lisp file::
+* The plot/vega/init․lisp file::
+* The plot/vega/data․lisp file::
+* The plot/vega/plot․lisp file::
+* The plot/vega/device․lisp file::
+* The plot/vega/encode․lisp file::
+* The plot/vega/utilities․lisp file::
+* The plot/vega/statistics․lisp file::
+* The plot/vega/vega-datasets․lisp file::
+
+
+File: vega.info,  Node: The plot/vega/plot․asd file,  Next: The plot/vega/pkgdcl․lisp file,  Prev: Lisp files,  Up: Lisp files
+
+2.1.1 plot/vega/plot.asd
+------------------------
+
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+*ASDF Systems*
+        • *note plot/vega: ❨1❩.
+        • plot.
+
+
+File: vega.info,  Node: The plot/vega/pkgdcl․lisp file,  Next: The plot/vega/init․lisp file,  Prev: The plot/vega/plot․asd file,  Up: Lisp files
+
+2.1.2 plot/vega/pkgdcl.lisp
+---------------------------
+
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+*Packages*
+     *note vega: ❨12❩.
+
+
+File: vega.info,  Node: The plot/vega/init․lisp file,  Next: The plot/vega/data․lisp file,  Prev: The plot/vega/pkgdcl․lisp file,  Up: Lisp files
+
+2.1.3 plot/vega/init.lisp
+-------------------------
+
+*Dependency*
+     *note pkgdcl.lisp: ❨3❩. (file).
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+
+
+File: vega.info,  Node: The plot/vega/data․lisp file,  Next: The plot/vega/plot․lisp file,  Prev: The plot/vega/init․lisp file,  Up: Lisp files
+
+2.1.4 plot/vega/data.lisp
+-------------------------
+
+*Dependency*
+     *note init.lisp: ❨4❩. (file).
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+*Public Interface*
+        • *note df-to-vl-plist: ❨17❩. (function).
+        • *note read-vega: ❨84❩. (function).
+*Internals*
+     *note json-to-data-columns: ❨94❩. (function).
+
+
+File: vega.info,  Node: The plot/vega/plot․lisp file,  Next: The plot/vega/device․lisp file,  Prev: The plot/vega/data․lisp file,  Up: Lisp files
+
+2.1.5 plot/vega/plot.lisp
+-------------------------
+
+*Dependency*
+     *note data.lisp: ❨5❩. (file).
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+*Public Interface*
+        • *note defplot: ❨77❩. (macro).
+        • *note print-object: ❨123❩. (method).
+        • *note show-plots: ❨52❩. (function).
+        • *note write-html: ❨79❩. (generic function).
+        • *note write-spec: ❨22❩. (generic function).
+*Internals*
+        • *note %defplot: ❨96❩. (function).
+        • *note *all-plots*: ❨98❩. (special variable).
+        • *note *chart-types*: ❨90❩. (special variable).
+        • *note make-plot: ❨93❩. (function).
+        • *note vega-plot: ❨92❩. (class).
+
+
+File: vega.info,  Node: The plot/vega/device․lisp file,  Next: The plot/vega/encode․lisp file,  Prev: The plot/vega/plot․lisp file,  Up: Lisp files
+
+2.1.6 plot/vega/device.lisp
+---------------------------
+
+*Dependency*
+     *note plot.lisp: ❨6❩. (file).
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+*Public Interface*
+     *note plot-to-device: ❨13❩. (function).
+
+
+File: vega.info,  Node: The plot/vega/encode․lisp file,  Next: The plot/vega/utilities․lisp file,  Prev: The plot/vega/device․lisp file,  Up: Lisp files
+
+2.1.7 plot/vega/encode.lisp
+---------------------------
+
+*Dependency*
+     *note device.lisp: ❨7❩. (file).
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+*Internals*
+     *note encode-symbol-as-metadata: ❨89❩. (function).
+
+
+File: vega.info,  Node: The plot/vega/utilities․lisp file,  Next: The plot/vega/statistics․lisp file,  Prev: The plot/vega/encode․lisp file,  Up: Lisp files
+
+2.1.8 plot/vega/utilities.lisp
+------------------------------
+
+*Dependency*
+     *note encode.lisp: ❨8❩. (file).
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+*Internals*
+        • *note height-width: ❨100❩. (function).
+        • *note multi-line-plot-data: ❨97❩. (function).
+        • *note plot-univariate-functions: ❨99❩. (function).
+
+
+File: vega.info,  Node: The plot/vega/statistics․lisp file,  Next: The plot/vega/vega-datasets․lisp file,  Prev: The plot/vega/utilities․lisp file,  Up: Lisp files
+
+2.1.9 plot/vega/statistics.lisp
+-------------------------------
+
+*Dependency*
+     *note utilities.lisp: ❨9❩. (file).
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+*Public Interface*
+     *note scatter-plot: ❨53❩. (function).
+
+
+File: vega.info,  Node: The plot/vega/vega-datasets․lisp file,  Prev: The plot/vega/statistics․lisp file,  Up: Lisp files
+
+2.1.10 plot/vega/vega-datasets.lisp
+-----------------------------------
+
+*Dependency*
+     *note statistics.lisp: ❨10❩. (file).
+*Source*
+     *note plot.asd: ❨2❩.
+*Parent Component*
+     *note plot/vega: ❨1❩. (system).
+*Public Interface*
+        • *note airports: ❨68❩. (special variable).
+        • *note annual-precip: ❨70❩. (special variable).
+        • *note anscombe: ❨48❩. (special variable).
+        • *note barley: ❨75❩. (special variable).
+        • *note birdstrikes: ❨18❩. (special variable).
+        • *note budget: ❨83❩. (special variable).
+        • *note budgets: ❨81❩. (special variable).
+        • *note burtin: ❨63❩. (special variable).
+        • *note cars: ❨66❩. (special variable).
+        • *note co2-concentration: ❨21❩. (special variable).
+        • *note countries: ❨30❩. (special variable).
+        • *note crimea: ❨15❩. (special variable).
+        • *note disasters: ❨50❩. (special variable).
+        • *note driving: ❨20❩. (special variable).
+        • *note earthquakes: ❨57❩. (special variable).
+        • *note flare: ❨28❩. (special variable).
+        • *note flare-dependencies: ❨55❩. (special variable).
+        • *note flights-10k: ❨26❩. (special variable).
+        • *note flights-200k: ❨56❩. (special variable).
+        • *note flights-20k: ❨25❩. (special variable).
+        • *note flights-2k: ❨51❩. (special variable).
+        • *note flights-3m: ❨37❩. (special variable).
+        • *note flights-5k: ❨86❩. (special variable).
+        • *note flights-airport: ❨24❩. (special variable).
+        • *note football: ❨35❩. (special variable).
+        • *note gapminder: ❨39❩. (special variable).
+        • *note gapminder-health-income: ❨45❩. (special variable).
+        • *note github: ❨44❩. (special variable).
+        • *note income: ❨47❩. (special variable).
+        • *note iowa-electricity: ❨62❩. (special variable).
+        • *note jobs: ❨69❩. (special variable).
+        • *note la-riots: ❨14❩. (special variable).
+        • *note londonboroughs: ❨29❩. (special variable).
+        • *note londoncentroids: ❨19❩. (special variable).
+        • *note londontubelines: ❨49❩. (special variable).
+        • *note lookup_groups: ❨78❩. (special variable).
+        • *note lookup_people: ❨42❩. (special variable).
+        • *note miserables: ❨46❩. (special variable).
+        • *note monarchs: ❨65❩. (special variable).
+        • *note movies: ❨64❩. (special variable).
+        • *note normal-2d: ❨67❩. (special variable).
+        • *note obesity: ❨73❩. (special variable).
+        • *note ohlc: ❨71❩. (special variable).
+        • *note penguins: ❨76❩. (special variable).
+        • *note points: ❨38❩. (special variable).
+        • *note political-contributions: ❨43❩. (special variable).
+        • *note population: ❨54❩. (special variable).
+        • *note population_engineers_hurricanes: ❨31❩. (special
+          variable).
+        • *note seattle-weather: ❨32❩. (special variable).
+        • *note seattle-weather-hourly-normals: ❨82❩. (special
+          variable).
+        • *note sp500: ❨61❩. (special variable).
+        • *note sp500-2000: ❨72❩. (special variable).
+        • *note stocks: ❨74❩. (special variable).
+        • *note udistrict: ❨41❩. (special variable).
+        • *note unemployment: ❨34❩. (special variable).
+        • *note unemployment-across-industries: ❨88❩. (special
+          variable).
+        • *note uniform-2d: ❨27❩. (special variable).
+        • *note us-10m: ❨87❩. (special variable).
+        • *note us-employment: ❨59❩. (special variable).
+        • *note us-state-capitals: ❨58❩. (special variable).
+        • *note volcano: ❨85❩. (special variable).
+        • *note weather: ❨40❩. (special variable).
+        • *note wheat: ❨60❩. (special variable).
+        • *note windvectors: ❨16❩. (special variable).
+        • *note world-110m: ❨36❩. (special variable).
+        • *note zipcodes: ❨33❩. (special variable).
+*Internals*
+        • *note *vega-datasets*: ❨95❩. (special variable).
+        • *note base-url: ❨91❩. (special variable).
+
+
+File: vega.info,  Node: Packages,  Next: Definitions,  Prev: Files,  Up: Top
+
+3 Packages
+**********
+
+Packages are listed by definition order.
+
+* Menu:
+
+* The vega package::
+
+
+File: vega.info,  Node: The vega package,  Prev: Packages,  Up: Packages
+
+3.1 vega
+========
+
+A plotting backend for Plot based on Vega.  The specification DSL, in
+PLIST format, is that of Vega-Lite.  The data output representation is
+Vega.
+*Source*
+     *note pkgdcl.lisp: ❨3❩.
+*Use List*
+        • alexandria.
+        • alexandria+.
+        • common-lisp.
+        • data-frame.
+        • dfio.
+        • let-plus.
+        • plot.
+        • select.
+*Public Interface*
+        • *note airports: ❨68❩. (special variable).
+        • *note annual-precip: ❨70❩. (special variable).
+        • *note anscombe: ❨48❩. (special variable).
+        • *note barley: ❨75❩. (special variable).
+        • *note birdstrikes: ❨18❩. (special variable).
+        • *note budget: ❨83❩. (special variable).
+        • *note budgets: ❨81❩. (special variable).
+        • *note burtin: ❨63❩. (special variable).
+        • *note cars: ❨66❩. (special variable).
+        • *note co2-concentration: ❨21❩. (special variable).
+        • *note countries: ❨30❩. (special variable).
+        • *note crimea: ❨15❩. (special variable).
+        • *note defplot: ❨77❩. (macro).
+        • *note df-to-vl-plist: ❨17❩. (function).
+        • *note disasters: ❨50❩. (special variable).
+        • *note driving: ❨20❩. (special variable).
+        • *note earthquakes: ❨57❩. (special variable).
+        • *note flare: ❨28❩. (special variable).
+        • *note flare-dependencies: ❨55❩. (special variable).
+        • *note flights-10k: ❨26❩. (special variable).
+        • *note flights-200k: ❨56❩. (special variable).
+        • *note flights-20k: ❨25❩. (special variable).
+        • *note flights-2k: ❨51❩. (special variable).
+        • *note flights-3m: ❨37❩. (special variable).
+        • *note flights-5k: ❨86❩. (special variable).
+        • *note flights-airport: ❨24❩. (special variable).
+        • *note football: ❨35❩. (special variable).
+        • *note gapminder: ❨39❩. (special variable).
+        • *note gapminder-health-income: ❨45❩. (special variable).
+        • *note github: ❨44❩. (special variable).
+        • *note income: ❨47❩. (special variable).
+        • *note iowa-electricity: ❨62❩. (special variable).
+        • *note jobs: ❨69❩. (special variable).
+        • *note la-riots: ❨14❩. (special variable).
+        • *note londonboroughs: ❨29❩. (special variable).
+        • *note londoncentroids: ❨19❩. (special variable).
+        • *note londontubelines: ❨49❩. (special variable).
+        • *note lookup_groups: ❨78❩. (special variable).
+        • *note lookup_people: ❨42❩. (special variable).
+        • *note miserables: ❨46❩. (special variable).
+        • *note monarchs: ❨65❩. (special variable).
+        • *note movies: ❨64❩. (special variable).
+        • *note normal-2d: ❨67❩. (special variable).
+        • *note obesity: ❨73❩. (special variable).
+        • *note ohlc: ❨71❩. (special variable).
+        • *note penguins: ❨76❩. (special variable).
+        • *note plot-to-device: ❨13❩. (function).
+        • *note points: ❨38❩. (special variable).
+        • *note political-contributions: ❨43❩. (special variable).
+        • *note population: ❨54❩. (special variable).
+        • *note population_engineers_hurricanes: ❨31❩. (special
+          variable).
+        • *note read-vega: ❨84❩. (function).
+        • *note scatter-plot: ❨53❩. (function).
+        • *note seattle-weather: ❨32❩. (special variable).
+        • *note seattle-weather-hourly-normals: ❨82❩. (special
+          variable).
+        • *note show-plots: ❨52❩. (function).
+        • *note sp500: ❨61❩. (special variable).
+        • *note sp500-2000: ❨72❩. (special variable).
+        • *note stocks: ❨74❩. (special variable).
+        • *note udistrict: ❨41❩. (special variable).
+        • *note unemployment: ❨34❩. (special variable).
+        • *note unemployment-across-industries: ❨88❩. (special
+          variable).
+        • *note uniform-2d: ❨27❩. (special variable).
+        • *note us-10m: ❨87❩. (special variable).
+        • *note us-employment: ❨59❩. (special variable).
+        • *note us-state-capitals: ❨58❩. (special variable).
+        • *note volcano: ❨85❩. (special variable).
+        • *note weather: ❨40❩. (special variable).
+        • *note wheat: ❨60❩. (special variable).
+        • *note windvectors: ❨16❩. (special variable).
+        • *note world-110m: ❨36❩. (special variable).
+        • *note write-html: ❨79❩. (generic function).
+        • *note write-spec: ❨22❩. (generic function).
+        • *note zipcodes: ❨33❩. (special variable).
+*Internals*
+        • *note %defplot: ❨96❩. (function).
+        • *note *all-plots*: ❨98❩. (special variable).
+        • *note *chart-types*: ❨90❩. (special variable).
+        • *note *vega-datasets*: ❨95❩. (special variable).
+        • *note base-url: ❨91❩. (special variable).
+        • *note encode-symbol-as-metadata: ❨89❩. (function).
+        • *note height-width: ❨100❩. (function).
+        • *note json-to-data-columns: ❨94❩. (function).
+        • *note make-plot: ❨93❩. (function).
+        • *note multi-line-plot-data: ❨97❩. (function).
+        • *note plot-univariate-functions: ❨99❩. (function).
+        • *note vega-plot: ❨92❩. (class).
+
+
+File: vega.info,  Node: Definitions,  Next: Indexes,  Prev: Packages,  Up: Top
+
+4 Definitions
+*************
+
+Definitions are sorted by export status, category, package, and then by
+lexicographic order.
+
+* Menu:
+
+* Public Interface::
+* Internals::
+
+
+File: vega.info,  Node: Public Interface,  Next: Internals,  Prev: Definitions,  Up: Definitions
+
+4.1 Public Interface
+====================
+
+* Menu:
+
+* Public special variables::
+* Public macros::
+* Public ordinary functions::
+* Public generic functions::
+* Public standalone methods::
+
+
+File: vega.info,  Node: Public special variables,  Next: Public macros,  Prev: Public Interface,  Up: Public Interface
+
+4.1.1 Special variables
+-----------------------
+
+ -- Special Variable: airports
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: annual-precip
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: anscombe
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: barley
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: birdstrikes
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: budget
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: budgets
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: burtin
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: cars
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: co2-concentration
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: countries
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: crimea
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: disasters
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: driving
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: earthquakes
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: flare
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: flare-dependencies
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: flights-10k
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: flights-200k
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: flights-20k
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: flights-2k
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: flights-3m
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: flights-5k
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: flights-airport
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: football
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: gapminder
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: gapminder-health-income
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: github
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: income
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: iowa-electricity
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: jobs
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: la-riots
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: londonboroughs
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: londoncentroids
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: londontubelines
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: lookup_groups
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: lookup_people
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: miserables
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: monarchs
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: movies
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: normal-2d
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: obesity
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: ohlc
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: penguins
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: points
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: political-contributions
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: population
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: population_engineers_hurricanes
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: seattle-weather
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: seattle-weather-hourly-normals
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: sp500
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: sp500-2000
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: stocks
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: udistrict
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: unemployment
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: unemployment-across-industries
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: uniform-2d
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: us-10m
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: us-employment
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: us-state-capitals
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: volcano
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: weather
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: wheat
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: windvectors
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: world-110m
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: zipcodes
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+
+
+File: vega.info,  Node: Public macros,  Next: Public ordinary functions,  Prev: Public special variables,  Up: Public Interface
+
+4.1.2 Macros
+------------
+
+ -- Macro: defplot (name &body spec)
+     Define a plot NAME. Returns an object of PLOT class bound to a
+     symbol NAME. Adds symbol to *all-plots*.
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note plot.lisp: ❨6❩.
+
+
+File: vega.info,  Node: Public ordinary functions,  Next: Public generic functions,  Prev: Public macros,  Up: Public Interface
+
+4.1.3 Ordinary functions
+------------------------
+
+ -- Function: df-to-vl-plist (df)
+     Convert DF, a data-frame, to a Vega style plist
+     This is useful when working with a JSON encoder that will take a
+     plist and output a Vega-Lite plot specification.
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note data.lisp: ❨5❩.
+ -- Function: plot-to-device (plot device)
+     Wrapper over WRITE-SPEC to make saving plots a bit more convenient.
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note device.lisp: ❨7❩.
+ -- Function: read-vega (source &key map-alist)
+     Read a stream of Vega-Lite data into a DATA-FRAME
+     Useful when working with Vega-Lite data sets from external sources.
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note data.lisp: ❨5❩.
+ -- Function: scatter-plot (data encoding &key title description height
+          width)
+     Return a scatter plot of X and Y
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note statistics.lisp: ❨10❩.
+ -- Function: show-plots ()
+     Show all plots in the current environment
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note plot.lisp: ❨6❩.
+
+
+File: vega.info,  Node: Public generic functions,  Next: Public standalone methods,  Prev: Public ordinary functions,  Up: Public Interface
+
+4.1.4 Generic functions
+-----------------------
+
+ -- Generic Function: write-html (plot &optional html-loc spec-loc)
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note plot.lisp: ❨6❩.
+     *Methods*
+           -- Method: write-html ((p *note vega-plot: ❨92❩.) &optional
+                    html-loc spec-url)
+               Write HTML to render a plot.  HTML-LOCATION can be a
+               FILESPEC, quri URI or cl-gist GIST. Note: Only FILESPEC
+               is implemented.
+ -- Generic Function: write-spec (plot &key spec-loc data-url data-loc)
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note plot.lisp: ❨6❩.
+     *Methods*
+           -- Method: write-spec ((p *note vega-plot: ❨92❩.) &key
+                    spec-loc data-url data-loc)
+               Write PLOT components to source locations and update
+               spec’s data url.
+
+
+File: vega.info,  Node: Public standalone methods,  Prev: Public generic functions,  Up: Public Interface
+
+4.1.5 Standalone methods
+------------------------
+
+ -- Method: print-object ((p *note vega-plot: ❨92❩.) stream)
+     *Source*
+          *note plot.lisp: ❨6❩.
+
+
+File: vega.info,  Node: Internals,  Prev: Public Interface,  Up: Definitions
+
+4.2 Internals
+=============
+
+* Menu:
+
+* Private special variables::
+* Private ordinary functions::
+* Private classes::
+
+
+File: vega.info,  Node: Private special variables,  Next: Private ordinary functions,  Prev: Internals,  Up: Internals
+
+4.2.1 Special variables
+-----------------------
+
+ -- Special Variable: *all-plots*
+     Global table of plots
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note plot.lisp: ❨6❩.
+ -- Special Variable: *chart-types*
+     Map Vega-Lite mark types to plot types
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note plot.lisp: ❨6❩.
+ -- Special Variable: *vega-datasets*
+     All Vega example data sets
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+ -- Special Variable: base-url
+     Base URL for datasets included in Vega
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note vega-datasets.lisp: ❨11❩.
+
+
+File: vega.info,  Node: Private ordinary functions,  Next: Private classes,  Prev: Private special variables,  Up: Internals
+
+4.2.2 Ordinary functions
+------------------------
+
+ -- Function: %defplot (name spec &optional schema)
+     A PLOT constructor that moves :data from the spec to the PLOT
+     object.
+     By putting :data onto the plot object we can write it to various
+     locations and add the neccessary transformations to the spec.
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note plot.lisp: ❨6❩.
+ -- Function: encode-symbol-as-metadata (sym)
+     Encode a data frame variable name, SYM, with the meta data about
+     that variable
+     DATA-FRAME variable names store meta data as symbol properties.
+     Note: We should have a sentinel property value to indicate a data
+     symbol; we now just check for a property list.
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note encode.lisp: ❨8❩.
+ -- Function: height-width (h w)
+     Set height & width of plot
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note utilities.lisp: ❨9❩.
+ -- Function: json-to-data-columns (source &key map-alist)
+     Read a JSON array and accumulate the values in DATA-COLUMNs, return
+     a list of columns.  Rows are checked to have the same number of
+     elements.  The second value is a list of column names.
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note data.lisp: ❨5❩.
+ -- Function: make-plot (name &optional data spec)
+     Plot constructor
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note plot.lisp: ❨6❩.
+ -- Function: multi-line-plot-data (d)
+     Transform data, D a plist, into Vega-Lite format for line plotting.
+
+     D must have one :x value for the x axis, and one or more vectors of
+     y values.  The symbols for the y values become line labels in the
+     plot.  For example, given D: (:x #(1 2 3) :sin #(0.84147096
+     0.9092974 0.14112) :cos #(0.5403023 -0.41614684 -0.9899925))
+
+     Vega-Lite requires repeating x ranges in a ’long’ format, so D
+     needs to be transformed into a plist of 3 arrays:
+
+     ’(:x #(1 2 3 1 2 3) ;x values
+     :y #(0.84147096 0.9092974 0.14112 0.5403023 -0.41614684 -0.9899925)
+     ;f(x)
+     :f #(sin sin sin cos cos cos)) ;name of the function
+
+     We use a fill pointer, so the y values need not be of equal length.
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note utilities.lisp: ❨9❩.
+ -- Function: plot-univariate-functions (x funs &key as-array)
+     Apply the functions in FUN, a list, to X and return the results in
+     an array suitable to pass to vega:multi-line-plot
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note utilities.lisp: ❨9❩.
+
+
+File: vega.info,  Node: Private classes,  Prev: Private ordinary functions,  Up: Internals
+
+4.2.3 Classes
+-------------
+
+ -- Class: vega-plot
+     *Package*
+          *note vega: ❨12❩.
+     *Source*
+          *note plot.lisp: ❨6❩.
+     *Direct superclasses*
+          plot.
+     *Direct methods*
+             • *note print-object: ❨123❩.
+             • *note write-html: ❨80❩.
+             • *note write-spec: ❨23❩.
+
+
+File: vega.info,  Node: Indexes,  Prev: Definitions,  Up: Top
+
+Appendix A Indexes
+******************
+
+* Menu:
+
+* Concept index::
+* Function index::
+* Variable index::
+* Data type index::
+
+
+File: vega.info,  Node: Concept index,  Next: Function index,  Prev: Indexes,  Up: Indexes
+
+A.1 Concepts
+============
+
+
+File: vega.info,  Node: Function index,  Next: Variable index,  Prev: Concept index,  Up: Indexes
+
+A.2 Functions
+=============
+
+ [index ]
+* Menu:
+
+* %defplot:                              Private ordinary functions.
+                                                               (line  6)
+* defplot:                               Public macros.        (line  6)
+* df-to-vl-plist:                        Public ordinary functions.
+                                                               (line  6)
+* encode-symbol-as-metadata:             Private ordinary functions.
+                                                               (line 15)
+* Function, %defplot:                    Private ordinary functions.
+                                                               (line  7)
+* Function, df-to-vl-plist:              Public ordinary functions.
+                                                               (line  7)
+* Function, encode-symbol-as-metadata:   Private ordinary functions.
+                                                               (line 16)
+* Function, height-width:                Private ordinary functions.
+                                                               (line 26)
+* Function, json-to-data-columns:        Private ordinary functions.
+                                                               (line 32)
+* Function, make-plot:                   Private ordinary functions.
+                                                               (line 40)
+* Function, multi-line-plot-data:        Private ordinary functions.
+                                                               (line 46)
+* Function, plot-to-device:              Public ordinary functions.
+                                                               (line 15)
+* Function, plot-univariate-functions:   Private ordinary functions.
+                                                               (line 67)
+* Function, read-vega:                   Public ordinary functions.
+                                                               (line 21)
+* Function, scatter-plot:                Public ordinary functions.
+                                                               (line 29)
+* Function, show-plots:                  Public ordinary functions.
+                                                               (line 35)
+* Generic Function, write-html:          Public generic functions.
+                                                               (line  7)
+* Generic Function, write-spec:          Public generic functions.
+                                                               (line 18)
+* height-width:                          Private ordinary functions.
+                                                               (line 25)
+* json-to-data-columns:                  Private ordinary functions.
+                                                               (line 31)
+* Macro, defplot:                        Public macros.        (line  7)
+* make-plot:                             Private ordinary functions.
+                                                               (line 39)
+* Method, print-object:                  Public standalone methods.
+                                                               (line  7)
+* Method, write-html:                    Public generic functions.
+                                                               (line 14)
+* Method, write-spec:                    Public generic functions.
+                                                               (line 25)
+* multi-line-plot-data:                  Private ordinary functions.
+                                                               (line 45)
+* plot-to-device:                        Public ordinary functions.
+                                                               (line 14)
+* plot-univariate-functions:             Private ordinary functions.
+                                                               (line 66)
+* print-object:                          Public standalone methods.
+                                                               (line  6)
+* read-vega:                             Public ordinary functions.
+                                                               (line 20)
+* scatter-plot:                          Public ordinary functions.
+                                                               (line 27)
+* show-plots:                            Public ordinary functions.
+                                                               (line 34)
+* write-html:                            Public generic functions.
+                                                               (line  6)
+* write-html <1>:                        Public generic functions.
+                                                               (line 12)
+* write-spec:                            Public generic functions.
+                                                               (line 17)
+* write-spec <1>:                        Public generic functions.
+                                                               (line 23)
+
+
+File: vega.info,  Node: Variable index,  Next: Data type index,  Prev: Function index,  Up: Indexes
+
+A.3 Variables
+=============
+
+ [index ]
+* Menu:
+
+* *all-plots*:                           Private special variables.
+                                                              (line   6)
+* *chart-types*:                         Private special variables.
+                                                              (line  12)
+* *vega-datasets*:                       Private special variables.
+                                                              (line  18)
+* airports:                              Public special variables.
+                                                              (line   6)
+* annual-precip:                         Public special variables.
+                                                              (line  11)
+* anscombe:                              Public special variables.
+                                                              (line  16)
+* barley:                                Public special variables.
+                                                              (line  21)
+* base-url:                              Private special variables.
+                                                              (line  24)
+* birdstrikes:                           Public special variables.
+                                                              (line  26)
+* budget:                                Public special variables.
+                                                              (line  31)
+* budgets:                               Public special variables.
+                                                              (line  36)
+* burtin:                                Public special variables.
+                                                              (line  41)
+* cars:                                  Public special variables.
+                                                              (line  46)
+* co2-concentration:                     Public special variables.
+                                                              (line  51)
+* countries:                             Public special variables.
+                                                              (line  56)
+* crimea:                                Public special variables.
+                                                              (line  61)
+* disasters:                             Public special variables.
+                                                              (line  66)
+* driving:                               Public special variables.
+                                                              (line  71)
+* earthquakes:                           Public special variables.
+                                                              (line  76)
+* flare:                                 Public special variables.
+                                                              (line  81)
+* flare-dependencies:                    Public special variables.
+                                                              (line  86)
+* flights-10k:                           Public special variables.
+                                                              (line  91)
+* flights-200k:                          Public special variables.
+                                                              (line  96)
+* flights-20k:                           Public special variables.
+                                                              (line 101)
+* flights-2k:                            Public special variables.
+                                                              (line 106)
+* flights-3m:                            Public special variables.
+                                                              (line 111)
+* flights-5k:                            Public special variables.
+                                                              (line 116)
+* flights-airport:                       Public special variables.
+                                                              (line 121)
+* football:                              Public special variables.
+                                                              (line 126)
+* gapminder:                             Public special variables.
+                                                              (line 131)
+* gapminder-health-income:               Public special variables.
+                                                              (line 136)
+* github:                                Public special variables.
+                                                              (line 141)
+* income:                                Public special variables.
+                                                              (line 146)
+* iowa-electricity:                      Public special variables.
+                                                              (line 151)
+* jobs:                                  Public special variables.
+                                                              (line 156)
+* la-riots:                              Public special variables.
+                                                              (line 161)
+* londonboroughs:                        Public special variables.
+                                                              (line 166)
+* londoncentroids:                       Public special variables.
+                                                              (line 171)
+* londontubelines:                       Public special variables.
+                                                              (line 176)
+* lookup_groups:                         Public special variables.
+                                                              (line 181)
+* lookup_people:                         Public special variables.
+                                                              (line 186)
+* miserables:                            Public special variables.
+                                                              (line 191)
+* monarchs:                              Public special variables.
+                                                              (line 196)
+* movies:                                Public special variables.
+                                                              (line 201)
+* normal-2d:                             Public special variables.
+                                                              (line 206)
+* obesity:                               Public special variables.
+                                                              (line 211)
+* ohlc:                                  Public special variables.
+                                                              (line 216)
+* penguins:                              Public special variables.
+                                                              (line 221)
+* points:                                Public special variables.
+                                                              (line 226)
+* political-contributions:               Public special variables.
+                                                              (line 231)
+* population:                            Public special variables.
+                                                              (line 236)
+* population_engineers_hurricanes:       Public special variables.
+                                                              (line 241)
+* seattle-weather:                       Public special variables.
+                                                              (line 246)
+* seattle-weather-hourly-normals:        Public special variables.
+                                                              (line 251)
+* sp500:                                 Public special variables.
+                                                              (line 256)
+* sp500-2000:                            Public special variables.
+                                                              (line 261)
+* Special Variable, *all-plots*:         Private special variables.
+                                                              (line   7)
+* Special Variable, *chart-types*:       Private special variables.
+                                                              (line  13)
+* Special Variable, *vega-datasets*:     Private special variables.
+                                                              (line  19)
+* Special Variable, airports:            Public special variables.
+                                                              (line   7)
+* Special Variable, annual-precip:       Public special variables.
+                                                              (line  12)
+* Special Variable, anscombe:            Public special variables.
+                                                              (line  17)
+* Special Variable, barley:              Public special variables.
+                                                              (line  22)
+* Special Variable, base-url:            Private special variables.
+                                                              (line  25)
+* Special Variable, birdstrikes:         Public special variables.
+                                                              (line  27)
+* Special Variable, budget:              Public special variables.
+                                                              (line  32)
+* Special Variable, budgets:             Public special variables.
+                                                              (line  37)
+* Special Variable, burtin:              Public special variables.
+                                                              (line  42)
+* Special Variable, cars:                Public special variables.
+                                                              (line  47)
+* Special Variable, co2-concentration:   Public special variables.
+                                                              (line  52)
+* Special Variable, countries:           Public special variables.
+                                                              (line  57)
+* Special Variable, crimea:              Public special variables.
+                                                              (line  62)
+* Special Variable, disasters:           Public special variables.
+                                                              (line  67)
+* Special Variable, driving:             Public special variables.
+                                                              (line  72)
+* Special Variable, earthquakes:         Public special variables.
+                                                              (line  77)
+* Special Variable, flare:               Public special variables.
+                                                              (line  82)
+* Special Variable, flare-dependencies:  Public special variables.
+                                                              (line  87)
+* Special Variable, flights-10k:         Public special variables.
+                                                              (line  92)
+* Special Variable, flights-200k:        Public special variables.
+                                                              (line  97)
+* Special Variable, flights-20k:         Public special variables.
+                                                              (line 102)
+* Special Variable, flights-2k:          Public special variables.
+                                                              (line 107)
+* Special Variable, flights-3m:          Public special variables.
+                                                              (line 112)
+* Special Variable, flights-5k:          Public special variables.
+                                                              (line 117)
+* Special Variable, flights-airport:     Public special variables.
+                                                              (line 122)
+* Special Variable, football:            Public special variables.
+                                                              (line 127)
+* Special Variable, gapminder:           Public special variables.
+                                                              (line 132)
+* Special Variable, gapminder-health-income: Public special variables.
+                                                              (line 137)
+* Special Variable, github:              Public special variables.
+                                                              (line 142)
+* Special Variable, income:              Public special variables.
+                                                              (line 147)
+* Special Variable, iowa-electricity:    Public special variables.
+                                                              (line 152)
+* Special Variable, jobs:                Public special variables.
+                                                              (line 157)
+* Special Variable, la-riots:            Public special variables.
+                                                              (line 162)
+* Special Variable, londonboroughs:      Public special variables.
+                                                              (line 167)
+* Special Variable, londoncentroids:     Public special variables.
+                                                              (line 172)
+* Special Variable, londontubelines:     Public special variables.
+                                                              (line 177)
+* Special Variable, lookup_groups:       Public special variables.
+                                                              (line 182)
+* Special Variable, lookup_people:       Public special variables.
+                                                              (line 187)
+* Special Variable, miserables:          Public special variables.
+                                                              (line 192)
+* Special Variable, monarchs:            Public special variables.
+                                                              (line 197)
+* Special Variable, movies:              Public special variables.
+                                                              (line 202)
+* Special Variable, normal-2d:           Public special variables.
+                                                              (line 207)
+* Special Variable, obesity:             Public special variables.
+                                                              (line 212)
+* Special Variable, ohlc:                Public special variables.
+                                                              (line 217)
+* Special Variable, penguins:            Public special variables.
+                                                              (line 222)
+* Special Variable, points:              Public special variables.
+                                                              (line 227)
+* Special Variable, political-contributions: Public special variables.
+                                                              (line 232)
+* Special Variable, population:          Public special variables.
+                                                              (line 237)
+* Special Variable, population_engineers_hurricanes: Public special variables.
+                                                              (line 242)
+* Special Variable, seattle-weather:     Public special variables.
+                                                              (line 247)
+* Special Variable, seattle-weather-hourly-normals: Public special variables.
+                                                              (line 252)
+* Special Variable, sp500:               Public special variables.
+                                                              (line 257)
+* Special Variable, sp500-2000:          Public special variables.
+                                                              (line 262)
+* Special Variable, stocks:              Public special variables.
+                                                              (line 267)
+* Special Variable, udistrict:           Public special variables.
+                                                              (line 272)
+* Special Variable, unemployment:        Public special variables.
+                                                              (line 277)
+* Special Variable, unemployment-across-industries: Public special variables.
+                                                              (line 282)
+* Special Variable, uniform-2d:          Public special variables.
+                                                              (line 287)
+* Special Variable, us-10m:              Public special variables.
+                                                              (line 292)
+* Special Variable, us-employment:       Public special variables.
+                                                              (line 297)
+* Special Variable, us-state-capitals:   Public special variables.
+                                                              (line 302)
+* Special Variable, volcano:             Public special variables.
+                                                              (line 307)
+* Special Variable, weather:             Public special variables.
+                                                              (line 312)
+* Special Variable, wheat:               Public special variables.
+                                                              (line 317)
+* Special Variable, windvectors:         Public special variables.
+                                                              (line 322)
+* Special Variable, world-110m:          Public special variables.
+                                                              (line 327)
+* Special Variable, zipcodes:            Public special variables.
+                                                              (line 332)
+* stocks:                                Public special variables.
+                                                              (line 266)
+* udistrict:                             Public special variables.
+                                                              (line 271)
+* unemployment:                          Public special variables.
+                                                              (line 276)
+* unemployment-across-industries:        Public special variables.
+                                                              (line 281)
+* uniform-2d:                            Public special variables.
+                                                              (line 286)
+* us-10m:                                Public special variables.
+                                                              (line 291)
+* us-employment:                         Public special variables.
+                                                              (line 296)
+* us-state-capitals:                     Public special variables.
+                                                              (line 301)
+* volcano:                               Public special variables.
+                                                              (line 306)
+* weather:                               Public special variables.
+                                                              (line 311)
+* wheat:                                 Public special variables.
+                                                              (line 316)
+* windvectors:                           Public special variables.
+                                                              (line 321)
+* world-110m:                            Public special variables.
+                                                              (line 326)
+* zipcodes:                              Public special variables.
+                                                              (line 331)
+
+
+File: vega.info,  Node: Data type index,  Prev: Variable index,  Up: Indexes
+
+A.4 Data types
+==============
+
+ [index ]
+* Menu:
+
+* Class, vega-plot:                      Private classes.       (line 7)
+* data.lisp:                             The plot/vega/data․lisp file.
+                                                                (line 6)
+* device.lisp:                           The plot/vega/device․lisp file.
+                                                                (line 6)
+* encode.lisp:                           The plot/vega/encode․lisp file.
+                                                                (line 6)
+* File, data.lisp:                       The plot/vega/data․lisp file.
+                                                                (line 6)
+* File, device.lisp:                     The plot/vega/device․lisp file.
+                                                                (line 6)
+* File, encode.lisp:                     The plot/vega/encode․lisp file.
+                                                                (line 6)
+* File, init.lisp:                       The plot/vega/init․lisp file.
+                                                                (line 6)
+* File, pkgdcl.lisp:                     The plot/vega/pkgdcl․lisp file.
+                                                                (line 6)
+* File, plot.asd:                        The plot/vega/plot․asd file.
+                                                                (line 6)
+* File, plot.lisp:                       The plot/vega/plot․lisp file.
+                                                                (line 6)
+* File, statistics.lisp:                 The plot/vega/statistics․lisp file.
+                                                                (line 6)
+* File, utilities.lisp:                  The plot/vega/utilities․lisp file.
+                                                                (line 6)
+* File, vega-datasets.lisp:              The plot/vega/vega-datasets․lisp file.
+                                                                (line 6)
+* init.lisp:                             The plot/vega/init․lisp file.
+                                                                (line 6)
+* Package, vega:                         The vega package.      (line 6)
+* pkgdcl.lisp:                           The plot/vega/pkgdcl․lisp file.
+                                                                (line 6)
+* plot.asd:                              The plot/vega/plot․asd file.
+                                                                (line 6)
+* plot.lisp:                             The plot/vega/plot․lisp file.
+                                                                (line 6)
+* plot/vega:                             The plot/vega system.  (line 6)
+* statistics.lisp:                       The plot/vega/statistics․lisp file.
+                                                                (line 6)
+* System, plot/vega:                     The plot/vega system.  (line 6)
+* utilities.lisp:                        The plot/vega/utilities․lisp file.
+                                                                (line 6)
+* vega:                                  The vega package.      (line 6)
+* vega-datasets.lisp:                    The plot/vega/vega-datasets․lisp file.
+                                                                (line 6)
+* vega-plot:                             Private classes.       (line 6)
+
+
+
+Tag Table:
+Node: Top895
+Node: Copying2080
+Node: Systems2258
+Node: The plot/vega system2459
+Ref: ❨1❩2566
+Node: Files3654
+Node: Lisp files3861
+Node: The plot/vega/plot․asd file4329
+Ref: ❨2❩4514
+Node: The plot/vega/pkgdcl․lisp file4685
+Ref: ❨3❩4896
+Node: The plot/vega/init․lisp file5034
+Ref: ❨4❩5242
+Node: The plot/vega/data․lisp file5396
+Ref: ❨5❩5602
+Node: The plot/vega/plot․lisp file5947
+Ref: ❨6❩6155
+Node: The plot/vega/device․lisp file6882
+Ref: ❨7❩7096
+Node: The plot/vega/encode․lisp file7316
+Ref: ❨8❩7535
+Node: The plot/vega/utilities․lisp file7761
+Ref: ❨9❩7990
+Node: The plot/vega/statistics․lisp file8340
+Ref: ❨10❩8578
+Node: The plot/vega/vega-datasets․lisp file8801
+Ref: ❨11❩9003
+Node: Packages13359
+Node: The vega package13535
+Ref: ❨12❩13630
+Node: Definitions19225
+Node: Public Interface19475
+Node: Public special variables19764
+Ref: ❨68❩19966
+Ref: ❨70❩20109
+Ref: ❨48❩20247
+Ref: ❨75❩20383
+Ref: ❨18❩20524
+Ref: ❨83❩20660
+Ref: ❨81❩20797
+Ref: ❨63❩20933
+Ref: ❨66❩21067
+Ref: ❨21❩21214
+Ref: ❨30❩21353
+Ref: ❨15❩21489
+Ref: ❨50❩21628
+Ref: ❨20❩21765
+Ref: ❨57❩21906
+Ref: ❨28❩22041
+Ref: ❨55❩22189
+Ref: ❨26❩22330
+Ref: ❨56❩22472
+Ref: ❨25❩22613
+Ref: ❨51❩22753
+Ref: ❨37❩22893
+Ref: ❨86❩23033
+Ref: ❨24❩23178
+Ref: ❨35❩23316
+Ref: ❨39❩23455
+Ref: ❨45❩23608
+Ref: ❨44❩23744
+Ref: ❨47❩23880
+Ref: ❨62❩24026
+Ref: ❨69❩24160
+Ref: ❨14❩24298
+Ref: ❨29❩24442
+Ref: ❨19❩24587
+Ref: ❨49❩24732
+Ref: ❨78❩24875
+Ref: ❨42❩25018
+Ref: ❨46❩25158
+Ref: ❨65❩25296
+Ref: ❨64❩25432
+Ref: ❨67❩25571
+Ref: ❨73❩25708
+Ref: ❨71❩25842
+Ref: ❨76❩25980
+Ref: ❨38❩26116
+Ref: ❨43❩26269
+Ref: ❨54❩26409
+Ref: ❨31❩26570
+Ref: ❨32❩26715
+Ref: ❨82❩26875
+Ref: ❨61❩27010
+Ref: ❨72❩27150
+Ref: ❨74❩27286
+Ref: ❨41❩27425
+Ref: ❨34❩27567
+Ref: ❨88❩27727
+Ref: ❨27❩27867
+Ref: ❨87❩28003
+Ref: ❨59❩28146
+Ref: ❨58❩28293
+Ref: ❨85❩28430
+Ref: ❨40❩28567
+Ref: ❨60❩28702
+Ref: ❨16❩28843
+Ref: ❨36❩28983
+Ref: ❨33❩29121
+Node: Public macros29229
+Ref: ❨77❩29424
+Node: Public ordinary functions29636
+Ref: ❨17❩29852
+Ref: ❨13❩30169
+Ref: ❨84❩30389
+Ref: ❨53❩30703
+Ref: ❨52❩30873
+Node: Public generic functions31018
+Ref: ❨79❩31278
+Ref: ❨80❩31504
+Ref: ❨22❩31746
+Ref: ❨23❩31976
+Node: Public standalone methods32079
+Ref: ❨123❩32304
+Node: Internals32355
+Node: Private special variables32555
+Ref: ❨98❩32760
+Ref: ❨90❩32920
+Ref: ❨95❩33099
+Ref: ❨91❩33269
+Node: Private ordinary functions33421
+Ref: ❨96❩33652
+Ref: ❨89❩34012
+Ref: ❨100❩34425
+Ref: ❨94❩34618
+Ref: ❨93❩34968
+Ref: ❨97❩35126
+Ref: ❨99❩36022
+Node: Private classes36252
+Ref: ❨92❩36396
+Node: Indexes36697
+Node: Concept index36887
+Node: Function index37008
+Node: Variable index42106
+Node: Data type index61910
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

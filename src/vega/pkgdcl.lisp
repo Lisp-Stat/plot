@@ -1,27 +1,53 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
-;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 
-(uiop:define-package #:vglt
+(uiop:define-package #:vega
     (:use #:cl
 	  #:dfio
+	  #:plot
 	  #:select
-	  #:let-plus)
-  (:import-from #:dfio #:df-to-alist)
+	  #:let-plus
+	  #:alexandria
+	  #:alexandria+
+	  #:data-frame)
+  (:import-from #:select #:select)
+  (:import-from #:lisp-stat #:data)
+  (:import-from #:data-frame #:defdf)
+  (:import-from #:parenscript #:symbol-to-js-string)
+  (:import-from #:dfio #:with-input-stream #:data-column #:data-column-add #:data-column-vector)
+  (:local-nicknames (:lt :local-time))
+  (:documentation "A plotting backend for Plot based on Vega. The specification DSL, in PLIST format, is that of Vega-Lite.  The data output representation is Vega.")
   (:export
    #:spec
    #:add
 
    #:plot
+   #:defplot
+   #:aesthetics
    #:save-plot
+   #:make-plot
+   #:show-plots
+   #:write-html
+   #:write-spec
+   #:write-vega-data			;write data to a file
+   #:show-plots				;move to PLOT?
+   #:plot-to-device
+
+   ;; Data-frame I/O
+   #:read-vega
+   #:df-to-vl-plist
 
    ;; Convenience wrappers for commonly used plots
    #:bar-chart
    #:pie-chart
    #:scatter-plot
+   #:line-plot
    #:histogram
    #:box-plot
 
    ;; Vega-Lite example data sets
+   #:load-vega-examples
+
    #:annual-precip
    #:anscombe
    #:barley

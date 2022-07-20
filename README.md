@@ -22,7 +22,7 @@
   <p align="center">
 	A library for plotting with Common Lisp
 	<br />
-    <a href="https://lisp-stat.dev/docs/tasks/plotting"><strong>Explore the docs »</strong></a>
+    <a href="https://lisp-stat.dev/docs/manuals/plot"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/lisp-stat/plot/issues">Report Bug</a>
@@ -137,7 +137,7 @@ sources.
 ## Usage
 
 For examples, please refer to the
-[Documentation](https://lisp-stat.dev/docs/tasks/plotting).
+[Documentation](https://lisp-stat.dev/docs/plot/plotting).
 
 
 <!-- ROADMAP -->
