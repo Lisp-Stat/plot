@@ -1,0 +1,1 @@
+Plot is a general front end for describing plots.  The front end handles interaction with the display, a local window or a browser, and backends handle the rendering.  There are backends for Vega and Vega-Lite, as well as text.
