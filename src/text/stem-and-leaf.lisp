@@ -24,14 +24,14 @@
                      (default is 1). Currently not implemented
        SPLIT-STEMS - if T the stems will be split. Currently not implemented."
   (declare (ignore leaf-size))		; we'll use it later
-  (declare (ignore split-stems))	; Not implemented. See github issue #2
+
   (check-type x vector)
-  (let* ((all-stems  (efloor (e/ x stem-size)))
+  (let* ((all-stems  (efloor (e/ x (if split-stems (/ stem-size 2) stem-size))))
 	 (all-leaves (emod x stem-size))
 	 (stem-fmt (format nil "~~~AD |" (length (format nil "~A" (sequence-maximum all-stems)))))
 	 (leaf-strings-vector (leaf-strings all-stems all-leaves)))
     (loop for s from (sequence-minimum all-stems) to (sequence-maximum all-stems)
-	  do (progn (format t stem-fmt s)
+	  do (progn (format t stem-fmt (if split-stems (floor (/ s 2)) s))
 		    (format t "~A~%" (gethash s leaf-strings-vector))))))
 
 (defun back-to-back-stem-and-leaf (x y &key (stem-size 10) (leaf-size 1) split-stems)
