@@ -44,6 +44,7 @@
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
   :depends-on ("plot"
+	       "lisp-stat"
 	       "lass"
 	       "cl-who"
 	       "quri"
