@@ -111,7 +111,7 @@ git clone https://github.com/Lisp-Stat/plot
    ```
 3. Load the system
    ```lisp
-   (asdf:load-system :plot/vglt)
+   (asdf:load-system :plot/vega)
    ```
 
 If you have installed the slime ASDF extensions, you can invoke this
