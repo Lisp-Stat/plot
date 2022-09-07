@@ -2,21 +2,12 @@
 ;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 
 (uiop:define-package #:vega
-    (:use #:cl
-	  #:dfio
-	  #:plot
-	  #:select
-	  #:let-plus
-	  #:alexandria
-	  #:alexandria+
-	  #:data-frame)
-  (:import-from #:select #:select)
-  (:import-from #:lisp-stat #:data)
-  (:import-from #:data-frame #:defdf)
+  (:use #:lisp-stat #:let-plus #:plot)
   (:import-from #:parenscript #:symbol-to-js-string)
   (:import-from #:dfio #:with-input-stream #:data-column #:data-column-add #:data-column-vector)
   (:local-nicknames (:lt :local-time))
-  (:documentation "A plotting backend for Plot based on Vega. The specification DSL, in PLIST format, is that of Vega-Lite.  The data output representation is Vega.")
+  (:documentation "A plotting backend for Plot based on Vega.  The specification DSL, in PLIST format, is that of Vega-Lite.  The data output representation is Vega.")
+
   (:export
    #:spec
    #:add

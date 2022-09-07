@@ -32,7 +32,7 @@ This is useful when working with a JSON encoder that will take a plist and outpu
     (values data-columns (map 'list #'string-to-symbol column-keys))))
 
 (defun read-vega (source &key (map-alist '((""    . :na)
-					 ("NIL" . :na))))
+					   ("NIL" . :na))))
   "Read a stream of Vega-Lite data into a DATA-FRAME
 Useful when working with Vega-Lite data sets from external sources."
   (let+ (((&values data-columns column-keys) (json-to-data-columns source :map-alist map-alist))
