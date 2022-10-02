@@ -6,7 +6,7 @@
 			      (:rect . "Table plot / heatmap")(:arc . "Pie/donut chart")(:boxplot . "Boxplot"))
   "Map Vega-Lite mark types to plot types")
 
-(defparameter *all-plots* (make-hash-table)
+(defparameter *all-plots* (make-hash-table :test 'equal)
   "Global table of plots")
 
 (defun show-plots ()

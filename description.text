@@ -1,1 +1,3 @@
 Plot is a general front end for describing plots.  The front end handles interaction with the display, a local window or a browser, and backends handle the rendering.  There are backends for Vega and Vega-Lite, as well as text.
+
+If updating a backend, be certain to bump the version number in the .asd file as well.

@@ -22,6 +22,7 @@
    #:write-spec
    #:write-vega-data			;write data to a file
    #:show-plots				;move to PLOT?
+   #:*all-plots*			;global list of plots
    #:plot-to-device
 
    ;; Data-frame I/O
