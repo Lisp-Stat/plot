@@ -55,10 +55,14 @@
   "Encode command line options for Chrome"
   ;; We want to add a --user-data-directory so that --windows-size is honoured
   ;; --app, if present, will have been set by the caller
+  ;; We also want --no-default-browser-check and --no-first-run to suppress
+  ;; a dialog box shown on startup when an empty data directory is picked.
   ;; See note at top of file about proper way to set window attributesc
-  (let ((chrome-options (push (cons "user-data-dir"
-				      (merge-pathnames (format nil "chrome-data-~A" (princ-to-string (gensym)))
-						       (translate-logical-pathname #P"PLOT:TEMP;")))
+  (let ((chrome-options (append (list (cons "user-data-dir"
+					    (merge-pathnames "chrome-data"
+							     (translate-logical-pathname #P"PLOT:TEMP;")))
+				      (cons "no-default-browser-check" 1)
+				      (cons "no-first-run" 1))
 			     options)))
     (encode-application-options chrome-options "--~A=~A")))
 
