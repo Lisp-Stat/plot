@@ -17,12 +17,27 @@
 ;;; uiop:launch-program.
 
 ;;;
+;;; Chrome on Linux
+;;;
+
+(defun find-chrome-executable-linux ()
+  "Find Chrome's executable for Linux distributions"
+  ;; Linux distributions unfortunately do not all use the same name for chrome,
+  ;; or there may only be chromium installed.
+  ;; Partial list of executables: https://unix.stackexchange.com/questions/436835/universal-path-for-chrome-on-nix-systems
+  (find-if (lambda (potential-executable)
+	     (ignore-errors
+	      (zerop (nth-value 2 (uiop:run-program (list potential-executable "--version"))))))
+	   (list "google-chrome" "chrome" "google-chrome-stable" "chromium" "chromium-browser")))
+
+;;;
 ;;; Functions and data for all browsers
 ;;;
+
 (defparameter *browser-commands*
   (list (cons :chrome #+win32 "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
 		      #+(or macos darwin) "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-		      #+linux "chrome")	;See https://unix.stackexchange.com/questions/436835/universal-path-for-chrome-on-nix-systems
+		      #+linux (find-chrome-executable-linux))
 	(cons :firefox #+win32 "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
 		       #+(or macos darwin) "/Applications/Firefox.app/Contents/MacOS/firefox"
 		       #+linux "firefox")
