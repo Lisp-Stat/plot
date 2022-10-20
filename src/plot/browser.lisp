@@ -17,12 +17,27 @@
 ;;; uiop:launch-program.
 
 ;;;
+;;; Chrome on Linux
+;;;
+
+(defun find-chrome-executable-linux ()
+  "Find Chrome's executable for Linux distributions"
+  ;; Linux distributions unfortunately do not all use the same name for chrome,
+  ;; or there may only be chromium installed.
+  ;; Partial list of executables: https://unix.stackexchange.com/questions/436835/universal-path-for-chrome-on-nix-systems
+  (find-if (lambda (potential-executable)
+	     (ignore-errors
+	      (zerop (nth-value 2 (uiop:run-program (list potential-executable "--version"))))))
+	   (list "google-chrome" "chrome" "google-chrome-stable" "chromium" "chromium-browser")))
+
+;;;
 ;;; Functions and data for all browsers
 ;;;
+
 (defparameter *browser-commands*
   (list (cons :chrome #+win32 "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
 		      #+(or macos darwin) "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-		      #+linux "chrome")	;See https://unix.stackexchange.com/questions/436835/universal-path-for-chrome-on-nix-systems
+		      #+linux (find-chrome-executable-linux))
 	(cons :firefox #+win32 "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
 		       #+(or macos darwin) "/Applications/Firefox.app/Contents/MacOS/firefox"
 		       #+linux "firefox")
@@ -55,10 +70,14 @@
   "Encode command line options for Chrome"
   ;; We want to add a --user-data-directory so that --windows-size is honoured
   ;; --app, if present, will have been set by the caller
+  ;; We also want --no-default-browser-check and --no-first-run to suppress
+  ;; a dialog box shown on startup when an empty data directory is picked.
   ;; See note at top of file about proper way to set window attributesc
-  (let ((chrome-options (push (cons "user-data-dir"
-				      (merge-pathnames (format nil "chrome-data-~A" (princ-to-string (gensym)))
-						       (translate-logical-pathname #P"PLOT:TEMP;")))
+  (let ((chrome-options (append (list (cons "user-data-dir"
+					    (merge-pathnames "chrome-data"
+							     (translate-logical-pathname #P"PLOT:TEMP;")))
+				      (cons "no-default-browser-check" 1)
+				      (cons "no-first-run" 1))
 			     options)))
     (encode-application-options chrome-options "--~A=~A")))
 
