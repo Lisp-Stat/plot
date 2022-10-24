@@ -4,9 +4,9 @@
 
 ;;; JSON/Vega-lite serialisation
 
-(defmethod yason:encode ((ts lt:timestamp) &optional (stream *standard-output*))
+(defmethod yason:encode ((ts timestamp) &optional (stream *standard-output*))
   "Encode a timestamp into an ISO-8601 string"
-  (yason:encode (lt:format-timestring nil ts) stream))
+  (yason:encode (format-timestring nil ts) stream))
 
 (defmethod yason:encode ((df data-frame) &optional (stream *standard-output*))
   (let ((yason:*symbol-key-encoder* 'yason:encode-symbol-as-lowercase)

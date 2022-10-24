@@ -5,7 +5,7 @@
   (:use #:lisp-stat #:let-plus #:plot)
   (:import-from #:parenscript #:symbol-to-js-string)
   (:import-from #:dfio #:with-input-stream #:data-column #:data-column-add #:data-column-vector)
-  (:local-nicknames (:lt :local-time))
+  (:import-from #:local-time #:format-timestring #:timestamp)
   (:documentation "A plotting backend for Plot based on Vega.  The specification DSL, in PLIST format, is that of Vega-Lite.  The data output representation is Vega.")
 
   (:export
