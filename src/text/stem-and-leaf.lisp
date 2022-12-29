@@ -1,8 +1,8 @@
 ;;; -*- Mode: Lisp; Package: PLOT/TEXT; Syntax: ANSI-Common-Lisp; -*-
-;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:plot/text)
 
-(defun leaf-strings (all-stems all-leaves)
+(defun leaf-strings (all-stems all-leaves sort-order)
   "Returns a hashtable where the key represents the stem, and the value
    represents the leaves as a string."
   (let ((max-stem (sequence-maximum all-stems))
@@ -11,7 +11,7 @@
 	  for stems = (which all-stems :predicate #'(lambda (x) (= x s)))
 	  for leaves = (if (= (length stems) 0)
 			   nil
-			   (coerce (sort (select all-leaves stems) #'<) 'list))
+			   (coerce (sort (select all-leaves stems) sort-order) 'list))
 	  do (setf (gethash s strings) (format nil "~{ ~A~}" leaves)))
     strings))
 
@@ -29,7 +29,7 @@
   (let* ((all-stems  (efloor (e/ x (if split-stems (/ stem-size 2) stem-size))))
 	 (all-leaves (emod x stem-size))
 	 (stem-fmt (format nil "~~~AD |" (length (format nil "~A" (sequence-maximum all-stems)))))
-	 (leaf-strings-vector (leaf-strings all-stems all-leaves)))
+	 (leaf-strings-vector (leaf-strings all-stems all-leaves #'<)))
     (loop for s from (sequence-minimum all-stems) to (sequence-maximum all-stems)
 	  do (progn (format t stem-fmt (if split-stems (floor (/ s 2)) s))
 		    (format t "~A~%" (gethash s leaf-strings-vector))))))
@@ -47,14 +47,14 @@
   (declare (ignore split-stems)) ; Not implemented. See github issue #2
   (check-type x vector)
   (check-type y vector)
-  (let* ((left-stems (efloor (e/ x stem-size)))
+  (let* ((left-stems  (efloor (e/ x stem-size)))
 	 (right-stems (efloor (e/ y stem-size)))
 	 (combined-stems (concatenate 'vector left-stems right-stems))
-	 (left-leaves (emod x stem-size))
+	 (left-leaves  (emod x stem-size))
 	 (right-leaves (emod y stem-size))
 	 (stem-fmt (format nil " | ~~~AD |" (length (format nil "~A" (sequence-maximum combined-stems)))))
-	 (left-strings (leaf-strings left-stems left-leaves))
-	 (right-strings (leaf-strings right-stems right-leaves))
+	 (left-strings  (leaf-strings left-stems left-leaves #'>))
+	 (right-strings (leaf-strings right-stems right-leaves #'<))
 	 (left-min-col (sequence-maximum (loop for leaf being each hash-value of left-strings collect (length leaf)))))
     (loop for s from (sequence-minimum combined-stems) to (sequence-maximum combined-stems)
 	  do (progn (format t "~v@A" left-min-col (gethash s left-strings ""))

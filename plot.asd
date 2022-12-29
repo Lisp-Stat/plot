@@ -25,7 +25,7 @@
 	       (:file "plot")))
 
 (defsystem "plot/text"
-  :version     "1.0.0"
+  :version     "1.0.1"
   :description "Text based plotting"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
