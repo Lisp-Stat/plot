@@ -34,13 +34,14 @@ A device could be a webserver, where a PUT operation would write the plot, locat
 ;; General function to open a browser to display a file
 (defun plot-from-file (filespec &key (browser *default-browser-command*) (browser-options *default-browser-options*))
   "Open FILESPEC with browser. FILESPEC must be displayable by the browser, e.g. HTML."
+  (declare (type browser-specifier browser))
   (let ((plot-file (namestring (truename filespec))))
     #+win32 (setf plot-file (concatenate 'string "file:///" plot-file))
     #+(or macos darwin linux) (setf plot-file (concatenate 'string "file://" plot-file))
-    (uiop:launch-program  (append (list (alexandria:assoc-value plot:*browser-commands* browser))
-				  (cl-ppcre:split "\\s+" (case browser
-							   (:chrome (if (assoc "app" browser-options :test 'string=)
+    (uiop:launch-program  (append (list (alexandria:assoc-value plot:*browser-commands* (if (eq browser :chrome-app-mode) :chrome browser)))
+				  (cl-ppcre:split "\\s+" (if (eq browser :chrome-app-mode)
+							     (progn (if (assoc "app" browser-options :test 'string=)
 									(setf (cdr (assoc "app" browser-options :test 'string=)) plot-file))
-							    (encode-chrome-options browser-options))
-							   (:default plot-file))))
+								    (encode-chrome-options browser-options))
+							     plot-file)))
 			  :ignore-error-status t)))
