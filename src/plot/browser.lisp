@@ -65,14 +65,15 @@
   ;; Chrome arg-format: "--~A=~A"
   ;; Firefox: "-~A ~A"
   (declare (special arg-format))
-  (format nil "~{~/plot::%print-alist/~^ ~}" options))
+  (when options
+    (format nil "~{~/plot::%print-alist/~^ ~}" options)))
 
 
 ;;;
 ;;; Chrome
 ;;;
 
-(defun encode-chrome-options (options)
+(defun encode-chrome-app-options (options app-url)
   "Encode command line options for Chrome"
   ;; We want to add a --user-data-directory so that --windows-size is honoured
   ;; --app, if present, will have been set by the caller
@@ -83,19 +84,30 @@
 					    (merge-pathnames "chrome-data"
 							     (translate-logical-pathname #P"PLOT:TEMP;")))
 				      (cons "no-default-browser-check" 1)
-				      (cons "no-first-run" 1))
+				      (cons "no-first-run" 1)
+				      (cons "app" app-url)) ; Run without tabs, menus, etc.
 			     options)))
     (encode-application-options chrome-options "--~A=~A")))
+
+(defun encode-chrome-options (options url)
+  "Encode command line options for Chrome"
+  (concatenate 'string (encode-application-options options "--~A=~A") " " url))
 
 (defun set-chrome-size (size)
   "Set the windows size in *default-browser-options*"
   (setf (cdr (assoc "window-size" *default-browser-options* :test 'string=)) size))
 
 (defparameter *default-chrome-app-options*
-  (list (cons "window-size" "800,600")	; This should probably be set in the plot JavaScript
-	(cons "app" "foo")))            ; Run without tabs, menus, etc. "foo" ignored
+  (list (cons "window-size" "800,600")))      ; This should probably be set in the plot JavaScript
 
+;;;
+;;; Firefox
+;;;
 
+(defun encode-firefox-options (options url)
+  "Encode command line options for Firefox"
+  ;; We have to be careful with large spaces as Firefox seems to misinterpret them as multiple urls
+  (format nil "~@[~A ~]~A" (encode-application-options options "-~A ~A") url))
 
 ;;;
 ;;; Set global defaults.
