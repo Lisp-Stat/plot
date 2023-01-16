@@ -2,7 +2,7 @@
 ;;; Copyright (c) 2021 by Symbolics Pte. Ltd. All rights reserved.
 (in-package #:plot)
 
-;;; Helper functions to launch browers
+;;; Helper functions to launch browsers
 
 ;;; Note: This experiment has shown that there is too much variability
 ;;; in browser behaviour to use the command line switches to control
@@ -16,18 +16,24 @@
 ;;; specific to each browser that is selected in the arguments to
 ;;; uiop:launch-program.
 
+(deftype browser-specifier () '(member :chrome-app-mode :chrome :firefox :default))
+(declaim (type browser-specifier *default-browser-command*))
+
 ;;;
 ;;; Chrome on Linux
 ;;;
+
+(defun executable-present-p (potential-executable)
+  "Return T if POTENTIAL-EXECUTABLE responds to --version argument"
+  (ignore-errors
+   (zerop (nth-value 2 (uiop:run-program (list potential-executable "--version"))))))
 
 (defun find-chrome-executable-linux ()
   "Find Chrome's executable for Linux distributions"
   ;; Linux distributions unfortunately do not all use the same name for chrome,
   ;; or there may only be chromium installed.
   ;; Partial list of executables: https://unix.stackexchange.com/questions/436835/universal-path-for-chrome-on-nix-systems
-  (find-if (lambda (potential-executable)
-	     (ignore-errors
-	      (zerop (nth-value 2 (uiop:run-program (list potential-executable "--version"))))))
+  (find-if #'executable-present-p
 	   (list "google-chrome" "chrome" "google-chrome-stable" "chromium" "chromium-browser")))
 
 ;;;
@@ -59,14 +65,15 @@
   ;; Chrome arg-format: "--~A=~A"
   ;; Firefox: "-~A ~A"
   (declare (special arg-format))
-  (format nil "~{~/plot::%print-alist/~^ ~}" options))
+  (when options
+    (format nil "~{~/plot::%print-alist/~^ ~}" options)))
 
 
 ;;;
 ;;; Chrome
 ;;;
 
-(defun encode-chrome-options (options)
+(defun encode-chrome-app-options (options app-url)
   "Encode command line options for Chrome"
   ;; We want to add a --user-data-directory so that --windows-size is honoured
   ;; --app, if present, will have been set by the caller
@@ -77,25 +84,37 @@
 					    (merge-pathnames "chrome-data"
 							     (translate-logical-pathname #P"PLOT:TEMP;")))
 				      (cons "no-default-browser-check" 1)
-				      (cons "no-first-run" 1))
+				      (cons "no-first-run" 1)
+				      (cons "app" app-url)) ; Run without tabs, menus, etc.
 			     options)))
     (encode-application-options chrome-options "--~A=~A")))
+
+(defun encode-chrome-options (options url)
+  "Encode command line options for Chrome"
+  (concatenate 'string (encode-application-options options "--~A=~A") " " url))
 
 (defun set-chrome-size (size)
   "Set the windows size in *default-browser-options*"
   (setf (cdr (assoc "window-size" *default-browser-options* :test 'string=)) size))
 
-(defparameter *default-chrome-options*
-  (list (cons "window-size" "800,600")	; This should probably be set in the plot JavaScript
-	(cons "app" "foo")))            ; Run without tabs, menus, etc. "foo" ignored
+(defparameter *default-chrome-app-options*
+  (list (cons "window-size" "800,600")))      ; This should probably be set in the plot JavaScript
 
+;;;
+;;; Firefox
+;;;
 
+(defun encode-firefox-options (options url)
+  "Encode command line options for Firefox"
+  ;; We have to be careful with large spaces as Firefox seems to misinterpret them as multiple urls
+  (format nil "~@[~A ~]~A" (encode-application-options options "-~A ~A") url))
 
 ;;;
 ;;; Set global defaults.
 ;;;
 
 ;;; If passing custom options frequently, set these
-(defparameter *default-browser-command* :chrome)
-(defparameter *default-browser-options* *default-chrome-options*)
-
+(defparameter *default-browser-command* (if (executable-present-p (alexandria:assoc-value *browser-commands* :chrome))
+					    :chrome-app-mode
+					    :default))
+(defparameter *default-browser-options* (when (eq *default-browser-command* :chrome-app-mode) *default-chrome-app-options*))
