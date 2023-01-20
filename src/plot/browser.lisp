@@ -23,11 +23,13 @@
 ;;; Chrome on Linux
 ;;;
 
+#-win32
 (defun executable-present-p (potential-executable)
   "Return T if POTENTIAL-EXECUTABLE responds to --version argument"
   (ignore-errors
    (zerop (nth-value 2 (uiop:run-program (list potential-executable "--version"))))))
 
+#+linux
 (defun find-chrome-executable-linux ()
   "Find Chrome's executable for Linux distributions"
   ;; Linux distributions unfortunately do not all use the same name for chrome,
@@ -116,7 +118,8 @@
 ;;;
 
 ;;; If passing custom options frequently, set these
-(defparameter *default-browser-command* (if (executable-present-p (alexandria:assoc-value *browser-commands* :chrome))
+(defparameter *default-browser-command* (if #+win32(alexandria:assoc-value *browser-commands* :chrome)
+					    #-win32(executable-present-p (alexandria:assoc-value *browser-commands* :chrome))
 					    :chrome-app-mode
 					    :default))
 (defparameter *default-browser-options* (when (eq *default-browser-command* :chrome-app-mode) *default-chrome-app-options*))
