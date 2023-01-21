@@ -23,11 +23,13 @@
 ;;; Chrome on Linux
 ;;;
 
+#-win32
 (defun executable-present-p (potential-executable)
   "Return T if POTENTIAL-EXECUTABLE responds to --version argument"
   (ignore-errors
    (zerop (nth-value 2 (uiop:run-program (list potential-executable "--version"))))))
 
+#+linux
 (defun find-chrome-executable-linux ()
   "Find Chrome's executable for Linux distributions"
   ;; Linux distributions unfortunately do not all use the same name for chrome,
@@ -41,16 +43,18 @@
 ;;;
 
 (defparameter *browser-commands*
-  (list (cons :chrome #+win32 "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+  (list (cons :chrome #+win32 (find-if #'probe-file (list "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+							  "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"))
 		      #+(or macos darwin) "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 		      #+linux (find-chrome-executable-linux))
-	(cons :firefox #+win32 "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
+	(cons :firefox #+win32 (find-if #'probe-file (list "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+							   "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"))
 		       #+(or macos darwin) "/Applications/Firefox.app/Contents/MacOS/firefox"
 		       #+linux "firefox")
 	(cons :default #+win32 "explorer"
 		       #+(or macos darwin) "open"
-		       #-(or macos darwin win32) "xdg-open")
-  "Maps browser names to system paths"))
+		       #-(or macos darwin win32) "xdg-open"))
+  "Maps browser names to system paths")
 
 (defparameter *default-browser-options* nil)
 
@@ -114,7 +118,8 @@
 ;;;
 
 ;;; If passing custom options frequently, set these
-(defparameter *default-browser-command* (if (executable-present-p (alexandria:assoc-value *browser-commands* :chrome))
+(defparameter *default-browser-command* (if #+win32(alexandria:assoc-value *browser-commands* :chrome)
+					    #-win32(executable-present-p (alexandria:assoc-value *browser-commands* :chrome))
 					    :chrome-app-mode
 					    :default))
 (defparameter *default-browser-options* (when (eq *default-browser-command* :chrome-app-mode) *default-chrome-app-options*))
