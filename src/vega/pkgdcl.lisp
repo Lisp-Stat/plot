@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
-;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2023 by Symbolics Pte. Ltd. All rights reserved.
 
 (uiop:define-package #:vega
   (:use #:lisp-stat #:let-plus #:plot)
@@ -14,7 +14,6 @@
 
    #:plot
    #:defplot
-   #:aesthetics
    #:save-plot
    #:make-plot
    #:show-plots
@@ -29,13 +28,8 @@
    #:read-vega
    #:df-to-vl-plist
 
-   ;; Convenience wrappers for commonly used plots
-   #:bar-chart
-   #:pie-chart
-   #:scatter-plot
-   #:line-plot
-   #:histogram
-   #:box-plot
+   ;; Convenience wrappers for plots that aren't straightforward in vega
+   #:qq-plot
 
    ;; Vega-Lite example data sets
    #:load-vega-examples

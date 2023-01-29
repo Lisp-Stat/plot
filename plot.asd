@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: ASDF -*-
-;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2023 by Symbolics Pte. Ltd. All rights reserved.
 
 (defsystem "plot"
   :version     "1.0.0"
@@ -39,7 +39,7 @@
 		(:file "stem-and-leaf")))
 
 (defsystem "plot/vega"
-  :version     "1.0.3"
+  :version     "1.1.0"
   :description "Plotting with Vega & Vega-Lite"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
@@ -63,6 +63,7 @@
 	       (:file "device")
 	       (:file "encode")
 	       (:file "utilities")
+	       (:file "statistics")
 	       (:file "vega-datasets"))
   :in-order-to ((test-op (test-op "plot/vega/tests"))))
 
