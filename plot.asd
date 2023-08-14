@@ -3,7 +3,7 @@
 ;;; SPDX-License-identifier: MS-PL
 
 (defsystem "plot"
-  :version     "1.0.0"
+  :version     "2.0.0"
   :licence     :MS-PL
   :author      "Steve Nunez <steve@symbolics.tech>"
   :long-name   "Common Lisp Vega Plotting"
@@ -13,7 +13,6 @@
   :homepage    "https://lisp-stat.dev/docs/tasks/plotting/"
   :source-control (:git "https://github.com/Lisp-Stat/plot.git")
   :bug-tracker "https://github.com/Lisp-Stat/plot/issues"
-
   :depends-on ("cl-ppcre"		;browser command line option parsing
 	       "alexandria"
 	       "alexandria+"
@@ -40,7 +39,7 @@
 		(:file "stem-and-leaf")))
 
 (defsystem "plot/vega"
-  :version     "1.1.0"
+  :version     "2.0.0"
   :description "Plotting with Vega & Vega-Lite"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
@@ -54,7 +53,9 @@
 	       "let-plus"
 	       "local-time"
 	       "parenscript"
-	       "duologue")
+	       "duologue"
+	       "array-operations"
+	       "statistics")
   :serial t
   :pathname    "src/vega/"
   :components ((:file "pkgdcl")
@@ -65,6 +66,7 @@
 	       (:file "encode")
 	       (:file "utilities")
 	       (:file "statistics")
+	       (:file "scatterplot")
 	       (:file "vega-datasets"))
   :in-order-to ((test-op (test-op "plot/vega/tests"))))
 
