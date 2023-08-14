@@ -1,5 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: VEGA -*-
-;;; Copyright (c) 2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2022-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 (in-package #:vega)
 
 ;;; A plot DEVICE is a proxy for the streams that have to be

@@ -1,5 +1,6 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VEGA -*-
-;;; Copyright (c) 2022 Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2022-2023 Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 (in-package #:vega)
 
 (defparameter *chart-types* '((:point . "Scatter plot")(:bar . "Bar chart")(:line . "Line plot")(:area . "Area chart")
@@ -62,7 +63,9 @@ By putting :data onto the plot object we can write it to various locations and a
 
     (assert (plistp spec) () "Error spec is not a PLIST")
     (assert (or (plistp data)
-		(typep data 'df:data-frame)) () "Error data must be a PLIST or DATA-FRAME, not a ~A" (type-of data))
+		(typep data 'quri.uri:uri)
+		(typep data 'df:data-frame))
+	    () "Error data must be a PLIST, URI or DATA-FRAME, not a ~A" (type-of data))
 
     ;; If DATA is a DATA-FRAME, and it has a name, use it as the title if one wasn't provided
     #+nil
@@ -73,8 +76,7 @@ By putting :data onto the plot object we can write it to various locations and a
 
     (unless given-schema
       (setf (getf spec "$schema") schema))
-    (remf spec :data)
-    (make-plot (symbol-name name) data spec)))
+    (make-plot (symbol-name name) data spec))) ;TODO update plot:plot class and remove DATA slot
 
 (defmacro defplot (name &body spec)
   "Define a plot NAME. Returns an object of PLOT class bound to a symbol NAME.  Adds symbol to *all-plots*."
@@ -83,10 +85,6 @@ By putting :data onto the plot object we can write it to various locations and a
      (setf (gethash (plot-name ,name) *all-plots*) ,name)
      ,name))				;Return the plot instead of the list
 
-
-;;; This works, but only with a single, top level :data property.
-;;; Vega-Lite data properties can occur multiple time, and at other
-;;; than the top level, so we need to handle them in encoding.
 (defmethod write-spec ((p vega-plot) &key
 				       spec-loc
 				       data-url
@@ -96,45 +94,6 @@ By putting :data onto the plot object we can write it to various locations and a
   (let ((spec (plot-spec p))
 	(yason:*symbol-encoder*     'encode-symbol-as-metadata) ;not just meta-data, to JavaScript as well
 	(yason:*symbol-key-encoder* 'encode-symbol-as-metadata))
-
-    (when (typep data 'plist)
-      (setf data (plist-df data)))
-
-    (unless (eql data-url :ignore)
-    (etypecase data-url
-      (string   (setf (getf spec :data) `(:url ,data-url)))
-      (quri:uri (setf (getf spec :data) `(:url data-url)))
-      (pathname (setf (getf spec :data) `(:url data-url)))
-      (null			     ;embed the spec
-       (let ((df:*large-data* 50000)	;larger than this can cause browser performance problems
-	     (data-size (apply #'* (aops:dims data))))
-	 (handler-bind ((df:large-data
-			  #'(lambda (c)
-			      (invoke-debugger c))))
-	   (if (< data-size *large-data*)
-	       (setf (getf spec :data) `(:values ,data))
-	       (restart-case (signal 'df:large-data :data-size data-size)
-		 (take-all ()
-		   :report "Take all data"
-		   (format t "Taking ~D data points" data-size)
-		   (setf (getf spec :data) `(:values ,data)))
-		 (take-n (n)
-		   :report "Take the first N data points"
-		   :interactive (lambda ()
-				  (let ((n (duologue:prompt "Number of data points to take: "
-							    :parser #'parse-integer
-							    :type '(integer 1 *))))
-				    (list n)))
-		   (let* ((nrows (floor (/ n (aops:ncol data))))
-			  (data-slice (select data (range 0 nrows) t)))
-		     (format t "Taking ~D rows (~D data points)" nrows n)
-		     (setf (getf spec :data) `(:values ,data-slice))))
-		 (take-max ()
-		   :report "Take up to maximum recommended number"
-		   (let* ((nrows (floor (/ df:*large-data* (aops:ncol data))))
-			  (data-slice (select data (range 0 nrows) t)))
-		     (format t "Taking ~D rows (~D data points)" nrows df:*large-data*)
-		     (setf (getf spec :data) `(:values ,data-slice)))))))))))
 
     (typecase spec-loc
       (pathname

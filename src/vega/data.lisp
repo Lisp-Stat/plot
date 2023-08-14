@@ -1,5 +1,6 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VEGA -*-
 ;;; Copyright (c) 2021-2022 Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 (in-package #:vega)
 
 ;;; JSON/Vega-lite data manipulation
@@ -42,7 +43,6 @@ Useful when working with Vega-Lite data sets from external sources."
 		      column-keys data-columns))))
     df))
 
-
 (defun write-vega-data (data pathspec)
   "Write DATA to PATHSPEC in vega JSON format"
     (let ((yason:*symbol-encoder*     'encode-symbol-as-metadata) ;not just meta-data, to JavaScript as well
@@ -50,5 +50,5 @@ Useful when working with Vega-Lite data sets from external sources."
       (with-open-file (stream pathspec :direction :output
 				       :if-exists :supersede
 				       :if-does-not-exist :create)
-	(yason:encode (df-to-vl-plist data) stream)))
+	(yason:encode data stream)))
   (values))				;return nothing. Emacs buffers choke on large data.

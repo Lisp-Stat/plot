@@ -1,5 +1,6 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VEGA -*-
-;;; Copyright (c) 2021-2022 Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2023 Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 (in-package #:vega)
 
 ;;; JSON/Vega-lite serialisation
@@ -15,8 +16,7 @@
     (yason:encode (df-to-vl-plist df) stream)))
 
 (defmethod yason:encode ((uri quri:uri) &optional (stream *standard-output*))
-  (yason:with-output (stream)
-    (quri:render-uri uri stream)))
+  (yason:encode (quri:render-uri uri) stream))
 
 (defmethod yason:encode ((p pathname) &optional (stream *standard-output*))
   (yason:with-output (stream)

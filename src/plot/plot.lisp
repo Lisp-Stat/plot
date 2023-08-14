@@ -1,5 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: PLOT -*-
-;;; Copyright (c) 2021-2022 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 (in-package #:plot)
 
 ;;; Definitions that can be used in plots of any type.
@@ -7,7 +8,7 @@
 (defclass plot ()
   ((name :initarg :name :initform nil :accessor plot-name)
    (data :initarg :data :initform nil :accessor plot-data
-	 :documentation "A DATA-FRAME OR PLIST of key/column pairs.  Internally, a PLIST will will be converted to a DATA-FRAME by the rendering functions.  A PLIST can sometimes be more convenient for ad-hoc plotting.")
+	 :documentation "A DATA-FRAME OR PLIST of key/column pairs.  Internally, a PLIST will will be converted to a DATA-FRAME by the rendering functions.  A PLIST can sometimes be more convenient for ad-hoc plotting.  Use is optional.")
    (spec :initarg :spec :initform nil :accessor plot-spec
 	 :documentation "The plot specification in PLIST format.  The PLIST is passed to YASON for encoding to the backend specific JSON.  See the file encode.lisp in the Vega backend for examples of how this is done."))
    (:documentation "Base class for plots"))
