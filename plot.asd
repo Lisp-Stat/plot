@@ -1,5 +1,6 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: ASDF -*-
 ;;; Copyright (c) 2021-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; SPDX-License-identifier: MS-PL
 
 (defsystem "plot"
   :version     "1.0.0"
@@ -25,7 +26,7 @@
 	       (:file "plot")))
 
 (defsystem "plot/text"
-  :version     "1.0.1"
+  :version     "1.0.2"
   :description "Text based plotting"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
