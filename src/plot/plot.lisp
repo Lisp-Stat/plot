@@ -27,14 +27,15 @@
   (print-unreadable-object (p stream :type t)
     (format stream "~a" (symbol-name p))))
 
-(defgeneric write-plot (plot device)
+#+nil
+(defgeneric write-plot (device plot) ;this became write-spec somewhere along the way
   (:documentation "Write PLOT to DEVICE
 May not be immediately visible to the user, depending on the device.
 A device could be a webserver, where a PUT operation would write the plot, locations on disk, a github gist, etc."))
 
 ;; General function to open a browser to display a file
 (defun plot-from-file (filespec &key (browser *default-browser-command*) (browser-options *default-browser-options*))
-  "Open FILESPEC with browser. FILESPEC must be displayable by the browser, e.g. HTML."
+  "Open FILESPEC with browser.  FILESPEC must be displayable by the browser, e.g. HTML."
   (declare (type browser-specifier browser))
   (let ((plot-file (namestring (truename filespec))))
     #+win32 (setf plot-file (concatenate 'string "file:///" plot-file))

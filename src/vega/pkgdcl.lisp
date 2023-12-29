@@ -3,7 +3,7 @@
 ;;; SPDX-License-identifier: MS-PL
 
 (uiop:define-package #:vega
-  (:use #:lisp-stat #:let-plus #:plot)
+  (:use #:lisp-stat #:let-plus #:plot #:cl-gists)
   (:import-from #:parenscript #:symbol-to-js-string)
   (:import-from #:dfio #:with-input-stream #:data-column #:data-column-add #:data-column-vector)
   (:import-from #:local-time #:format-timestring #:timestamp)
@@ -12,6 +12,7 @@
   (:export
    #:spec
    #:add
+   #:edit				;vega online editor
 
    #:plot
    #:defplot

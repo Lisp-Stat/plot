@@ -55,7 +55,9 @@
 	       "parenscript"
 	       "duologue"
 	       "array-operations"
-	       "statistics")
+	       "statistics"
+	       "cl-gists"
+	       "smoothers")
   :serial t
   :pathname    "src/vega/"
   :components ((:file "pkgdcl")
@@ -64,6 +66,7 @@
 	       (:file "plot")
 	       (:file "device")
 	       (:file "encode")
+	       (:file "commands")
 	       (:file "utilities")
 	       (:file "statistics")
 	       (:file "scatterplot")

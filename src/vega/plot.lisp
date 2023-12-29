@@ -85,6 +85,7 @@ By putting :data onto the plot object we can write it to various locations and a
      (setf (gethash (plot-name ,name) *all-plots*) ,name)
      ,name))				;Return the plot instead of the list
 
+
 (defmethod write-spec ((p vega-plot) &key
 				       spec-loc
 				       data-url
@@ -95,6 +96,11 @@ By putting :data onto the plot object we can write it to various locations and a
 	(yason:*symbol-encoder*     'encode-symbol-as-metadata) ;not just meta-data, to JavaScript as well
 	(yason:*symbol-key-encoder* 'encode-symbol-as-metadata))
 
+    (when (not (or spec-loc data-url data-loc)) ;no locations set, return a string
+      (return-from write-spec
+	(with-output-to-string (s)
+	  (yason:encode spec s))))
+
     (typecase spec-loc
       (pathname
        (ensure-directories-exist spec-loc)
@@ -103,7 +109,6 @@ By putting :data onto the plot object we can write it to various locations and a
 				   :if-does-not-exist :create)
 	 (yason:encode spec s)))
       (stream (yason:encode spec spec-loc))
-      ;; (gist ...
       ;; (url ...
       )
     (typecase data-loc
@@ -114,7 +119,6 @@ By putting :data onto the plot object we can write it to various locations and a
 				   :if-does-not-exist :create)
 	 (yason:encode data s)))
       (stream (yason:encode data data-loc))
-      ;; (gist ...
       ;; (url ... ; url should be the first item in the type case so we don't write to disk if both remote url and data-loc is specified
       )
     (values spec-loc data-url data-loc)))

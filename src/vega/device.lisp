@@ -12,6 +12,7 @@
 ;;; A DEVICE is a plist specifying locations for the Vega
 ;;; specification file, the data and the URL. Here are two examples:
 
+;; TODO merge this with the 'publish' function for a single interface for publishing: web, gists, etc.
 (defun plot-to-device (device plot)
   "Wrapper over WRITE-SPEC to make saving plots a bit more convenient."
   (let* ((name (plot-name plot))
@@ -57,7 +58,8 @@
 
 #|
 ;;;
-;;; Demonstrate various data/url/spec combinations. These aren't exhaustive, but cover all the common use cases I've encountered
+;;; Demonstrate various data/url/spec combinations. These aren't
+;;; exhaustive, but cover all the common use cases I've encountered
 ;;;
 
 #+nil
@@ -117,16 +119,17 @@
 (plot-to-device hp-mpg '(;generate a data url for external data
 		  :spec-loc #P"~/Desktop/plots/"
 		  :data-loc #P"~/Desktop/plots/"))
-(plot-to-device hp-mpg '(; use different data directory
+(plot-to-device '(; use different data directory
 		  :spec-loc #P"~/Desktop/plots/"
-		  :data-loc #P"~/Desktop/plots/data/"))
+		  :data-loc #P"~/Desktop/plots/data/")
+hp-mpg)
 
 
 ;(not (and data-url data-loc))
-(plot-to-device hp-mpg '(:spec-loc #P"~/Desktop/plots/")) ;embed data into a spec of the same name as the plot
-(plot-to-device hp-mpg '(:spec-loc #P"~/Desktop/plots/foo.vl.json")) ;embed the data into a spec of the given name
+(plot-to-device '(:spec-loc #P"~/Desktop/plots/") hp-mpg) ;embed data into a spec of the same name as the plot
+(plot-to-device '(:spec-loc #P"~/Desktop/plots/foo.vl.json") hp-mpg) ;embed the data into a spec of the given name
 
 ;; Use pre-defined locations
-(plot-to-device hp-mpg vega-desktop)
-(plot-to-device hp-mpg vdsk1)
+(plot-to-device vega-desktop hp-mpg)
+(plot-to-device vdsk1 hp-mpg)
 |#

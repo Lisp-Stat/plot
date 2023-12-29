@@ -10,8 +10,8 @@
 			    (quantile dist x))
 		 eqp)))
     `(:mark :point
-      :data ,(plist-df `(:x ,q
-			 :y ,(ensure-sorted-vector sample)))
+      :data (:values ,(plist-df `(:x ,q
+				   :y ,(ensure-sorted-vector sample))))
       :encoding (:x (:field :x :type :quantitative)
 		 :y (:field :y :type :quantitative :scale (:domain #(,(emin sample)
 								     ,(emax sample))))))))
