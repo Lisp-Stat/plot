@@ -80,6 +80,7 @@ By putting :data onto the plot object we can write it to various locations and a
 
 (defmacro defplot (name &body spec)
   "Define a plot NAME. Returns an object of PLOT class bound to a symbol NAME.  Adds symbol to *all-plots*."
+  (proclaim `(special ,name))
   `(progn
      (defparameter ,name (%defplot ',name ,@spec))
      (setf (gethash (plot-name ,name) *all-plots*) ,name)
