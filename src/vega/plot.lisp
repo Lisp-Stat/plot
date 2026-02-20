@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VEGA -*-
-;;; Copyright (c) 2022-2023 Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2022-2023,2026 Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 (in-package #:vega)
 
@@ -23,7 +23,7 @@
 
 (defun make-plot (name &optional
 			 data
-			 (spec '("$schema" "https://vega.github.io/schema/vega-lite/v5.json")))
+			 (spec '("$schema" "https://vega.github.io/schema/vega-lite/v6.json")))
   "Plot constructor"
   (make-instance 'vega-plot :name name
 			    :data data
@@ -55,7 +55,7 @@
 ;;; level must be encoded with yason:encode
 ;;;
 
-(defun %defplot (name spec &optional (schema "https://vega.github.io/schema/vega-lite/v5.json"))
+(defun %defplot (name spec &optional (schema "https://vega.github.io/schema/vega-lite/v6.json"))
   "A PLOT constructor that moves :data from the spec to the PLOT object.
 By putting :data onto the plot object we can write it to various locations and add the neccessary transformations to the spec."
   (let ((data (getf spec :data))
