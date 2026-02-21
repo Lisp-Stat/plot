@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: VEGA -*-
-;;; Copyright (c) 2022-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2022-2023, 2026 by Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 (in-package #:vega)
 
@@ -10,51 +10,47 @@
 ;;; development it turned out to not require anything more than lists.
 
 ;;; A DEVICE is a plist specifying locations for the Vega
-;;; specification file, the data and the URL. Here are two examples:
+;;; specification file, the data and the URL.
 
 ;; TODO merge this with the 'publish' function for a single interface for publishing: web, gists, etc.
-(defun plot-to-device (device plot)
-  "Wrapper over WRITE-SPEC to make saving plots a bit more convenient."
+(defun plot-to-device (device plot &key data-name)
+  "Wrapper over WRITE-SPEC to make saving plots a bit more convenient.
+DATA-NAME, when provided, is used for the data filename instead of the plot name."
   (let* ((name (plot-name plot))
-	 (spec-loc (getf device :spec-loc)) ;TODO add alist destructuring to let+
-	 (data-url (getf device :data-url))
-	 (data-loc (getf device :data-loc)))
-
-    ;; TODO Sanity check the combinations of keyword parameters
+     (dname (or data-name (string-downcase name)))
+     (spec-loc (getf device :spec-loc))
+     (data-url (getf device :data-url))
+     (data-loc (getf device :data-loc)))
 
     ;; Some heuristics for the data location filename
     (unless (eql data-url :ignore)
       (setf data-url (cond (;; Generate a URL for the data file relative to the spec file location
-			    (and (not data-url) data-loc) (concatenate 'string
-								       (enough-namestring data-loc spec-loc)
-								       (string-downcase name)
-								       "-data.json"))
+                (and (not data-url) data-loc) (concatenate 'string
+                                       (enough-namestring data-loc spec-loc)
+                                       dname ".json"))
 
-			   (;; Neither data location nor URL given, embed data in the spec
-			    (not (and data-url data-loc)) nil)
+               (;; Neither data location nor URL given, embed data in the spec
+                (not (and data-url data-loc)) nil)
 
-			   (;; Location provided. Generate URL relative to spec location.
-			    (and data-url data-loc) (typecase data-url
-						      (string   (concatenate 'string data-url (string-downcase name) "-data.json"))
-						      (quri:uri (quri:render-uri data-url))
-						      (pathname (if (uiop:file-pathname-p data-url)
-								    (enough-namestring data-url spec-loc)
-								    (concatenate 'string
-										 (enough-namestring data-url spec-loc)
-										 (string-downcase name)
-										 "-data.json"))))))))
+               (;; Location provided. Generate URL relative to spec location.
+                (and data-url data-loc) (typecase data-url
+                              (string   (concatenate 'string data-url dname ".json"))
+                              (quri:uri (quri:render-uri data-url))
+                              (pathname (if (uiop:file-pathname-p data-url)
+                                    (enough-namestring data-url spec-loc)
+                                    (concatenate 'string
+                                         (enough-namestring data-url spec-loc)
+                                         dname ".json"))))))))
     (if (uiop:directory-pathname-p spec-loc)
-	(setf spec-loc (make-pathname :directory (pathname-directory spec-loc)
-				      :type "vl.json"
-				      :name (string-downcase name))))
+    (setf spec-loc (make-pathname :directory (pathname-directory spec-loc)
+                      :type "vl.json"
+                      :name (string-downcase name))))
     (if (uiop:directory-pathname-p data-loc)
-	(setf data-loc (make-pathname :directory (pathname-directory data-loc)
-				      :type "json"
-				      :name (string-downcase (concatenate 'string name "-data")))))
+    (setf data-loc (make-pathname :directory (pathname-directory data-loc)
+                      :type "json"
+                      :name dname)))
 
     (vega:write-spec plot :spec-loc spec-loc :data-url data-url :data-loc data-loc)))
-
-
 
 #|
 ;;;

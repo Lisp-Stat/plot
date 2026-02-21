@@ -88,6 +88,95 @@ By putting :data onto the plot object we can write it to various locations and a
 
 
 (defmethod write-spec ((p vega-plot) &key
+                       spec-loc
+                       data-url
+                       data-loc
+                       (data (plot-data p)))
+  "Write PLOT components to source locations and update spec's data url.
+
+SPEC-LOC — pathname or stream for the Vega-Lite JSON specification.
+DATA-URL — string, pathname, quri:uri, or :IGNORE.
+  When a string/pathname/URI, replaces the top-level :data property
+  in the spec with (:url DATA-URL).
+  When :IGNORE, removes top-level :data so only nested :data
+  properties are encoded (for specs like SPLOM that have :data
+  at non-top-level positions).
+  When NIL, data is embedded inline in the spec.
+DATA-LOC — pathname or stream for the external data file.
+  The data is written as a bare JSON array, suitable for
+  Vega-Lite's {\"url\": \"...\"} data property.
+DATA    — the data to write.  Defaults to (plot-data p)."
+  (let ((spec (plot-spec p))
+    (yason:*symbol-encoder*     'encode-symbol-as-metadata)
+    (yason:*symbol-key-encoder* 'encode-symbol-as-metadata))
+
+    ;; No locations set — return the spec as a JSON string
+    (when (not (or spec-loc data-url data-loc))
+      (return-from write-spec
+    (with-output-to-string (s)
+      (yason:encode spec s))))
+
+    ;; Handle data URL substitution in the spec.
+    ;; Three cases:
+    ;;   data-url is NIL          -> embed data inline (leave spec as-is)
+    ;;   data-url is :IGNORE      -> data is at nested levels only; remove
+    ;;                               top-level :data if present so it
+    ;;                               doesn't shadow the nested properties
+    ;;   data-url is a string/URI -> replace top-level :data with a URL
+    ;;                               reference, but only if the spec
+    ;;                               already has a top-level :data
+    ;;                               (specs like splom have :data only
+    ;;                               at nested levels)
+    (cond ((eql data-url :ignore)
+       (when (getf spec :data)
+         (setf spec (copy-list spec))
+         (remf spec :data)))
+
+      (data-url
+       (if (getf spec :data)
+           ;; Top-level :data exists — replace with URL reference
+           (progn
+         (setf spec (copy-list spec))
+         (setf (getf spec :data) `(:url ,data-url)))
+           ;; No top-level :data — spec references data at nested
+           ;; levels (e.g. :spec, :layer).  Don't inject a
+           ;; top-level :data that would conflict.  The data file
+           ;; is still written to data-loc for the nested URL to
+           ;; resolve against.
+           nil)))
+
+    ;; Write the specification
+    (typecase spec-loc
+      (pathname
+       (ensure-directories-exist spec-loc)
+       (with-open-file (s spec-loc :direction :output
+                   :if-exists :supersede
+                   :if-does-not-exist :create)
+     (yason:encode spec s)))
+      (stream (yason:encode spec spec-loc)))
+
+    ;; Write the data file.  Vega-Lite's {"url":"..."} data property
+    ;; expects a bare JSON array (or newline-delimited JSON), not a
+    ;; {"values":[...]} wrapper.  Extract the array from the :values
+    ;; key if present.
+    (let ((values (if (and (listp data) (getf data :values))
+             (getf data :values)
+             data)))
+      (typecase data-loc
+    (pathname
+     (ensure-directories-exist data-loc)
+     (with-open-file (s data-loc :direction :output
+                     :if-exists :supersede
+                     :if-does-not-exist :create)
+       (yason:encode values s)))
+    (stream (yason:encode values data-loc))))
+
+    (values spec-loc data-url data-loc)))
+
+
+
+#+nil
+(defmethod write-spec ((p vega-plot) &key ; original version
 				       spec-loc
 				       data-url
 				       data-loc
