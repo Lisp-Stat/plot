@@ -9,7 +9,7 @@
 	  #:num-utils.matrix-shorthand)
   (:import-from #:select #:select)
   (:import-from #:data-frame #:make-df)
-  (:import-from #:statistics-1 #:linear-regression)
+  (:import-from #:statistics #:linear-regression)
   (:import-from #:smoothers #:lowess)
   (:documentation "Scatterplot functions")
   (:export #:fit-line
