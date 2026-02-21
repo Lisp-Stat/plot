@@ -1,7 +1,26 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VEGA -*-
-;;; Copyright (c) 2022 Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2022, 2026 Symbolics Pte. Ltd. All rights reserved.
 (in-package #:vega)
 
+(defun merge-plists (base &rest overrides)
+  "Recursively merge plists. Later values override earlier ones.
+When both values for a key are plists, merge them recursively.
+Values may be of any type — strings, symbols, keywords, numbers, etc."
+  (let ((result (copy-list base)))
+    (dolist (override overrides result)
+      (loop for (key value) on override by #'cddr do
+    (let ((existing (getf result key)))
+      (if existing
+          (setf (getf result key)
+            (if (and (alexandria+:plistp existing)
+                 (alexandria+:plistp value))
+            (merge-plists existing value)
+            value))
+          ;; Append new keys at end to preserve natural ordering
+          (setf result (append result (list key value)))))))))
+
+
+#|
 ;;; Plotting utilities
 
 (defun title-description (title description)
@@ -17,7 +36,7 @@
     (if h (setf (getf hw :height) h))
     (if w (setf (getf hw :width) w))
     hw))
-
+|#
 
 
 

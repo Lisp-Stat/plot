@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Base: 10; Syntax: ANSI-Common-Lisp; Package: CL-USER -*-
-;;; Copyright (c) 2021-2023 by Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2023, 2026 by Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 
 (uiop:define-package #:vega
@@ -25,6 +25,7 @@
    #:show-plots				;move to PLOT?
    #:*all-plots*			;global list of plots
    #:plot-to-device
+   #:merge-plists			;utility
 
    ;; Data-frame I/O
    #:read-vega
