@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VEGA -*-
-;;; Copyright (c) 2021-2023 Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2023, 2026 Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 (in-package #:vega)
 
@@ -35,18 +35,20 @@ Note: We should have a sentinel property value to indicate a data symbol; we now
 	   (write-char #\, s)
 	   (when type
 	     (check-type type data-type "a valid data variable type")
-	     (yason::encode-key/value "type"
-			       (case type
-				 (:string       "ordinal")
-				 (:double-float "quantitative")
-				 (:single-float "quantitative")
-				 (:categorical  "nominal") ;TODO if sorted, use 'ordinal' once multi-level is in data-frame
-				 (:temporal     "temporal")
-				 (:integer      "quantitative")
-				 (:bit          "nominal")
-				 (:null         "nominal")
-				 (t             "ordinal")) ;this shouldn't happen
-			       s))
+	     (locally
+		 (declare (sb-ext:muffle-conditions sb-ext:compiler-note))
+	       (yason::encode-key/value "type"
+					(ecase type
+					  (:string       "ordinal")
+					  (:double-float "quantitative")
+					  (:single-float "quantitative")
+					  (:categorical  "nominal") ;TODO if sorted, use 'ordinal' once multi-level is in data-frame
+					  (:temporal     "temporal")
+					  (:integer      "quantitative")
+					  (:bit          "nominal")
+					  (:null         "nominal")
+					  (t             "ordinal")) ;this shouldn't happen
+					s)))
 	   (write-char #\, s)
 	   (when label
 	     (yason::encode-key/value "title" label s))
