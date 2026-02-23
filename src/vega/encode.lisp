@@ -46,7 +46,7 @@ Note: We should have a sentinel property value to indicate a data symbol; we now
 					  (:temporal     "temporal")
 					  (:integer      "quantitative")
 					  (:bit          "nominal")
-					  (:null         "nominal")
+					  ;; (:null         "nominal") ;:null is not yet a data-type
 					  (t             "ordinal")) ;this shouldn't happen
 					s)))
 	   (write-char #\, s)
