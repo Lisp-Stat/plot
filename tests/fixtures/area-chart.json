@@ -1,0 +1,15 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "mark": "area",
+  "data": {
+    "values": [
+      {"x": 1, "y": 10},
+      {"x": 2, "y": 20},
+      {"x": 3, "y": 15}
+    ]
+  },
+  "encoding": {
+    "x": {"field": "x", "type": "quantitative"},
+    "y": {"field": "y", "type": "quantitative"}
+  }
+}
