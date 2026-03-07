@@ -72,17 +72,15 @@
 	       (:file "vega-datasets"))
   :in-order-to ((test-op (test-op "plot/vega/tests"))))
 
-#|
 (defsystem "plot/vega/tests"
-  :version "1.0.0"
+  :version "2.0.0"
   :description "Unit tests for Vega plotting"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
-  :depends-on ("plot/vega" "parachute")
+  :depends-on ("plot/vega" "clunit2" "num-utils")
   :serial t
   :pathname "tests/"
   :components ((:file "tstpkg")
 	       (:file "vega-tests"))
   :perform (test-op (o s)
-  		    (symbol-call :vega-tests :run-tests)))
-|#
+		    (symbol-call :vega-tests :run-tests)))

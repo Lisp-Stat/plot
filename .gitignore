@@ -1,6 +1,10 @@
-# Emacs backup files
+# Emacs backup and auto-save files
 *~
 .#*
+\#*\#
+
+# Copilot agent/skill/prompt files
+.github/
 
 /TAGS
 /WIP

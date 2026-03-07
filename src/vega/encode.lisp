@@ -64,3 +64,12 @@ Note: We should have a sentinel property value to indicate a data symbol; we now
 		    (yason:encode 'yason::false))
 		   (t
 		    (yason:encode (ps:symbol-to-js-string sym))))))))))
+
+(defun encode-symbol-for-vega (symbol stream)
+  "Encode SYMBOL value as Vega row-oriented JSON to STREAM.
+NOTE: Uses vega::encode-symbol-as-metadata, an internal symbol from the
+vega package.  This is fragile and may break if the vega package changes
+its internal API."
+  (let ((yason:*symbol-encoder*     'vega::encode-symbol-as-metadata)
+        (yason:*symbol-key-encoder* 'vega::encode-symbol-as-metadata))
+    (yason:encode (symbol-value symbol) stream)))

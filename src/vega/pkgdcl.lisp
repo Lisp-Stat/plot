@@ -26,6 +26,7 @@
    #:*all-plots*			;global list of plots
    #:plot-to-device
    #:merge-plists			;utility
+   #:encode-symbol-for-vega		;for meta-data attached to symbols, like a df column name
 
    ;; Data-frame I/O
    #:read-vega
