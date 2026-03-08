@@ -238,9 +238,9 @@ Note: Only FILESPEC is implemented."
 	(:html
 	 (:head
 	  (:style (who:str style))
-	  (:script :type "text/javascript" :src "https://cdn.jsdelivr.net/npm/vega@5")
-	  (:script :type "text/javascript" :src "https://cdn.jsdelivr.net/npm/vega-lite@5")
-	  (:script :type "text/javascript" :src "https://cdn.jsdelivr.net/npm/vega-embed@6"))
+	  (:script :type "text/javascript" :src "https://cdn.jsdelivr.net/npm/vega@6")
+	  (:script :type "text/javascript" :src "https://cdn.jsdelivr.net/npm/vega-lite@6")
+	  (:script :type "text/javascript" :src "https://cdn.jsdelivr.net/npm/vega-embed@7"))
 	 (:body
 	  (:div :id "vis")
 	  (:script
