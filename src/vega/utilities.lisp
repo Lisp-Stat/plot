@@ -2,23 +2,22 @@
 ;;; Copyright (c) 2022, 2026 Symbolics Pte. Ltd. All rights reserved.
 (in-package #:vega)
 
-(defun merge-plists (base &rest overrides)
-  "Recursively merge plists. Later values override earlier ones.
-When both values for a key are plists, merge them recursively.
-Values may be of any type — strings, symbols, keywords, numbers, etc."
-  (let ((result (copy-list base)))
-    (dolist (override overrides result)
-      (loop for (key value) on override by #'cddr do
-    (let ((existing (getf result key)))
-      (if existing
+(defun merge-plists (&rest plists)
+  (let ((result '()))
+    (dolist (plist plists result)
+      (loop for (key val) on plist by #'cddr do
+        (let ((existing (getf result key)))
           (setf (getf result key)
-            (if (and (alexandria+:plistp existing)
-                 (alexandria+:plistp value))
-            (merge-plists existing value)
-            value))
-          ;; Append new keys at end to preserve natural ordering
-          (setf result (append result (list key value)))))))))
-
+                (cond
+                  ((and (eq key :layer)
+                        (vectorp existing)
+                        (vectorp val))
+                   (concatenate 'vector existing val))
+                  ;; existing behaviour: deep-merge nested plists
+                  ((and (listp existing) (listp val))
+                   (apply #'merge-plists (list existing val)))
+                  ;; default: last writer wins
+                  (t val))))))))
 
 #|
 ;;; Plotting utilities
