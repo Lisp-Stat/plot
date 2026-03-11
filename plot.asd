@@ -39,7 +39,7 @@
 		(:file "stem-and-leaf")))
 
 (defsystem "plot/vega"
-  :version     "2.0.7"
+  :version     "2.0.9"
   :description "Plotting with Vega & Vega-Lite"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
@@ -55,8 +55,7 @@
 	       "duologue"
 	       "array-operations"
 	       "statistics"
-	       "cl-gists"
-	       "smoothers")
+	       "cl-gists")
   :serial t
   :pathname    "src/vega/"
   :components ((:file "pkgdcl")
@@ -68,7 +67,6 @@
 	       (:file "commands")
 	       (:file "utilities")
 	       (:file "statistics")
-	       (:file "scatterplot")
 	       (:file "vega-datasets"))
   :in-order-to ((test-op (test-op "plot/vega/tests"))))
 
