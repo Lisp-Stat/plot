@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VEGA -*-
-;;; Copyright (c) 2021-2022 Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2021-2022,2026 Symbolics Pte. Ltd. All rights reserved.
 ;;; SPDX-License-identifier: MS-PL
 (in-package #:vega)
 
@@ -12,7 +12,7 @@ This is useful when working with a JSON encoder that will take a plist and outpu
 	with lst = nil
 	do (loop for k across (keys df)
 		 collecting (ps:symbol-to-js-string k) into row
-		 collecting (select df i k) into row
+		 collecting (select:select df i k) into row
 		 finally (push row lst))
 	finally (return (coerce lst 'vector))))
 

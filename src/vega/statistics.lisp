@@ -1,5 +1,5 @@
 ;;; -*- Mode: LISP; Syntax: Ansi-Common-Lisp; Base: 10; Package: VEGA -*-
-;;; Copyright (c) 2023 Symbolics Pte. Ltd. All rights reserved.
+;;; Copyright (c) 2023,2026 Symbolics Pte. Ltd. All rights reserved.
 (in-package #:vega)
 
 ;;; Wrappers for some statistical plots
@@ -13,5 +13,5 @@
       :data (:values ,(plist-df `(:x ,q
 				   :y ,(ensure-sorted-vector sample))))
       :encoding (:x (:field :x :type :quantitative)
-		 :y (:field :y :type :quantitative :scale (:domain #(,(emin sample)
-								     ,(emax sample))))))))
+		 :y (:field :y :type :quantitative :scale (:domain #(,(nu:emin sample)
+								     ,(nu:emax sample))))))))

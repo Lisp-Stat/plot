@@ -39,7 +39,7 @@
 		(:file "stem-and-leaf")))
 
 (defsystem "plot/vega"
-  :version     "2.0.10"
+  :version     "2.0.11"
   :description "Plotting with Vega & Vega-Lite"
   :author      "Steve Nunez <steve@symbolics.tech>"
   :licence     :MS-PL
@@ -53,8 +53,11 @@
 	       "local-time"
 	       "parenscript"
 	       "duologue"
+	       "data-frame"
+	       "select"
 	       "array-operations"
 	       "statistics"
+	       "num-utils"
 	       "cl-gists")
   :serial t
   :pathname    "src/vega/"

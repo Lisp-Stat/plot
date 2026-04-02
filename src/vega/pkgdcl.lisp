@@ -3,9 +3,11 @@
 ;;; SPDX-License-identifier: MS-PL
 
 (uiop:define-package #:vega
-  (:use #:lisp-stat #:let-plus #:plot #:cl-gists #:streaming-statistics)
+  (:use #:cl #:let-plus #:plot #:cl-gists #:streaming-statistics #:alexandria+)
   (:import-from #:parenscript #:symbol-to-js-string)
-  (:import-from #:dfio #:with-input-stream #:data-column #:data-column-add #:data-column-vector)
+  (:import-from #:alexandria #:assoc-value)
+  (:import-from #:data-frame #:data-frame #:plist-df #:keys #:name #:*large-data* #:data-type)
+  (:import-from #:dfio #:with-input-stream #:data-column #:data-column-add #:data-column-vector #:string-to-symbol #:data)
   (:import-from #:local-time #:format-timestring #:timestamp)
   (:documentation "A plotting backend for Plot based on Vega.  The specification DSL, in PLIST format, is that of Vega-Lite.  The data output representation is Vega.")
 
