@@ -16,6 +16,32 @@
   "MIME compatibility labels emitted for Vega-Lite rich output
 The v6 label matches the current plot serializer schema. The v4 label is kept as the smallest practical compatibility label for existing notebook consumers that still advertise Vega-Lite v4 MIME support.")
 
+(defun %normalize-plot-name (name)
+  "Normalize NAME to the canonical registry key/string form."
+  (when name
+    (string-upcase
+     (etypecase name
+       (symbol (symbol-name name))
+       (string name)))))
+
+(defun %vega-spec-p (object)
+  "Return true when OBJECT has the list shape accepted for Vega specs.
+
+This is intentionally narrower than full spec validation and intentionally
+different from alexandria+:plistp: Vega specs in this codebase legitimately
+mix keyword keys such as :MARK with string keys such as \"$schema\", while
+alexandria+:plistp only accepts keyword keys by default, or symbol keys with
+:ALLOW-SYMBOL-KEYS T. It therefore rejects the mixed string/keyword key shape
+already used by existing Vega specs here."
+  (and (listp object)
+       (evenp (length object))))
+
+(defun %string-key-value (plist key)
+  "Return the string-keyed value for KEY from PLIST using STRING=."
+  (loop for (k v) on plist by #'cddr
+        when (and (stringp k) (string= k key))
+          return v))
+
 (defun show-plots ()
   "Show all plots in the current environment"
   (loop for i = 0 then (1+ i)
@@ -34,6 +60,38 @@ The v6 label matches the current plot serializer schema. The v4 label is kept as
   (make-instance 'vega-plot :name name
 			    :data data
 			    :spec spec))
+
+(defun make-plot-from-spec (spec &key name
+                                 (schema "https://vega.github.io/schema/vega-lite/v6.json"))
+  "Construct a VEGA-PLOT from raw SPEC input without registering it."
+  (%defplot name spec schema))
+
+(defun register-plot (plot &key name)
+  "Register PLOT in the global plot registry and return it."
+  (let ((normalized-name (%normalize-plot-name (or name (plot-name plot)))))
+    (assert normalized-name () "Cannot register unnamed plot ~S" plot)
+    (setf (plot-name plot) normalized-name)
+    (setf (gethash normalized-name *all-plots*) plot)
+    plot))
+
+(defun find-plot (name)
+  "Return the registered plot named NAME, or NIL if not found."
+  (gethash (%normalize-plot-name name) *all-plots*))
+
+(defun list-plots ()
+  "Return a sorted list of registered plot names."
+  (sort (loop for key being the hash-keys of *all-plots*
+              collect key)
+        #'string<))
+
+(defun unregister-plot (name)
+  "Remove NAME from the registry and return the removed plot, or NIL."
+  (let ((normalized-name (%normalize-plot-name name)))
+    (multiple-value-bind (plot present-p)
+        (gethash normalized-name *all-plots*)
+      (when present-p
+        (remhash normalized-name *all-plots*)
+        plot))))
 
 (defmethod print-object ((p vega-plot) stream)
   (let ((plot-type (assoc-value *chart-types* (getf (plot-spec p) :mark)))
@@ -82,10 +140,11 @@ This packages existing representations and does not introduce a second serialize
   "A PLOT constructor that moves :data from the spec to the PLOT object.
 By putting :data onto the plot object we can write it to various locations and add the neccessary transformations to the spec."
   (let ((data (getf spec :data))
-	(given-schema (getf spec "$schema")))
+	(given-schema (%string-key-value spec "$schema")))
 
-    (assert (plistp spec) () "Error spec is not a PLIST")
-    (assert (or (plistp data)
+    (assert (%vega-spec-p spec) () "Error spec is not a PLIST")
+    (assert (or (null data)
+                (plistp data)
 		(typep data 'quri.uri:uri)
 		(typep data 'df:data-frame))
 	    () "Error data must be a PLIST, URI or DATA-FRAME, not a ~A" (type-of data))
@@ -99,15 +158,23 @@ By putting :data onto the plot object we can write it to various locations and a
 
     (unless given-schema
       (setf (getf spec "$schema") schema))
-    (make-plot (symbol-name name) data spec))) ;TODO update plot:plot class and remove DATA slot
+    (make-plot (%normalize-plot-name name) data spec))) ;TODO update plot:plot class and remove DATA slot
 
 (defmacro defplot (name &body spec)
   "Define a plot NAME. Returns an object of PLOT class bound to a symbol NAME.  Adds symbol to *all-plots*."
   (proclaim `(special ,name))
-  `(progn
-     (defparameter ,name (%defplot ',name ,@spec))
-     (setf (gethash (plot-name ,name) *all-plots*) ,name)
-     ,name))				;Return the plot instead of the list
+  (let ((spec-form (if (= (length spec) 1)
+                       (let ((form (first spec)))
+                         (if (and (consp form)
+                                  (or (keywordp (first form))
+                                      (stringp (first form))))
+                             `',form
+                             form))
+                       `(list ,@spec))))
+    `(progn
+     (defparameter ,name (make-plot-from-spec ,spec-form :name ',name))
+     (register-plot ,name)
+     ,name)))				;Return the plot instead of the list
 
 
 (defmethod write-spec ((p vega-plot) &key

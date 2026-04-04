@@ -27,6 +27,7 @@ report formats with line-breaks instead of printing on a single line."
 (defsuite encoding-suite (vega))
 (defsuite commands-suite (vega))
 (defsuite representation-suite (vega))
+(defsuite registry-suite (vega))
 
 ;;; Utility: parse JSON string to hash-table for order-independent comparison
 (defun parse-json (json-string)
@@ -46,6 +47,11 @@ report formats with line-breaks instead of printing on a single line."
   (loop for (k v) on plist by #'cddr
         when (and (stringp k) (string= k key))
           return v))
+
+(defun clear-plot-if-present (name)
+  "Remove NAME from the registry if present."
+  (unregister-plot name)
+  nil)
 
 ;;; Utility: encode a symbol via the Vega symbol encoder to get JSON
 (defun encode-symbol-via-plist (sym)
@@ -393,6 +399,95 @@ When VERSION is supplied the gist includes a history entry."
     (assert-equal "test-full" (plot-name p))
     (assert-equalp data (plot-data p))
     (assert-equalp spec (plot-spec p))))
+
+(deftest make-plot-from-spec-unnamed-construction (commands-suite)
+  "make-plot-from-spec builds an unnamed plot and separates top-level data."
+  (let* ((spec '(:mark :bar
+                 :data (:values #((:a "A" :b 1)))
+                 :encoding (:x (:field :a) :y (:field :b))))
+         (p (make-plot-from-spec spec)))
+    (assert-false (plot-name p))
+    (assert-equalp '(:values #((:a "A" :b 1))) (plot-data p))
+    (assert-equal :bar (getf (plot-spec p) :mark))))
+
+(deftest make-plot-from-spec-inserts-default-schema (commands-suite)
+  "make-plot-from-spec inserts the default schema when absent."
+  (let* ((spec '(:mark :bar
+                 :data (:values #((:a "A" :b 1)))
+                 :encoding (:x (:field :a) :y (:field :b))))
+         (p (make-plot-from-spec spec)))
+    (assert-equal "https://vega.github.io/schema/vega-lite/v6.json"
+                  (getf-string (plot-spec p) "$schema"))))
+
+(deftest make-plot-from-spec-preserves-explicit-schema (commands-suite)
+  "make-plot-from-spec preserves an explicit schema."
+  (let* ((schema "https://example.com/custom-schema.json")
+         (spec `("$schema" ,schema
+                 :mark :bar
+                 :data (:values #((:a "A" :b 1)))
+                 :encoding (:x (:field :a) :y (:field :b))))
+         (p (make-plot-from-spec spec)))
+    (assert-equal schema
+                  (getf-string (plot-spec p) "$schema"))))
+
+(deftest register-plot-adds-normalized-name (registry-suite)
+  "register-plot stores a plot by normalized name and updates plot-name."
+  (clear-plot-if-present "REGISTRY-TEST")
+  (let* ((plot (make-plot-from-spec '(:mark :bar) :name "registry-test")))
+    (unwind-protect
+         (progn
+           (assert-true (eq plot (register-plot plot)))
+           (assert-equal "REGISTRY-TEST" (plot-name plot))
+           (assert-true (eq plot (find-plot "registry-test")))
+           (assert-true (eq plot (find-plot 'registry-test))))
+      (clear-plot-if-present "REGISTRY-TEST"))))
+
+(deftest list-plots-returns-sorted-registered-names (registry-suite)
+  "list-plots returns sorted names from the registry."
+  (clear-plot-if-present "ALPHA-PLOT")
+  (clear-plot-if-present "BETA-PLOT")
+  (let ((alpha (make-plot-from-spec '(:mark :bar) :name "alpha-plot"))
+        (beta (make-plot-from-spec '(:mark :bar) :name "beta-plot")))
+    (unwind-protect
+         (progn
+           (register-plot beta)
+           (register-plot alpha)
+           (assert-true (member "ALPHA-PLOT" (list-plots) :test #'string=))
+           (assert-true (member "BETA-PLOT" (list-plots) :test #'string=))
+           (assert-equal '("ALPHA-PLOT" "BETA-PLOT")
+                         (remove-if-not (lambda (name)
+                                          (member name '("ALPHA-PLOT" "BETA-PLOT")
+                                                  :test #'string=))
+                                        (list-plots))))
+      (clear-plot-if-present "ALPHA-PLOT")
+      (clear-plot-if-present "BETA-PLOT"))))
+
+(deftest unregister-plot-removes-and-returns-plot (registry-suite)
+  "unregister-plot removes the plot and returns it."
+  (clear-plot-if-present "DELETE-PLOT")
+  (let ((plot (register-plot (make-plot-from-spec '(:mark :bar) :name "delete-plot"))))
+    (assert-true (eq plot (unregister-plot "delete-plot")))
+    (assert-false (find-plot "delete-plot"))))
+
+(deftest defplot-registers-via-runtime-api (registry-suite)
+  "defplot defines a variable and leaves a discoverable registered plot."
+  (let ((sym (intern "RUNTIME-DEFPLOT-TEST" (find-package :vega-tests))))
+    (clear-plot-if-present sym)
+    (when (boundp sym)
+      (makunbound sym))
+    (unwind-protect
+         (progn
+           (eval `(defplot ,sym
+                    (:mark :bar
+                     :data (:values #((:a "A" :b 1)))
+                     :encoding (:x (:field :a) :y (:field :b)))))
+           (assert-true (boundp sym))
+           (assert-true (eq (symbol-value sym) (find-plot sym)))
+           (assert-equal "RUNTIME-DEFPLOT-TEST"
+                         (plot-name (symbol-value sym))))
+      (clear-plot-if-present sym)
+      (when (boundp sym)
+        (makunbound sym)))))
 
 
 ;;;

@@ -20,6 +20,11 @@
    #:defplot
    #:save-plot
    #:make-plot
+   #:make-plot-from-spec
+   #:register-plot
+   #:find-plot
+   #:list-plots
+   #:unregister-plot
    #:show-plots
    #:write-html
    #:write-spec
