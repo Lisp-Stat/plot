@@ -85,3 +85,26 @@
 	       (:file "vega-tests"))
   :perform (test-op (o s)
 		    (symbol-call :vega-tests :run-tests)))
+
+(defsystem "plot/vega/jupyter"
+  :version "2.0.0"
+  :description "Optional Jupyter adapter for Vega plotting"
+  :author      "Steve Nunez <steve@symbolics.tech>"
+  :licence     :MS-PL
+  :depends-on ("plot/vega" "common-lisp-jupyter")
+  :serial t
+  :pathname "src/vega/"
+  :components ((:file "jupyter")))
+
+(defsystem "plot/vega/jupyter/tests"
+  :version "2.0.0"
+  :description "Unit tests for the optional Jupyter adapter"
+  :author      "Steve Nunez <steve@symbolics.tech>"
+  :licence     :MS-PL
+  :depends-on ("plot/vega/jupyter" "clunit2")
+  :serial t
+  :pathname "tests/"
+  :components ((:file "jupyter-tstpkg")
+	       (:file "jupyter-tests"))
+  :perform (test-op (o s)
+		    (symbol-call :vega-jupyter-tests :run-tests)))
