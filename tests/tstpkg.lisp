@@ -12,6 +12,7 @@
   ;; plot-name, plot-data, plot-spec are exported from :plot but not
   ;; re-exported by :vega, so import them explicitly.
   (:import-from :plot
+		#:representation
 		#:plot-name
 		#:plot-data
 		#:plot-spec)

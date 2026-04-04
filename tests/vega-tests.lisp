@@ -26,6 +26,7 @@ report formats with line-breaks instead of printing on a single line."
 (defsuite data-conversion-suite (vega))
 (defsuite encoding-suite (vega))
 (defsuite commands-suite (vega))
+(defsuite representation-suite (vega))
 
 ;;; Utility: parse JSON string to hash-table for order-independent comparison
 (defun parse-json (json-string)
@@ -225,6 +226,28 @@ When VERSION is supplied the gist includes a history entry."
     (assert-equal "https://vega.github.io/schema/vega-lite/v6.json"
                          (values (gethash "$schema" parsed)))))
 
+(deftest representation-text-matches-print-object (representation-suite)
+  "plot:representation with :text returns the printed plot representation."
+  (let* ((spec '(:mark :bar
+                 :description "Simple bar chart"
+                 :data (:values #((:a "A" :b 1)))
+                 :encoding (:x (:field :a) :y (:field :b))))
+         (plot (vega::%defplot 'test-text spec))
+         (expected (with-output-to-string (stream)
+                     (let ((*print-escape* t))
+                       (write plot :stream stream))))
+         (actual (representation plot :text)))
+    (assert-equal expected actual)))
+
+(deftest representation-vega-lite-reuses-write-spec (representation-suite)
+  "plot:representation with :vega-lite returns the same JSON as write-spec."
+  (let* ((spec '(:mark :bar
+                 :data (:values #((:a "A" :b 1)))
+                 :encoding (:x (:field :a) :y (:field :b))))
+         (plot (vega::%defplot 'test-vega-lite spec)))
+    (assert-equalp (parse-json (vega::write-spec plot))
+                   (parse-json (representation plot :vega-lite)))))
+
 
 ;;;
 ;;; editor-url tests
@@ -397,4 +420,3 @@ When VERSION is supplied the gist includes a history entry."
          (actual (parse-json (vega::write-spec plot)))
          (expected (parse-json (load-fixture "area-chart.json"))))
     (assert-equalp expected actual)))
-

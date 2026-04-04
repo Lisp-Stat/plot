@@ -49,6 +49,14 @@
     (format stream "  ~A of ~A~%" plot-type (name data))
     (format stream "  ~A~%" desc)))
 
+(defmethod representation ((p vega-plot) (kind (eql :text)) &key)
+  (with-output-to-string (stream)
+    (let ((*print-escape* t))
+      (write p :stream stream))))
+
+(defmethod representation ((p vega-plot) (kind (eql :vega-lite)) &key)
+  (write-spec p))
+
 ;;;
 ;;; These work with most specifications.  Those that have multiple
 ;;; 'data' properties, or a 'data' property at other than the top
@@ -256,4 +264,3 @@ Note: Only FILESPEC is implemented."
 (defun plot:plot (spec)
   "Render a Vega-Lite specification, SPEC, after saving it to a file"
   (plot-from-file (write-html spec)))
-
