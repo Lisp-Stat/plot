@@ -10,6 +10,12 @@
 (defparameter *all-plots* (make-hash-table :test 'equal)
   "Global table of plots")
 
+(defparameter *vega-lite-mime-types*
+  '("application/vnd.vegalite.v6+json"
+    "application/vnd.vegalite.v4+json")
+  "MIME compatibility labels emitted for Vega-Lite rich output
+The v6 label matches the current plot serializer schema. The v4 label is kept as the smallest practical compatibility label for existing notebook consumers that still advertise Vega-Lite v4 MIME support.")
+
 (defun show-plots ()
   "Show all plots in the current environment"
   (loop for i = 0 then (1+ i)
@@ -56,6 +62,15 @@
 
 (defmethod representation ((p vega-plot) (kind (eql :vega-lite)) &key)
   (write-spec p))
+
+(defmethod plot:mime-representation ((p vega-plot) &key)
+  "Return plot-owned MIME data for notebook/front-end consumers.
+This packages existing representations and does not introduce a second serializer."
+  (let ((spec (yason:parse (plot:representation p :vega-lite))))
+    (list* :object-plist
+           "text/plain" (plot:representation p :text)
+           (loop for mime-type in *vega-lite-mime-types*
+                 append (list mime-type spec)))))
 
 ;;;
 ;;; These work with most specifications.  Those that have multiple

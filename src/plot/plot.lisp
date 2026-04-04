@@ -22,6 +22,10 @@
 (defgeneric representation (plot kind &key)
   (:documentation "Return a representation of PLOT for KIND."))
 
+(defgeneric mime-representation (plot &key)
+  (:documentation "Return a MIME bundle plist for PLOT.
+This is a packaging layer over existing plot representations, not a serializer."))
+
 ;;; More specific plots, like Vega-lite, have definitions of
 ;;; print-object. If the plot:plot class is going to be abstract, do
 ;;; we need one at this level?

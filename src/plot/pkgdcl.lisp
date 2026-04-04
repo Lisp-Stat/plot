@@ -7,6 +7,7 @@
   (:export
    #:plot
    #:representation
+   #:mime-representation
    #:plot-data
    #:plot-spec
    #:plot-name

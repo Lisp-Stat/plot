@@ -248,6 +248,23 @@ When VERSION is supplied the gist includes a history entry."
     (assert-equalp (parse-json (vega::write-spec plot))
                    (parse-json (representation plot :vega-lite)))))
 
+(deftest mime-representation-includes-text-and-vega-lite (representation-suite)
+  "plot:mime-representation returns text/plain and Vega-Lite MIME payloads."
+  (let* ((spec '(:mark :bar
+                 :description "Simple bar chart"
+                 :data (:values #((:a "A" :b 1)))
+                 :encoding (:x (:field :a) :y (:field :b))))
+         (plot (vega::%defplot 'test-mime spec))
+         (bundle (mime-representation plot))
+         (data (cdr bundle))
+         (expected-text (representation plot :text))
+         (expected-spec (parse-json (representation plot :vega-lite))))
+    (assert-equal expected-text (getf-string data "text/plain"))
+    (assert-equalp expected-spec
+                   (getf-string data "application/vnd.vegalite.v6+json"))
+    (assert-equalp expected-spec
+                   (getf-string data "application/vnd.vegalite.v4+json"))))
+
 
 ;;;
 ;;; editor-url tests

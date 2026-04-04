@@ -13,6 +13,7 @@
   ;; re-exported by :vega, so import them explicitly.
   (:import-from :plot
 		#:representation
+		#:mime-representation
 		#:plot-name
 		#:plot-data
 		#:plot-spec)
