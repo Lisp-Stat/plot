@@ -4,7 +4,6 @@
 
 (uiop:define-package #:plot/text
   (:use #:cl
-	#:iterate
 	#:select)
   (:import-from :num-utils :e/ :efloor :emod :seq-min :seq-max)
   (:export

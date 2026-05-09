@@ -3,7 +3,7 @@
 ;;; SPDX-License-identifier: MS-PL
 
 (uiop:define-package #:vega
-  (:use #:cl #:let-plus #:plot #:cl-gists #:streaming-statistics #:alexandria+)
+  (:use #:cl #:let-plus #:plot #:streaming-statistics #:alexandria+)
   (:import-from #:parenscript #:symbol-to-js-string)
   (:import-from #:alexandria #:assoc-value)
   (:import-from #:data-frame #:data-frame #:plist-df #:keys #:name #:*large-data* #:data-type)

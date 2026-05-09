@@ -14,9 +14,7 @@
   :source-control (:git "https://github.com/Lisp-Stat/plot.git")
   :bug-tracker "https://github.com/Lisp-Stat/plot/issues"
   :depends-on ("cl-ppcre"		;browser command line option parsing
-	       "alexandria"
-	       "alexandria+"
-	       "data-frame")
+               "alexandria")
   :serial t
   :pathname "src/plot/"
   :components ((:file "pkgdcl")
@@ -31,8 +29,7 @@
   :licence     :MS-PL
   :depends-on  ("select"
 		"num-utils"
-		"iterate"
-		"cl-spark")
+                "iterate")
   :pathname    "src/text/"
   :components  ((:file "pkgdcl")
 		(:file "histogram")
@@ -52,7 +49,6 @@
 	       "let-plus"
 	       "local-time"
 	       "parenscript"
-	       "duologue"
 	       "data-frame"
 	       "select"
 	       "array-operations"
